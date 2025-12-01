@@ -15,11 +15,12 @@ export class Dispatcher {
   public dispatch(proceso: Process, tiempoSimulacion: number) {
     this.colaRunning = proceso;
     proceso.estado = "running";
-    
+
     if (proceso.tiempoRespuesta === -1) {
       proceso.tiempoRespuesta = tiempoSimulacion - proceso.tiempoLlegada;
+      proceso.tiempoInicio = tiempoSimulacion; // Track first execution time
     }
-    
+
     proceso.cambiosContexto++;
     this.cambiosContextoTotal++;
   }
