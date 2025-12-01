@@ -10,8 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, Edit, Trash2 } from "lucide-react"
-import { DeviceType } from "@/lib/types"
 
 export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }: any) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -115,8 +115,112 @@ export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simula
     }
   }
 
+  const ProcessList = ({ processes, showOrder = false }: { processes: any[], showOrder?: boolean }) => (
+    <div className="space-y-2 pr-4">
+      {processes.length === 0 && (
+        <div className="text-center text-muted-foreground py-8 text-sm">
+          No hay procesos en esta cola.
+        </div>
+      )}
+      {processes.map((proc: any, index: number) => (
+        <div
+          key={proc.pid}
+          className={`p-3 rounded-lg border ${proc.estado === "running" ? "border-green-500 bg-green-500/10" : "border-border bg-card"
+            }`}
+        >
+          <div className="grid grid-cols-5 gap-2 text-xs items-center">
+            {/* PID & Status */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                {showOrder && <span className="text-muted-foreground font-mono mr-1">{index + 1}.</span>}
+                <span className="font-bold text-lg">#{proc.pid}</span>
+                {proc.esProceSO && (
+                  <Badge variant="secondary" className="text-[10px] h-5 bg-purple-100 text-purple-800 hover:bg-purple-100">
+                    SYSTEM
+                  </Badge>
+                )}
+                <Badge variant="outline" className={`${getStatusColor(proc.estado)} text-white border-none`}>
+                  {proc.estado.toUpperCase()}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-1 mt-1">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 w-6 p-0"
+                  onClick={() => handleEditClick(proc.pid)}
+                  title="Editar proceso"
+                >
+                  <Edit className="w-3 h-3" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                  onClick={() => handleDeleteClick(proc.pid)}
+                  title="Eliminar proceso"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <span className="text-[10px] text-muted-foreground">
+                Prioridad: {proc.prioridad}
+              </span>
+            </div>
+
+            {/* Memory */}
+            <div className="flex flex-col gap-1">
+              <div>Size: {(proc.tamanio / 1024).toFixed(0)} KB</div>
+              <div className="text-[10px] text-muted-foreground">
+                Base: {proc.dirBase === -1 ? "Pend." : `0x${proc.dirBase.toString(16).toUpperCase()}`}
+              </div>
+            </div>
+
+            {/* CPU */}
+            <div className="flex flex-col gap-1 w-full">
+              <div className="flex justify-between text-[10px]">
+                <span>PC: {proc.programCounter}</span>
+                <span>{proc.porcentajeProcesado.toFixed(0)}%</span>
+              </div>
+              <Progress value={proc.porcentajeProcesado} className="h-1.5" />
+              <div className="text-[10px] text-muted-foreground mt-1">
+                Burst: {proc.burstTime} | Rest: {proc.tiempoRestante}
+              </div>
+            </div>
+
+            {/* Counters */}
+            <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px]">
+              <div>Wait: {proc.tiempoEspera}</div>
+              <div>Turn: {proc.tiempoTurnaround}</div>
+              <div>Ctx: {proc.cambiosContexto}</div>
+              <div>I/O: {proc.interrupciones}</div>
+              <div className="text-red-500">Err: {proc.errores}</div>
+            </div>
+
+            {/* Segments */}
+            <div className="flex flex-col gap-1 text-[10px]">
+              <div className="flex justify-between">
+                <span>Data: {proc.porcentajeDatos}%</span>
+                <span>Var: {proc.porcentajeVariable}%</span>
+              </div>
+              <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden flex">
+                <div className="bg-blue-400 h-full" style={{ width: `${proc.porcentajeDatos}%` }} title="Data" />
+                <div className="bg-yellow-400 h-full" style={{ width: `${proc.porcentajeVariable}%` }} title="Variable" />
+                <div className="bg-gray-300 h-full flex-1" title="Code/Stack" />
+              </div>
+              <div className="flex justify-between text-[9px] text-muted-foreground mt-0.5">
+                <span>SP: {proc.stackPointer}</span>
+                <span>HP: {proc.heapPointer}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+
   return (
-    <Card className="p-4 h-[500px] flex flex-col border-border overflow-hidden">
+    <Card className="p-4 h-[600px] flex flex-col border-border overflow-hidden">
       <div className="flex justify-between items-center mb-4 flex-shrink-0">
         <h2 className="text-lg font-bold">Gestión de Procesos</h2>
         <div className="flex gap-2">
@@ -134,99 +238,34 @@ export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simula
         <div>Segmentos</div>
       </div>
 
-      <ScrollArea className="flex-1 min-h-0 overflow-y-auto">
-        <div className="space-y-2 pr-4">
-          {state.procesos.map((proc: any) => (
-            <div
-              key={proc.pid}
-              className={`p-3 rounded-lg border ${
-                proc.estado === "running" ? "border-green-500 bg-green-500/10" : "border-border bg-card"
-              }`}
-            >
-              <div className="grid grid-cols-5 gap-2 text-xs items-center">
-                {/* PID & Status */}
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg">#{proc.pid}</span>
-                    <Badge variant="outline" className={`${getStatusColor(proc.estado)} text-white border-none`}>
-                      {proc.estado.toUpperCase()}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-1 mt-1">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0"
-                      onClick={() => handleEditClick(proc.pid)}
-                      title="Editar proceso"
-                    >
-                      <Edit className="w-3 h-3" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
-                      onClick={() => handleDeleteClick(proc.pid)}
-                      title="Eliminar proceso"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </Button>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground">
-                    Prioridad: {proc.prioridad}
-                  </span>
-                </div>
+      <Tabs defaultValue="all" className="flex-1 flex flex-col min-h-0">
+        <TabsList className="grid w-full grid-cols-5 mb-2">
+          <TabsTrigger value="all">Todos ({state.procesos.length})</TabsTrigger>
+          <TabsTrigger value="new">New ({state.colaNew.length})</TabsTrigger>
+          <TabsTrigger value="ready">Ready ({state.colaReady.length})</TabsTrigger>
+          <TabsTrigger value="blocked">Blocked ({state.colaBlocked.length})</TabsTrigger>
+          <TabsTrigger value="terminated">Term ({state.colaTerminated.length})</TabsTrigger>
+        </TabsList>
 
-                {/* Memory */}
-                <div className="flex flex-col gap-1">
-                  <div>Size: {(proc.tamanio / 1024).toFixed(0)} KB</div>
-                  <div className="text-[10px] text-muted-foreground">
-                    Base: {proc.dirBase === -1 ? "Pend." : `0x${proc.dirBase.toString(16).toUpperCase()}`}
-                  </div>
-                </div>
-
-                {/* CPU */}
-                <div className="flex flex-col gap-1 w-full">
-                  <div className="flex justify-between text-[10px]">
-                    <span>PC: {proc.programCounter}</span>
-                    <span>{proc.porcentajeProcesado.toFixed(0)}%</span>
-                  </div>
-                  <Progress value={proc.porcentajeProcesado} className="h-1.5" />
-                  <div className="text-[10px] text-muted-foreground mt-1">
-                    Burst: {proc.burstTime} | Rest: {proc.tiempoRestante}
-                  </div>
-                </div>
-
-                {/* Counters */}
-                <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px]">
-                  <div>Wait: {proc.tiempoEspera}</div>
-                  <div>Turn: {proc.tiempoTurnaround}</div>
-                  <div>Ctx: {proc.cambiosContexto}</div>
-                  <div>I/O: {proc.interrupciones}</div>
-                  <div className="text-red-500">Err: {proc.errores}</div>
-                </div>
-
-                {/* Segments */}
-                <div className="flex flex-col gap-1 text-[10px]">
-                  <div className="flex justify-between">
-                    <span>Data: {proc.porcentajeDatos}%</span>
-                    <span>Var: {proc.porcentajeVariable}%</span>
-                  </div>
-                  <div className="w-full bg-muted h-1.5 rounded-full overflow-hidden flex">
-                    <div className="bg-blue-400 h-full" style={{ width: `${proc.porcentajeDatos}%` }} title="Data" />
-                    <div className="bg-yellow-400 h-full" style={{ width: `${proc.porcentajeVariable}%` }} title="Variable" />
-                    <div className="bg-gray-300 h-full flex-1" title="Code/Stack" />
-                  </div>
-                  <div className="flex justify-between text-[9px] text-muted-foreground mt-0.5">
-                    <span>SP: {proc.stackPointer}</span>
-                    <span>HP: {proc.heapPointer}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </ScrollArea>
+        <ScrollArea className="flex-1 min-h-0 overflow-y-auto">
+          <TabsContent value="all" className="mt-0">
+            <ProcessList processes={state.procesos} />
+          </TabsContent>
+          <TabsContent value="new" className="mt-0">
+            <ProcessList processes={state.colaNew} />
+          </TabsContent>
+          <TabsContent value="ready" className="mt-0">
+            {/* Show order for Ready queue to visualize Scheduler logic */}
+            <ProcessList processes={state.colaReady} showOrder={true} />
+          </TabsContent>
+          <TabsContent value="blocked" className="mt-0">
+            <ProcessList processes={state.colaBlocked} />
+          </TabsContent>
+          <TabsContent value="terminated" className="mt-0">
+            <ProcessList processes={state.colaTerminated} />
+          </TabsContent>
+        </ScrollArea>
+      </Tabs>
 
       {/* Modal de Creación de Proceso */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>

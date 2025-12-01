@@ -15,11 +15,12 @@ export class Dispatcher {
   public dispatch(proceso: Process, tiempoSimulacion: number) {
     this.colaRunning = proceso;
     proceso.estado = "running";
-    
+
     if (proceso.tiempoRespuesta === -1) {
       proceso.tiempoRespuesta = tiempoSimulacion - proceso.tiempoLlegada;
     }
-    
+
+    proceso.quantumElapsed = 0; // Reset quantum counter on dispatch
     proceso.cambiosContexto++;
     this.cambiosContextoTotal++;
   }

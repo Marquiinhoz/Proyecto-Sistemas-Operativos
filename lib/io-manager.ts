@@ -46,12 +46,10 @@ export class IOManager {
     if (queue.length === 0) return;
 
     const proceso = queue[0]; // Peek
-    
+
     // Requirement: Duration 5-20 depending on burst-time
-    // We can scale it: larger burst = longer I/O? Or inverse?
-    // Let's assume proportional.
-    const factor = Math.min(proceso.burstTime / 20, 1); // Normalize roughly
-    const duracion = Math.floor(Math.random() * 10) + 5 + Math.floor(factor * 5); // Base 5-15 + up to 5 based on burst
+    // Formula: Base 5 + (Burst/2) + Random(0-5), clamped to [5, 20]
+    const duracion = Math.min(20, Math.max(5, Math.floor(5 + (proceso.burstTime / 2) + (Math.random() * 5))));
 
     const interrupt: Interrupt = {
       id: Math.random(),

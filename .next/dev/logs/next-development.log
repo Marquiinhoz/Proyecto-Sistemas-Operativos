@@ -1,36 +1,86 @@
-[00:00:02.987] Server  LOG      ✓ Ready in 2s
-[00:00:08.961] Server  LOG      ○ Compiling / ...
-[00:00:11.002] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:11.897] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:11.897] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:11.897] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764466353816}
-[00:03:13.252] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:13.470] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:03:13.470] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:03:13.470] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764466535759}
-[00:03:36.169] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:36.169] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:42.798] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:42.798] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:49.040] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:49.040] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:52.312] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:52.312] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:54.432] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:03:54.432] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:06:20.301] Server  LOG      ✓ Compiled in 286ms
-[00:06:22.824] Server  LOG      ✓ Compiled in 426ms
-[00:06:24.713] Server  LOG      ✓ Compiled in 744ms
-[00:06:33.176] Server  LOG      ✓ Compiled in 760ms
-[00:06:35.734] Server  LOG      ✓ Compiled in 382ms
-[00:06:48.324] Server  LOG      ✓ Compiled in 346ms
-[00:06:54.857] Server  LOG      ✓ Compiled in 577ms
-[00:06:58.778] Server  LOG      ✓ Compiled in 312ms
-[00:09:37.215] Server  LOG      ✓ Compiled in 177ms
-[00:12:21.135] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:12:21.347] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:12:21.347] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:12:21.347] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764467083635}
-[00:14:14.033] Server  LOG      ✓ Compiled in 413ms
-[00:15:19.158] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:15:19.158] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:00:00.805] Server  LOG      ✓ Ready in 585ms
+[00:00:17.199] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:20.712] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:20.712] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:20.712] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764560425449}
+[00:00:28.906] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 5
+[00:00:29.708] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 2
+[00:00:30.012] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[00:08:23.743] Server  LOG      ✓ Compiled in 51ms
+[00:09:16.150] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 2
+[00:09:19.448] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 5
+[00:09:27.049] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 4
+[00:09:46.965] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 3
+[00:14:01.554] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:14:01.759] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="/Documento...">
+                      <SegmentTrieNode>
+                      <link>
+                      <script>
+                      <script>
+                      <RootLayout>
+                        <html lang="en" suppressHydrationWarning={true}>
+                          <body
++                           className="font-sans antialiased"
+-                           className="font-sans antialiased antigravity-scroll-lock"
+                          >
+                  ...
+
+[00:14:01.871] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:14:01.871] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:14:01.871] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764561246609}
+[00:14:51.090] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:14:51.090] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:16:43.185] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[00:16:45.264] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 6
+[00:17:29.041] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 5
+[00:17:29.859] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 3
+[00:17:46.368] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 2
+[00:55:01.187] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 3
+[00:57:48.697] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 3
+[00:57:58.401] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 3
+[00:58:06.310] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 5
+[00:58:06.671] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 3
+[00:58:07.093] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[00:58:09.719] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 4
+[00:58:23.629] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[00:58:23.788] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 2
+[00:58:24.074] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 3
+[00:58:24.474] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 4
+[00:59:12.789] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 3
+[00:59:13.788] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 4
+[01:00:23.988] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 5
+[01:03:51.230] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:03:51.656] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:03:51.656] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:03:51.656] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764564236394}
+[01:04:10.156] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 5
+[01:04:21.816] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[01:04:24.126] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 5
+[01:09:23.639] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 2
+[01:09:23.936] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 5
+[01:09:24.624] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 3
+[01:09:25.635] Browser LOG     [System] Liberando 2 descriptores de archivo para PID 1
+[01:09:29.013] Browser LOG     [System] Liberando 1 descriptores de archivo para PID 4

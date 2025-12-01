@@ -12,6 +12,20 @@ export type DeviceType =
   | "monitor"
   | "network";
 
+export type InterruptType =
+  | "Timer"
+  | "Hardware"
+  | "PageFault"
+  | "IO_Request"
+  | "IO_Complete"
+  | "SystemCall";
+
+export interface SystemInterrupt {
+  type: InterruptType;
+  pid?: number;
+  description: string;
+}
+
 export interface Process {
   pid: number;
   estado: ProcessState;
@@ -22,6 +36,7 @@ export interface Process {
   tiempoEspera: number;
   tiempoRespuesta: number;
   tiempoTurnaround: number;
+  tiempoFinalizacion?: number;
   prioridad: number;
 
   // Memory
@@ -42,6 +57,18 @@ export interface Process {
   // I/O
   ioType: DeviceType | null;
   ioTimeRemaining: number;
+
+  // Scheduler state
+  quantumElapsed: number;
+
+  // Rigorous Requirements
+  isIdle: boolean; // PID 0
+  esProceSO: boolean; // Requisito 16: Campo explícito
+  memoryAddress: string; // Hex representation of physical address
+  pcbOffsets: { [key: string]: string }; // Hex offsets for fields
+  archivosAbiertos: number; // Requisito 1: Recursos a liberar
+  paginasMemoria: number[]; // Requisito 2: Falta de página
+
 }
 
 export interface MemoryBlock {
@@ -67,7 +94,7 @@ export interface Interrupt {
 export interface LogEntry {
   id: number;
   tiempo: number;
-  tipo: "context_switch" | "scheduler" | "interrupt" | "process_state" | "error" | "memory" | "io";
+  tipo: "context_switch" | "scheduler" | "interrupt" | "process_state" | "error" | "memory" | "io" | "cpu";
   mensaje: string;
   pid?: number;
 }
