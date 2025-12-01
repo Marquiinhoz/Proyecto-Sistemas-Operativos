@@ -2005,7 +2005,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-ssr] (ecmascript) <export default as Edit>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/info.js [app-ssr] (ecmascript) <export default as Info>");
 "use client";
 ;
 ;
@@ -2023,8 +2022,6 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
     const [modalOpen, setModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [editModalOpen, setEditModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [editingPid, setEditingPid] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [detailsModalOpen, setDetailsModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [selectedProcess, setSelectedProcess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         nombre: "",
         tamanio: "",
@@ -2131,7 +2128,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                         children: "Gestión de Procesos"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 124,
+                        lineNumber: 121,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2144,25 +2141,25 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                     className: "w-4 h-4 mr-1"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 124,
                                     columnNumber: 13
                                 }, this),
                                 " Nuevo Proceso"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 126,
+                            lineNumber: 123,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 125,
+                        lineNumber: 122,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                lineNumber: 123,
+                lineNumber: 120,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2172,41 +2169,41 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                         children: "PID / Estado"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 133,
+                        lineNumber: 130,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: "Memoria"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 134,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: "CPU / Tiempos"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 135,
+                        lineNumber: 132,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: "Contadores"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 136,
+                        lineNumber: 133,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: "Segmentos"
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                        lineNumber: 137,
+                        lineNumber: 134,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                lineNumber: 132,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ScrollArea"], {
@@ -2232,7 +2229,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 152,
+                                                        lineNumber: 150,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
@@ -2241,39 +2238,18 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         children: proc.estado.toUpperCase()
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 153,
+                                                        lineNumber: 151,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 149,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-1 mt-1",
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                                        size: "sm",
-                                                        variant: "ghost",
-                                                        className: "h-6 w-6 p-0 text-blue-500 hover:text-blue-700",
-                                                        onClick: ()=>{
-                                                            setSelectedProcess(proc);
-                                                            setDetailsModalOpen(true);
-                                                        },
-                                                        title: "Ver detalles",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
-                                                            className: "w-3 h-3"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 168,
-                                                            columnNumber: 23
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 158,
-                                                        columnNumber: 21
-                                                    }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                                         size: "sm",
                                                         variant: "ghost",
@@ -2284,12 +2260,12 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             className: "w-3 h-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 177,
+                                                            lineNumber: 163,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 170,
+                                                        lineNumber: 156,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2302,18 +2278,18 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             className: "w-3 h-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 186,
+                                                            lineNumber: 172,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 165,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 157,
+                                                lineNumber: 155,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2324,13 +2300,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 189,
+                                                lineNumber: 175,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 148,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2344,7 +2320,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 196,
+                                                lineNumber: 182,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2355,13 +2331,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 197,
+                                                lineNumber: 183,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 181,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2377,7 +2353,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 205,
+                                                        lineNumber: 191,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2387,13 +2363,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 206,
+                                                        lineNumber: 192,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 190,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$progress$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Progress"], {
@@ -2401,7 +2377,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 className: "h-1.5"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 208,
+                                                lineNumber: 194,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2414,13 +2390,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 195,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 189,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2433,7 +2409,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 216,
+                                                lineNumber: 202,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2443,7 +2419,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 203,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2453,7 +2429,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 218,
+                                                lineNumber: 204,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2463,7 +2439,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 219,
+                                                lineNumber: 205,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2474,13 +2450,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 220,
+                                                lineNumber: 206,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 201,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2497,7 +2473,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 226,
+                                                        lineNumber: 212,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2508,13 +2484,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 227,
+                                                        lineNumber: 213,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 225,
+                                                lineNumber: 211,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2528,7 +2504,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         title: "Data"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 230,
+                                                        lineNumber: 216,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2539,7 +2515,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         title: "Variable"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 217,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2547,13 +2523,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         title: "Code/Stack"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 218,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 215,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2566,7 +2542,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 235,
+                                                        lineNumber: 221,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2576,40 +2552,40 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 222,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 220,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 210,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                lineNumber: 148,
+                                lineNumber: 146,
                                 columnNumber: 15
                             }, this)
                         }, proc.pid, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 143,
+                            lineNumber: 140,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                    lineNumber: 141,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                lineNumber: 140,
+                lineNumber: 137,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -2623,12 +2599,12 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                 children: "Crear Nuevo Proceso"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                lineNumber: 249,
+                                lineNumber: 235,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 248,
+                            lineNumber: 234,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2641,7 +2617,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Nombre del Proceso"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 253,
+                                            lineNumber: 239,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2654,13 +2630,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "Nombre (opcional)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 254,
+                                            lineNumber: 240,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 252,
+                                    lineNumber: 238,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2670,7 +2646,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Tamaño (KB)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 262,
+                                            lineNumber: 248,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2686,7 +2662,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "32-512 KB"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 263,
+                                            lineNumber: 249,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2694,13 +2670,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Se ajustará a la potencia de 2 más cercana"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 272,
+                                            lineNumber: 258,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 261,
+                                    lineNumber: 247,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2710,7 +2686,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Burst Time"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 263,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2726,13 +2702,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-20"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 278,
+                                            lineNumber: 264,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 276,
+                                    lineNumber: 262,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2742,7 +2718,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Prioridad"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 289,
+                                            lineNumber: 275,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2758,13 +2734,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "0-3 (menor = mayor prioridad)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 290,
+                                            lineNumber: 276,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 288,
+                                    lineNumber: 274,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2774,7 +2750,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Tipo de Dispositivo I/O"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 301,
+                                            lineNumber: 287,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Select"], {
@@ -2789,12 +2765,12 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                         placeholder: "Seleccionar dispositivo"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                        lineNumber: 307,
+                                                        lineNumber: 293,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                    lineNumber: 306,
+                                                    lineNumber: 292,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -2804,7 +2780,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             children: "Disk"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 310,
+                                                            lineNumber: 296,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2812,7 +2788,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             children: "Printer"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 311,
+                                                            lineNumber: 297,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2820,7 +2796,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             children: "Monitor"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 312,
+                                                            lineNumber: 298,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2828,7 +2804,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             children: "Network"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 313,
+                                                            lineNumber: 299,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -2836,19 +2812,19 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                                             children: "Keyboard"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                            lineNumber: 314,
+                                                            lineNumber: 300,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                                    lineNumber: 309,
+                                                    lineNumber: 295,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 302,
+                                            lineNumber: 288,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2856,13 +2832,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "El dispositivo se asignará aleatoriamente si no se especifica"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 317,
+                                            lineNumber: 303,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 286,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2872,7 +2848,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Máximo de Interrupciones"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 322,
+                                            lineNumber: 308,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2888,13 +2864,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-20"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 323,
+                                            lineNumber: 309,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 321,
+                                    lineNumber: 307,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2904,7 +2880,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Porcentaje de Datos (%)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 334,
+                                            lineNumber: 320,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2920,13 +2896,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "10-40%"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 335,
+                                            lineNumber: 321,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 333,
+                                    lineNumber: 319,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2936,7 +2912,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Porcentaje Variable (%)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 346,
+                                            lineNumber: 332,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -2952,19 +2928,19 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-25%"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 347,
+                                            lineNumber: 333,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 345,
+                                    lineNumber: 331,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 251,
+                            lineNumber: 237,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -2975,7 +2951,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                     children: "Cancelar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 359,
+                                    lineNumber: 345,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2983,24 +2959,24 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                     children: "Crear Proceso"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 362,
+                                    lineNumber: 348,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 358,
+                            lineNumber: 344,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                    lineNumber: 247,
+                    lineNumber: 233,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                lineNumber: 246,
+                lineNumber: 232,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -3017,12 +2993,12 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                lineNumber: 373,
+                                lineNumber: 359,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 372,
+                            lineNumber: 358,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3035,7 +3011,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Tamaño (KB)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 377,
+                                            lineNumber: 363,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3051,7 +3027,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "32-512 KB"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 378,
+                                            lineNumber: 364,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3059,13 +3035,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Se ajustará a la potencia de 2 más cercana"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 387,
+                                            lineNumber: 373,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 376,
+                                    lineNumber: 362,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3075,7 +3051,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Burst Time"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 392,
+                                            lineNumber: 378,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3091,13 +3067,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-20"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 393,
+                                            lineNumber: 379,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 391,
+                                    lineNumber: 377,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3107,7 +3083,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Prioridad"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 404,
+                                            lineNumber: 390,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3123,13 +3099,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "0-3 (menor = mayor prioridad)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 405,
+                                            lineNumber: 391,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 403,
+                                    lineNumber: 389,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3139,7 +3115,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Máximo de Interrupciones"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 416,
+                                            lineNumber: 402,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3155,13 +3131,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-20"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 417,
+                                            lineNumber: 403,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 415,
+                                    lineNumber: 401,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3171,7 +3147,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Porcentaje de Datos (%)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 428,
+                                            lineNumber: 414,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3187,13 +3163,13 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "10-40%"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 429,
+                                            lineNumber: 415,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 427,
+                                    lineNumber: 413,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3203,7 +3179,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             children: "Porcentaje Variable (%)"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 440,
+                                            lineNumber: 426,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -3219,19 +3195,19 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                             placeholder: "5-25%"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                            lineNumber: 441,
+                                            lineNumber: 427,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 439,
+                                    lineNumber: 425,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 375,
+                            lineNumber: 361,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -3242,7 +3218,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                     children: "Cancelar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 453,
+                                    lineNumber: 439,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -3250,30 +3226,30 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
                                     children: "Guardar Cambios"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                                    lineNumber: 456,
+                                    lineNumber: 442,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                            lineNumber: 452,
+                            lineNumber: 438,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                    lineNumber: 371,
+                    lineNumber: 357,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-                lineNumber: 370,
+                lineNumber: 356,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
-        lineNumber: 122,
+        lineNumber: 119,
         columnNumber: 5
     }, this);
 }

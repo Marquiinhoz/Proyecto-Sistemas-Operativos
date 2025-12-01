@@ -13,7 +13,6 @@ import LogsPanel from "./panels/logs-panel"
 import MetricsDashboard from "./panels/metrics-dashboard"
 import GanttChart from "./panels/gantt-chart"
 import DeadlockAlert from "./panels/deadlock-alert"
-import StateDiagram from "./panels/state-diagram"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Download, Upload } from "lucide-react"
@@ -280,23 +279,18 @@ export default function OSSimulatorComponent() {
           <GanttChart ganttChart={state.ganttChart} procesos={state.procesos} />
         </div>
 
-        {/* Row 4: State Diagram */}
-        <div>
-          <StateDiagram procesos={state.procesos} />
-        </div>
-
-        {/* Row 5: Memory & Interrupts */}
+        {/* Row 4: Memory & Interrupts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <MemoryPanel state={state} simulator={simulatorRef.current} />
           <InterruptsPanel state={state} simulator={simulatorRef.current} />
         </div>
 
-        {/* Row 6: Devices */}
+        {/* Row 5: Devices */}
         <div>
           <DevicesPanel state={state} />
         </div>
 
-        {/* Row 7: Stats & Logs */}
+        {/* Row 6: Stats & Logs */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <StatsPanel state={state} />
           <LogsPanel state={state} simulator={simulatorRef.current} />
