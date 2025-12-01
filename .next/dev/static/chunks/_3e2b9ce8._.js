@@ -2966,7 +2966,7 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
         columnNumber: 5
     }, this);
 }
-_s(ProcessPanel, "+zNwdMIlHbyyuE2DDpv2jHhvjow=");
+_s(ProcessPanel, "7ThILGRu5M5VwrwouKRZVggCmxQ=");
 _c = ProcessPanel;
 var _c;
 __turbopack_context__.k.register(_c, "ProcessPanel");

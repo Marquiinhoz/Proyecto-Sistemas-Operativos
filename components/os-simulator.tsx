@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { OSSimulator, DeviceType } from "@/lib/os-simulator"
+import { OSSimulator } from "@/lib/os-simulator"
+import { DeviceType } from "@/lib/types"
 import ProcessPanel from "./panels/process-panel"
 import MemoryPanel from "./panels/memory-panel"
 import SchedulerPanel from "./panels/scheduler-panel"
@@ -19,6 +20,7 @@ export default function OSSimulatorComponent() {
   const [speed, setSpeed] = useState(100)
   const [keyboardModalOpen, setKeyboardModalOpen] = useState(false)
   const [pendingKeyboardIrq, setPendingKeyboardIrq] = useState<number | null>(null)
+  const [tickAnimation, setTickAnimation] = useState(false)
   
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -64,6 +66,26 @@ export default function OSSimulatorComponent() {
       setKeyboardModalOpen(false)
       setPendingKeyboardIrq(null)
       setRunning(true) // Resume
+    }
+  }
+
+  const handleSingleTick = () => {
+    if (simulatorRef.current && !running) {
+      // Execute one tick
+      simulatorRef.current.ejecutarTick()
+      const newState = { ...simulatorRef.current.getState() }
+      setState(newState)
+      
+      // Visual feedback
+      setTickAnimation(true)
+      setTimeout(() => setTickAnimation(false), 300)
+      
+      // Check for manual keyboard interrupts
+      const manualIrq = newState.interrupcionesActivas.find((i: any) => i.esManual && i.estado === "active")
+      if (manualIrq && !keyboardModalOpen) {
+        setPendingKeyboardIrq(manualIrq.id)
+        setKeyboardModalOpen(true)
+      }
     }
   }
 
@@ -116,6 +138,27 @@ export default function OSSimulatorComponent() {
           <div className="flex items-center gap-2">
             <Button onClick={() => setRunning(!running)} variant={running ? "destructive" : "default"}>
               {running ? "Pausar" : "Ejecutar"}
+            </Button>
+            <Button 
+              onClick={handleSingleTick}
+              disabled={running}
+              variant="secondary"
+              className={`transition-all ${tickAnimation ? 'ring-2 ring-primary scale-105' : ''}`}
+              title="Avanzar un tick del simulador"
+            >
+              Tick ⏭
+            </Button>
+            <Button 
+              onClick={() => {
+                if (simulatorRef.current?.retrocederTick()) {
+                  setState({ ...simulatorRef.current.getState() });
+                }
+              }}
+              disabled={running || !state || (simulatorRef.current?.getHistorialDisponible() ?? 0) === 0}
+              variant="outline"
+              title={`Retroceder un tick (${simulatorRef.current?.getHistorialDisponible() ?? 0} disponibles)`}
+            >
+              ⏮ Retroceder
             </Button>
             <Button
               onClick={() => {

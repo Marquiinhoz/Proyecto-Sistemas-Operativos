@@ -5,6 +5,19 @@ import { IOManager } from "./io-manager";
 import { Scheduler } from "./scheduler";
 import { Dispatcher } from "./dispatcher";
 
+// Interfaz para el snapshot completo del simulador
+interface SimulatorSnapshot {
+  processManagerState: string; // JSON serializado
+  memoryManagerState: string;
+  ioManagerState: string;
+  schedulerState: string;
+  dispatcherState: string;
+  tiempoSimulacion: number;
+  erroresTotal: number;
+  logs: LogEntry[];
+  ultimoLogId: number;
+}
+
 export class OSSimulator {
   private processManager: ProcessManager;
   private memoryManager: MemoryManager;
@@ -23,6 +36,10 @@ export class OSSimulator {
     "IO_Duration = random(5, 20)",
     "Error = random() < 0.005",
   ];
+  
+  // Sistema de historial para retroceder ticks
+  private historialEstados: SimulatorSnapshot[] = [];
+  private readonly MAX_HISTORIAL = 100; // Mantener los últimos 100 ticks
 
   private agregarLog(tipo: LogEntry["tipo"], mensaje: string, pid?: number) {
     this.logs.push({
@@ -36,6 +53,48 @@ export class OSSimulator {
     if (this.logs.length > this.MAX_LOGS) {
       this.logs.shift();
     }
+  }
+
+  /**
+   * Guarda un snapshot del estado actual del simulador
+   */
+  private guardarSnapshot() {
+    const snapshot: SimulatorSnapshot = {
+      processManagerState: JSON.stringify(this.processManager),
+      memoryManagerState: JSON.stringify(this.memoryManager),
+      ioManagerState: JSON.stringify(this.ioManager),
+      schedulerState: JSON.stringify(this.scheduler),
+      dispatcherState: JSON.stringify(this.dispatcher),
+      tiempoSimulacion: this.tiempoSimulacion,
+      erroresTotal: this.erroresTotal,
+      logs: JSON.parse(JSON.stringify(this.logs)), // Deep clone
+      ultimoLogId: this.ultimoLogId,
+    };
+    
+    this.historialEstados.push(snapshot);
+    
+    // Mantener solo los últimos MAX_HISTORIAL snapshots
+    if (this.historialEstados.length > this.MAX_HISTORIAL) {
+      this.historialEstados.shift();
+    }
+  }
+
+  /**
+   * Restaura el simulador al snapshot anterior
+   */
+  private restaurarSnapshot(snapshot: SimulatorSnapshot) {
+    // Restaurar cada manager desde su estado serializado
+    Object.assign(this.processManager, JSON.parse(snapshot.processManagerState));
+    Object.assign(this.memoryManager, JSON.parse(snapshot.memoryManagerState));
+    Object.assign(this.ioManager, JSON.parse(snapshot.ioManagerState));
+    Object.assign(this.scheduler, JSON.parse(snapshot.schedulerState));
+    Object.assign(this.dispatcher, JSON.parse(snapshot.dispatcherState));
+    
+    // Restaurar propiedades privadas
+    this.tiempoSimulacion = snapshot.tiempoSimulacion;
+    this.erroresTotal = snapshot.erroresTotal;
+    this.logs = JSON.parse(JSON.stringify(snapshot.logs)); // Deep clone
+    this.ultimoLogId = snapshot.ultimoLogId;
   }
 
   constructor() {
@@ -73,6 +132,9 @@ export class OSSimulator {
   }
 
   public ejecutarTick() {
+    // Guardar snapshot ANTES de ejecutar el tick
+    this.guardarSnapshot();
+    
     this.tiempoSimulacion++;
 
     // 1. I/O
@@ -247,5 +309,37 @@ export class OSSimulator {
       this.agregarLog("process_state", `Proceso PID ${pid} eliminado`, pid);
     }
     return resultado;
+  }
+
+  /**
+   * Retrocede el simulador un tick hacia atrás
+   * @returns true si se pudo retroceder, false si no hay historial
+   */
+  public retrocederTick(): boolean {
+    if (this.historialEstados.length === 0) {
+      return false;
+    }
+    
+    // Obtener el snapshot anterior (y eliminarlo del historial)
+    const snapshot = this.historialEstados.pop()!;
+    
+    // Restaurar el estado
+    this.restaurarSnapshot(snapshot);
+    
+    return true;
+  }
+
+  /**
+   * Verifica si es posible retroceder un tick
+   */
+  public puedeRetroceder(): boolean {
+    return this.historialEstados.length > 0;
+  }
+
+  /**
+   * Obtiene el número de ticks que se pueden retroceder
+   */
+  public getHistorialDisponible(): number {
+    return this.historialEstados.length;
   }
 }

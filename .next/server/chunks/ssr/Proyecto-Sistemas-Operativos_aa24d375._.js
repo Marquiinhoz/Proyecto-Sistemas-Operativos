@@ -1,0 +1,3 @@
+module.exports=[43001,a=>{a.n(a.i(36380))},25541,a=>{a.n(a.i(96921))},99011,a=>{a.n(a.i(42125))},19141,a=>{a.n(a.i(66372))},99866,a=>{a.n(a.i(59193))},59193,(a,b,c)=>{"use strict";Object.defineProperty(c,"__esModule",{value:!0}),Object.defineProperty(c,"default",{enumerable:!0,get:function(){return f}});let d=a.r(1886),e=a.r(33111);function f(){return(0,d.jsx)(e.HTTPAccessErrorFallback,{status:401,message:"You're not authorized to access this page."})}("function"==typeof c.default||"object"==typeof c.default&&null!==c.default)&&void 0===c.default.__esModule&&(Object.defineProperty(c.default,"__esModule",{value:!0}),Object.assign(c.default,c),b.exports=c.default)}];
+
+//# sourceMappingURL=Proyecto-Sistemas-Operativos_aa24d375._.js.map
