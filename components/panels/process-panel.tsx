@@ -10,13 +10,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Edit, Trash2 } from "lucide-react"
+import { Plus, Edit, Trash2, Info } from "lucide-react"
 import { DeviceType } from "@/lib/types"
+import ProcessDetailsModal from "./process-details-modal"
 
 export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }: any) {
   const [modalOpen, setModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [editingPid, setEditingPid] = useState<number | null>(null)
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false)
+  const [selectedProcess, setSelectedProcess] = useState<any>(null)
   const [formData, setFormData] = useState({
     nombre: "",
     tamanio: "",
@@ -139,9 +142,8 @@ export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simula
           {state.procesos.map((proc: any) => (
             <div
               key={proc.pid}
-              className={`p-3 rounded-lg border ${
-                proc.estado === "running" ? "border-green-500 bg-green-500/10" : "border-border bg-card"
-              }`}
+              className={`p-3 rounded-lg border ${proc.estado === "running" ? "border-green-500 bg-green-500/10" : "border-border bg-card"
+                }`}
             >
               <div className="grid grid-cols-5 gap-2 text-xs items-center">
                 {/* PID & Status */}
@@ -153,6 +155,18 @@ export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simula
                     </Badge>
                   </div>
                   <div className="flex items-center gap-1 mt-1">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="h-6 w-6 p-0 text-blue-500 hover:text-blue-700"
+                      onClick={() => {
+                        setSelectedProcess(proc);
+                        setDetailsModalOpen(true);
+                      }}
+                      title="Ver detalles"
+                    >
+                      <Info className="w-3 h-3" />
+                    </Button>
                     <Button
                       size="sm"
                       variant="ghost"
@@ -445,6 +459,16 @@ export default function ProcessPanel({ state, onCreate, onEdit, onDelete, simula
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Modal de Detalles de Proceso */}
+      <ProcessDetailsModal
+        process={selectedProcess}
+        isOpen={detailsModalOpen}
+        onClose={() => {
+          setDetailsModalOpen(false);
+          setSelectedProcess(null);
+        }}
+      />
     </Card>
   )
 }
