@@ -1,8 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { OSSimulator } from "@/lib/os-simulator"
-import { ScenarioManager } from "@/lib/scenario-manager"
+import { OSSimulator, DeviceType } from "@/lib/os-simulator"
 import ProcessPanel from "./panels/process-panel"
 import MemoryPanel from "./panels/memory-panel"
 import SchedulerPanel from "./panels/scheduler-panel"
@@ -10,12 +9,8 @@ import InterruptsPanel from "./panels/interrupts-panel"
 import DevicesPanel from "./panels/devices-panel"
 import StatsPanel from "./panels/stats-panel"
 import LogsPanel from "./panels/logs-panel"
-import MetricsDashboard from "./panels/metrics-dashboard"
-import GanttChart from "./panels/gantt-chart"
-import DeadlockAlert from "./panels/deadlock-alert"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
-import { Download, Upload } from "lucide-react"
 
 export default function OSSimulatorComponent() {
   const simulatorRef = useRef<OSSimulator | null>(null)
@@ -24,8 +19,7 @@ export default function OSSimulatorComponent() {
   const [speed, setSpeed] = useState(100)
   const [keyboardModalOpen, setKeyboardModalOpen] = useState(false)
   const [pendingKeyboardIrq, setPendingKeyboardIrq] = useState<number | null>(null)
-  const [deadlockDetected, setDeadlockDetected] = useState(false)
-
+  
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
@@ -39,17 +33,11 @@ export default function OSSimulatorComponent() {
       intervalRef.current = setInterval(
         () => {
           if (!simulatorRef.current) return
-
+          
           simulatorRef.current.ejecutarTick()
           const newState = { ...simulatorRef.current.getState() }
           setState(newState)
-
-          // Check for deadlock
-          if (newState.deadlockStatus?.detected && !deadlockDetected) {
-            setDeadlockDetected(true)
-            setRunning(false) // Pause simulation
-          }
-
+          
           // Check for manual keyboard interrupts
           const manualIrq = newState.interrupcionesActivas.find((i: any) => i.esManual && i.estado === "active")
           if (manualIrq && !keyboardModalOpen) {
@@ -67,7 +55,7 @@ export default function OSSimulatorComponent() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [running, speed, keyboardModalOpen, deadlockDetected])
+  }, [running, speed, keyboardModalOpen])
 
   const handleKeyboardAction = (action: "continuar" | "cancelar") => {
     if (simulatorRef.current && pendingKeyboardIrq) {
@@ -117,61 +105,6 @@ export default function OSSimulatorComponent() {
     }
   }
 
-  // Export scenario
-  const handleExportScenario = () => {
-    if (simulatorRef.current) {
-      const currentState = simulatorRef.current.getState();
-      const scenario = ScenarioManager.exportScenario(currentState);
-      ScenarioManager.downloadScenario(scenario);
-    }
-  }
-
-  // Import scenario
-  const handleImportScenario = async () => {
-    const scenario = await ScenarioManager.loadScenarioFromFile();
-    if (!scenario || !simulatorRef.current) return;
-
-    // Reset simulator
-    simulatorRef.current = new OSSimulator();
-
-    // Apply scheduler configuration
-    simulatorRef.current.setScheduler(scenario.scheduler.algorithm);
-    simulatorRef.current.setApropiativo(scenario.scheduler.apropiativo);
-    simulatorRef.current.setQuantum(scenario.scheduler.quantum);
-    simulatorRef.current.setMemoryStrategy(scenario.memoryStrategy);
-
-    // Create processes from scenario
-    scenario.processes.forEach(pConfig => {
-      simulatorRef.current!.crearProceso(
-        pConfig.tamanio,
-        pConfig.burstTime,
-        pConfig.prioridad,
-        pConfig.maxInterrupciones,
-        pConfig.porcentajeDatos,
-        pConfig.porcentajeVariable
-      );
-    });
-
-    setState(simulatorRef.current.getState());
-    setRunning(false);
-  }
-
-  // Export logs
-  const handleExportLogs = () => {
-    if (state?.logs) {
-      ScenarioManager.exportLogs(state.logs);
-    }
-  }
-
-  // Handle deadlock resolution
-  const handleDeadlockResolve = (action: "cancel_process" | "ignore", pid?: number) => {
-    if (action === "cancel_process" && pid && simulatorRef.current) {
-      simulatorRef.current.eliminarProceso(pid);
-      setState({ ...simulatorRef.current.getState() });
-    }
-    setDeadlockDetected(false);
-  }
-
   if (!state) return <div className="p-4">Inicializando...</div>
 
   return (
@@ -186,20 +119,6 @@ export default function OSSimulatorComponent() {
             </Button>
             <Button
               onClick={() => {
-                if (simulatorRef.current) {
-                  simulatorRef.current.ejecutarTick();
-                  setState({ ...simulatorRef.current.getState() });
-                }
-              }}
-              variant="outline"
-              size="sm"
-              title="Ejecutar un solo tick de simulación"
-              disabled={running}
-            >
-              ▶ Ejecutar 1 Tick
-            </Button>
-            <Button
-              onClick={() => {
                 simulatorRef.current = new OSSimulator()
                 simulatorRef.current.generarProcesosIniciales(5)
                 setState(simulatorRef.current.getState())
@@ -208,24 +127,6 @@ export default function OSSimulatorComponent() {
               variant="outline"
             >
               Reiniciar
-            </Button>
-            <Button
-              onClick={handleExportScenario}
-              variant="outline"
-              size="sm"
-              title="Exportar configuración actual"
-            >
-              <Download className="h-4 w-4 mr-1" />
-              Exportar
-            </Button>
-            <Button
-              onClick={handleImportScenario}
-              variant="outline"
-              size="sm"
-              title="Importar configuración desde archivo"
-            >
-              <Upload className="h-4 w-4 mr-1" />
-              Importar
             </Button>
           </div>
         </div>
@@ -259,8 +160,8 @@ export default function OSSimulatorComponent() {
             />
           </div>
           <div className="lg:col-span-2">
-            <ProcessPanel
-              state={state}
+            <ProcessPanel 
+              state={state} 
               onCreate={crearProceso}
               onEdit={editarProceso}
               onDelete={eliminarProceso}
@@ -269,36 +170,26 @@ export default function OSSimulatorComponent() {
           </div>
         </div>
 
-        {/* Row 2: Metrics Dashboard */}
-        <div>
-          <MetricsDashboard metrics={state.metrics} />
-        </div>
-
-        {/* Row 3: Gantt Chart */}
-        <div>
-          <GanttChart ganttChart={state.ganttChart} procesos={state.procesos} />
-        </div>
-
-        {/* Row 4: Memory & Interrupts */}
+        {/* Row 2: Memory & Interrupts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <MemoryPanel state={state} simulator={simulatorRef.current} />
+          <MemoryPanel state={state} />
           <InterruptsPanel state={state} simulator={simulatorRef.current} />
         </div>
 
-        {/* Row 5: Devices */}
+        {/* Row 3: Devices */}
         <div>
           <DevicesPanel state={state} />
         </div>
 
-        {/* Row 6: Stats & Logs */}
+        {/* Row 4: Stats & Logs */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <StatsPanel state={state} />
-          <LogsPanel state={state} simulator={simulatorRef.current} />
+          <LogsPanel state={state} />
         </div>
       </div>
 
       {/* Keyboard Modal */}
-      <Dialog open={keyboardModalOpen} onOpenChange={() => { }}>
+      <Dialog open={keyboardModalOpen} onOpenChange={() => {}}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Interrupción de Teclado</DialogTitle>
@@ -316,15 +207,6 @@ export default function OSSimulatorComponent() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* Deadlock Alert Modal */}
-      {state?.deadlockStatus && (
-        <DeadlockAlert
-          deadlockInfo={state.deadlockStatus}
-          onResolve={handleDeadlockResolve}
-          onClose={() => setDeadlockDetected(false)}
-        />
-      )}
     </div>
   )
 }

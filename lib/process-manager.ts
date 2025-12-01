@@ -21,7 +21,7 @@ export class ProcessManager {
   public getLastPID() { return this.ultimoPID; }
 
   public crearProceso(
-    tiempoSimulacion: number,
+    tiempoSimulacion: number, 
     tamanioSolicitado?: number,
     burstTimeSolicitado?: number,
     prioridadSolicitada?: number,
@@ -71,10 +71,6 @@ export class ProcessManager {
       porcentajeProcesado: 0,
       ioType: null,
       ioTimeRemaining: 0,
-      // Metrics fields
-      tiempoInicio: -1,
-      tiempoFinal: -1,
-      tiempoEsperaEnReady: 0,
     };
 
     this.procesos.push(proceso);
@@ -98,7 +94,6 @@ export class ProcessManager {
   }
 
   public terminarProceso(proceso: Process, tiempoSimulacion: number, memoria: MemoryManager) {
-    proceso.tiempoFinal = tiempoSimulacion;
     proceso.tiempoTurnaround = tiempoSimulacion - proceso.tiempoLlegada;
     proceso.estado = "terminated";
     this.colaTerminated.push(proceso);
@@ -135,15 +130,15 @@ export class ProcessManager {
       }
       proceso.dirBase = -1;
       proceso.estado = "new";
-
+      
       // Actualizar tamaño
       proceso.tamanio = nuevoTamanio;
-
+      
       // Intentar reasignar memoria
       if (!memoria.asignarMemoria(proceso)) {
         return false; // No hay memoria disponible
       }
-
+      
       // Recalcular punteros
       const dataSize = Math.floor(proceso.tamanio * (proceso.porcentajeDatos / 100));
       proceso.heapPointer = proceso.dirBase + dataSize;
@@ -160,15 +155,15 @@ export class ProcessManager {
       } else {
         proceso.tiempoRestante = updates.burstTime;
       }
-      proceso.porcentajeProcesado = proceso.burstTime > 0
-        ? ((proceso.burstTime - proceso.tiempoRestante) / proceso.burstTime) * 100
+      proceso.porcentajeProcesado = proceso.burstTime > 0 
+        ? ((proceso.burstTime - proceso.tiempoRestante) / proceso.burstTime) * 100 
         : 0;
     }
-
+    
     if (updates.prioridad !== undefined) {
       proceso.prioridad = Math.max(0, Math.min(3, updates.prioridad));
     }
-
+    
     if (updates.porcentajeDatos !== undefined) {
       proceso.porcentajeDatos = Math.min(100, Math.max(0, updates.porcentajeDatos));
       if (proceso.dirBase !== -1) {
@@ -176,11 +171,11 @@ export class ProcessManager {
         proceso.heapPointer = proceso.dirBase + dataSize;
       }
     }
-
+    
     if (updates.porcentajeVariable !== undefined) {
       proceso.porcentajeVariable = Math.min(100, Math.max(0, updates.porcentajeVariable));
     }
-
+    
     if (updates.maxInterrupciones !== undefined) {
       proceso.maxInterrupciones = Math.max(1, Math.min(20, updates.maxInterrupciones));
     }
@@ -208,7 +203,7 @@ export class ProcessManager {
 
     // Remover de todas las colas
     this.colaNew = this.colaNew.filter(p => p.pid !== pid);
-
+    
     // Remover de cola ready (scheduler)
     const readyQueue = scheduler.getQueue();
     const readyIndex = readyQueue.findIndex(p => p.pid === pid);
