@@ -1,4 +1,5 @@
 import { DeviceType, Interrupt, Process } from "./types";
+import { InterruptManager } from "./interrupt-manager";
 
 export class IOManager {
   private colasDispositivos: Record<DeviceType, Process[]>;
@@ -68,9 +69,7 @@ export class IOManager {
     proceso.interrupciones++;
   }
 
-  public verificarInterrupciones(): Process[] {
-    const completedProcesses: Process[] = [];
-
+  public verificarInterrupciones(interruptManager: InterruptManager, tiempoSimulacion: number) {
     for (let i = this.interrupcionesActivas.length - 1; i >= 0; i--) {
       const irq = this.interrupcionesActivas[i];
 
@@ -80,10 +79,19 @@ export class IOManager {
 
       if (irq.tiempoRestante <= 0) {
         const p = this.finalizarIO(irq);
-        if (p) completedProcesses.push(p);
+        if (p) {
+          // Generar interrupción de IO Completion
+          interruptManager.generarInterrupcion(
+            "io_completion",
+            tiempoSimulacion,
+            p.pid,
+            "blocked",
+            "ready",
+            `I/O completado para PID ${p.pid} (${p.ioType || 'device'})`
+          );
+        }
       }
     }
-    return completedProcesses;
   }
 
   private finalizarIO(irq: Interrupt): Process | null {

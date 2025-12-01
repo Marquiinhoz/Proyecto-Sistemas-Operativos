@@ -12,10 +12,15 @@ class ProcessManager {
     colaTerminated;
     ultimoPID = 0;
     MIN_BLOCK_SIZE = 32 * 1024;
-    constructor(){
+    // Dependencies
+    scheduler;
+    dispatcher;
+    constructor(scheduler, dispatcher){
         this.procesos = [];
         this.colaNew = [];
         this.colaTerminated = [];
+        this.scheduler = scheduler;
+        this.dispatcher = dispatcher;
     }
     getAll() {
         return this.procesos;
@@ -74,7 +79,7 @@ class ProcessManager {
         this.colaNew.push(proceso);
         return proceso;
     }
-    admitirProcesos(memoria, scheduler) {
+    admitirProcesos(memoria, onLog) {
         const porAdmitir = [
             ...this.colaNew
         ];
@@ -84,8 +89,10 @@ class ProcessManager {
                 const dataSize = Math.floor(proceso.tamanio * (proceso.porcentajeDatos / 100));
                 proceso.heapPointer = proceso.dirBase + dataSize;
                 proceso.stackPointer = proceso.dirBase + proceso.tamanio - 1;
-                scheduler.add(proceso);
+                this.scheduler.add(proceso);
                 this.colaNew = this.colaNew.filter((p)=>p.pid !== proceso.pid);
+                onLog(`PID ${proceso.pid} admitido a memoria (${(proceso.tamanio / 1024).toFixed(0)} KB)`, proceso.pid);
+                onLog(`PID ${proceso.pid} cambió de New a Ready`, proceso.pid);
             }
         }
     }
@@ -97,6 +104,122 @@ class ProcessManager {
     }
     getProcess(pid) {
         return this.procesos.find((p)=>p.pid === pid);
+    }
+    // --- New Logic: Interrupt Handling ---
+    handleInterrupt(interrupcion, ioManager, memoria, tiempoSimulacion, onLog) {
+        const proceso = this.getProcess(interrupcion.pidAsociado);
+        if (!proceso) return;
+        onLog("interrupt", interrupcion.mensaje, proceso.pid);
+        switch(interrupcion.tipo){
+            case "timer":
+                // RUNNING -> READY
+                if (proceso.estado === "running") {
+                    const p = this.dispatcher.preempt();
+                    if (p) {
+                        onLog("context_switch", `Quantum agotado para PID ${p.pid}. Movido a Ready`, p.pid);
+                        this.scheduler.add(p);
+                    }
+                }
+                break;
+            case "io_completion":
+                // BLOCKED -> READY
+                if (proceso.estado === "blocked") {
+                    proceso.estado = "ready";
+                    onLog("process_state", `PID ${proceso.pid} desbloqueado, movido a Ready`, proceso.pid);
+                    this.scheduler.add(proceso);
+                }
+                break;
+            case "process_end":
+                // RUNNING -> TERMINATED
+                if (proceso.estado === "running") {
+                    const p = this.dispatcher.preempt();
+                    if (p) {
+                        onLog("process_state", `PID ${p.pid} terminado exitosamente`, p.pid);
+                        this.terminarProceso(p, tiempoSimulacion, memoria);
+                    }
+                }
+                break;
+            case "io_request":
+                // RUNNING -> BLOCKED
+                if (proceso.estado === "running" && interrupcion.dispositivo) {
+                    const p = this.dispatcher.preempt();
+                    if (p) {
+                        p.estado = "blocked";
+                        onLog("process_state", `PID ${p.pid} bloqueado por I/O (${interrupcion.dispositivo})`, p.pid);
+                        ioManager.solicitarIO(p, interrupcion.dispositivo);
+                    }
+                }
+                break;
+            case "error":
+                // RUNNING -> TERMINATED
+                if (proceso.estado === "running") {
+                    const p = this.dispatcher.preempt();
+                    if (p) {
+                        proceso.errores++;
+                        onLog("error", `Error detectado en PID ${p.pid}. Proceso terminado.`, p.pid);
+                        this.terminarProceso(p, tiempoSimulacion, memoria);
+                    }
+                }
+                break;
+        }
+    }
+    // --- New Logic: Running Process Execution ---
+    executeRunningProcess(tiempoSimulacion, interruptManager, onLog) {
+        const running = this.dispatcher.getRunning();
+        if (!running) {
+            // Try to schedule next
+            const next = this.scheduler.getNext();
+            if (next) {
+                this.dispatcher.dispatch(next, tiempoSimulacion);
+                onLog("context_switch", `Cambio de contexto: PID ${next.pid} ahora en ejecución`, next.pid);
+                onLog("scheduler", `Planificador seleccionó PID ${next.pid} (${this.scheduler.getAlgorithm()})`, next.pid);
+            }
+            return;
+        }
+        // Execute running process logic
+        // 1. Random Error (0.5%)
+        if (Math.random() < 0.005) {
+            interruptManager.generarInterrupcion("error", tiempoSimulacion, running.pid, "running", "terminated", `Error aleatorio detectado en PID ${running.pid}`);
+            return;
+        }
+        // 2. Execute instructions
+        running.programCounter++;
+        running.tiempoRestante--;
+        running.porcentajeProcesado = (running.burstTime - running.tiempoRestante) / running.burstTime * 100;
+        // 3. Check Burst End
+        if (running.tiempoRestante <= 0) {
+            interruptManager.generarInterrupcion("process_end", tiempoSimulacion, running.pid, "running", "terminated", `Proceso PID ${running.pid} completó su burst time`);
+            return;
+        }
+        // 4. Check Quantum (Round Robin)
+        if (this.scheduler.checkQuantum(running)) {
+            interruptManager.generarInterrupcion("timer", tiempoSimulacion, running.pid, "running", "ready", `Quantum agotado para PID ${running.pid}`);
+            return;
+        }
+        // 5. Check Preemption
+        if (this.scheduler.debeExpropiar(running)) {
+            const p = this.dispatcher.preempt();
+            if (p) {
+                onLog("context_switch", `PID ${p.pid} expropiado por planificador`, p.pid);
+                this.scheduler.add(p);
+            }
+            return;
+        }
+        // 6. Random I/O Request
+        if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
+            const devices = [
+                "disk",
+                "printer",
+                "monitor",
+                "network"
+            ];
+            const device = devices[Math.floor(Math.random() * devices.length)];
+            interruptManager.generarInterrupcion("io_request", tiempoSimulacion, running.pid, "running", "blocked", `Solicitud de I/O: PID ${running.pid} → ${device}`, device);
+            return;
+        }
+    }
+    updateWaitingTimes() {
+        this.scheduler.getQueue().forEach((p)=>p.tiempoEspera++);
     }
     editarProceso(pid, updates, memoria) {
         const proceso = this.getProcess(pid);
@@ -152,20 +275,20 @@ class ProcessManager {
         }
         return true;
     }
-    eliminarProceso(pid, memoria, scheduler, dispatcher, ioManager) {
+    eliminarProceso(pid, memoria, ioManager) {
         const proceso = this.getProcess(pid);
         if (!proceso) return false;
         // Si está corriendo, expropiarlo
-        if (proceso.estado === "running" && dispatcher) {
-            const running = dispatcher.getRunning();
+        if (proceso.estado === "running") {
+            const running = this.dispatcher.getRunning();
             if (running && running.pid === pid) {
-                dispatcher.preempt();
+                this.dispatcher.preempt();
             }
         }
         // Remover de todas las colas
         this.colaNew = this.colaNew.filter((p)=>p.pid !== pid);
         // Remover de cola ready (scheduler)
-        const readyQueue = scheduler.getQueue();
+        const readyQueue = this.scheduler.getQueue();
         const readyIndex = readyQueue.findIndex((p)=>p.pid === pid);
         if (readyIndex !== -1) {
             readyQueue.splice(readyIndex, 1);
@@ -387,18 +510,19 @@ class IOManager {
         this.interrupcionesTotal++;
         proceso.interrupciones++;
     }
-    verificarInterrupciones() {
-        const completedProcesses = [];
+    verificarInterrupciones(interruptManager, tiempoSimulacion) {
         for(let i = this.interrupcionesActivas.length - 1; i >= 0; i--){
             const irq = this.interrupcionesActivas[i];
             if (irq.esManual && irq.estado === "waiting") continue;
             irq.tiempoRestante--;
             if (irq.tiempoRestante <= 0) {
                 const p = this.finalizarIO(irq);
-                if (p) completedProcesses.push(p);
+                if (p) {
+                    // Generar interrupción de IO Completion
+                    interruptManager.generarInterrupcion("io_completion", tiempoSimulacion, p.pid, "blocked", "ready", `I/O completado para PID ${p.pid} (${p.ioType || 'device'})`);
+                }
             }
         }
-        return completedProcesses;
     }
     finalizarIO(irq) {
         this.interrupcionesActivas = this.interrupcionesActivas.filter((i)=>i.id !== irq.id);
@@ -559,6 +683,141 @@ class Dispatcher {
     }
 }
 }),
+"[project]/Proyecto-Sistemas-Operativos/lib/interrupt-manager.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "InterruptManager",
+    ()=>InterruptManager
+]);
+class InterruptManager {
+    interrupcionesPendientes = [];
+    historialInterrupciones = [];
+    ultimoId = 0;
+    MAX_HISTORIAL = 200;
+    // Prioridades de interrupciones (1 = máxima, 5 = mínima)
+    PRIORIDADES = {
+        timer: 1,
+        io_completion: 2,
+        process_end: 3,
+        io_request: 4,
+        error: 5
+    };
+    /**
+   * Genera y encola una nueva interrupción del sistema
+   */ generarInterrupcion(tipo, tick, pidAsociado, estadoAnterior, estadoNuevo, mensaje, dispositivo) {
+        const interrupcion = {
+            id: ++this.ultimoId,
+            tipo,
+            prioridad: this.PRIORIDADES[tipo],
+            tick,
+            pidAsociado,
+            dispositivo,
+            estadoAnterior,
+            estadoNuevo,
+            procesada: false,
+            mensaje
+        };
+        this.interrupcionesPendientes.push(interrupcion);
+        this.ordenarPorPrioridad();
+        return interrupcion;
+    }
+    /**
+   * Ordena las interrupciones pendientes por prioridad (menor número = mayor prioridad)
+   */ ordenarPorPrioridad() {
+        this.interrupcionesPendientes.sort((a, b)=>{
+            if (a.prioridad !== b.prioridad) {
+                return a.prioridad - b.prioridad;
+            }
+            // Si tienen la misma prioridad, mantener orden FIFO (por ID)
+            return a.id - b.id;
+        });
+    }
+    /**
+   * Obtiene la siguiente interrupción a procesar (mayor prioridad)
+   */ obtenerSiguiente() {
+        if (this.interrupcionesPendientes.length === 0) return null;
+        return this.interrupcionesPendientes[0];
+    }
+    /**
+   * Marca una interrupción como procesada y la mueve al historial
+   */ marcarProcesada(id) {
+        const index = this.interrupcionesPendientes.findIndex((i)=>i.id === id);
+        if (index !== -1) {
+            const interrupcion = this.interrupcionesPendientes.splice(index, 1)[0];
+            interrupcion.procesada = true;
+            this.historialInterrupciones.push(interrupcion);
+            // Mantener límite del historial
+            if (this.historialInterrupciones.length > this.MAX_HISTORIAL) {
+                this.historialInterrupciones.shift();
+            }
+        }
+    }
+    /**
+   * Procesa todas las interrupciones pendientes en orden de prioridad
+   */ procesarTodas(callback) {
+        while(this.interrupcionesPendientes.length > 0){
+            const interrupcion = this.obtenerSiguiente();
+            if (!interrupcion) break;
+            callback(interrupcion);
+            this.marcarProcesada(interrupcion.id);
+        }
+    }
+    /**
+   * Obtiene todas las interrupciones pendientes
+   */ getPendientes() {
+        return [
+            ...this.interrupcionesPendientes
+        ];
+    }
+    /**
+   * Obtiene el historial de interrupciones (últimas N)
+   */ getHistorial(limit = 50) {
+        return this.historialInterrupciones.slice(-limit);
+    }
+    /**
+   * Obtiene interrupciones de un tick específico
+   */ getInterrupcionesPorTick(tick) {
+        return this.historialInterrupciones.filter((i)=>i.tick === tick);
+    }
+    /**
+   * Obtiene interrupciones de un proceso específico
+   */ getInterrupcionesPorProceso(pid) {
+        return this.historialInterrupciones.filter((i)=>i.pidAsociado === pid);
+    }
+    /**
+   * Limpia interrupciones pendientes de un proceso (cuando se elimina)
+   */ limpiarProceso(pid) {
+        this.interrupcionesPendientes = this.interrupcionesPendientes.filter((i)=>i.pidAsociado !== pid);
+    }
+    /**
+   * Obtiene estadísticas de interrupciones
+   */ getEstadisticas() {
+        const porTipo = {
+            timer: 0,
+            io_request: 0,
+            io_completion: 0,
+            process_end: 0,
+            error: 0
+        };
+        this.historialInterrupciones.forEach((i)=>{
+            porTipo[i.tipo]++;
+        });
+        return {
+            total: this.historialInterrupciones.length,
+            pendientes: this.interrupcionesPendientes.length,
+            porTipo
+        };
+    }
+    /**
+   * Limpia todo el sistema de interrupciones (para reinicio)
+   */ limpiar() {
+        this.interrupcionesPendientes = [];
+        this.historialInterrupciones = [];
+        this.ultimoId = 0;
+    }
+}
+}),
 "[project]/Proyecto-Sistemas-Operativos/lib/os-simulator.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -571,6 +830,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Oper
 var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$io$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/lib/io-manager.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$scheduler$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/lib/scheduler.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$dispatcher$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/lib/dispatcher.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$interrupt$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/lib/interrupt-manager.ts [app-ssr] (ecmascript)");
+;
 ;
 ;
 ;
@@ -646,11 +907,12 @@ class OSSimulator {
         this.ultimoLogId = snapshot.ultimoLogId;
     }
     constructor(){
-        this.processManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$process$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProcessManager"]();
-        this.memoryManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$memory$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["MemoryManager"]();
-        this.ioManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$io$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["IOManager"]();
         this.scheduler = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$scheduler$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Scheduler"]();
         this.dispatcher = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$dispatcher$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dispatcher"]();
+        this.processManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$process$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ProcessManager"](this.scheduler, this.dispatcher);
+        this.memoryManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$memory$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["MemoryManager"]();
+        this.ioManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$io$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["IOManager"]();
+        this.interruptManager = new __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$interrupt$2d$manager$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["InterruptManager"]();
     }
     getState() {
         return {
@@ -663,6 +925,10 @@ class OSSimulator {
             colasDispositivos: this.ioManager.getDeviceQueues(),
             memoria: this.memoryManager.getMemoryState(),
             interrupcionesActivas: this.ioManager.getActiveInterrupts(),
+            interrupcionesSistema: [
+                ...this.interruptManager.getPendientes(),
+                ...this.interruptManager.getHistorial(20)
+            ],
             scheduler: this.scheduler.getAlgorithm(),
             apropiativo: this.scheduler.isApropiativo(),
             quantum: this.scheduler.getQuantum(),
@@ -683,88 +949,25 @@ class OSSimulator {
         // Guardar snapshot ANTES de ejecutar el tick
         this.guardarSnapshot();
         this.tiempoSimulacion++;
-        // 1. I/O
-        const finishedIO = this.ioManager.verificarInterrupciones();
-        finishedIO.forEach((p)=>{
-            this.agregarLog("io", `I/O completado para PID ${p.pid}`, p.pid);
-            this.agregarLog("process_state", `PID ${p.pid} desbloqueado, movido a Ready`, p.pid);
-            this.scheduler.add(p);
+        // ========== 1. PROCESAR INTERRUPCIONES PENDIENTES (por prioridad) ==========
+        this.interruptManager.procesarTodas((interrupcion)=>{
+            this.processManager.handleInterrupt(interrupcion, this.ioManager, this.memoryManager, this.tiempoSimulacion, (type, msg, pid)=>this.agregarLog(type, msg, pid));
         });
-        // 2. Admit
-        const procesosAdmitidos = this.processManager.getNew();
-        this.processManager.admitirProcesos(this.memoryManager, this.scheduler);
-        const nuevosAdmitidos = this.processManager.getNew();
-        procesosAdmitidos.forEach((p)=>{
-            if (!nuevosAdmitidos.find((np)=>np.pid === p.pid)) {
-                this.agregarLog("memory", `PID ${p.pid} admitido a memoria (${(p.tamanio / 1024).toFixed(0)} KB)`, p.pid);
-                this.agregarLog("process_state", `PID ${p.pid} cambió de New a Ready`, p.pid);
+        // ========== 2. I/O - Avanzar dispositivos y detectar finalizaciones ==========
+        this.ioManager.verificarInterrupciones(this.interruptManager, this.tiempoSimulacion);
+        // ========== 3. ADMIT - Admitir procesos new → ready ==========
+        this.processManager.admitirProcesos(this.memoryManager, (msg, pid)=>{
+            // Helper to map simple log messages to typed logs
+            if (msg.includes("admitido a memoria")) {
+                this.agregarLog("memory", msg, pid);
+            } else {
+                this.agregarLog("process_state", msg, pid);
             }
         });
-        // 3. Scheduler/Dispatcher
-        if (!this.dispatcher.getRunning()) {
-            const next = this.scheduler.getNext();
-            if (next) {
-                this.dispatcher.dispatch(next, this.tiempoSimulacion);
-                this.agregarLog("context_switch", `Cambio de contexto: PID ${next.pid} ahora en ejecución`, next.pid);
-                this.agregarLog("scheduler", `Planificador seleccionó PID ${next.pid} (${this.scheduler.getAlgorithm()})`, next.pid);
-            }
-        } else {
-            const running = this.dispatcher.getRunning();
-            // Random Error (0.5%)
-            if (Math.random() < 0.005) {
-                running.errores++;
-                this.erroresTotal++;
-                this.agregarLog("error", `Error detectado en PID ${running.pid}. Proceso terminado.`, running.pid);
-                // Requirement: Cancel process on error
-                const p = this.dispatcher.preempt();
-                if (p) {
-                    // Log error or mark as error state? Terminated is fine.
-                    this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
-                    return; // End tick for this process
-                }
-            }
-            // Tick
-            running.programCounter++;
-            running.tiempoRestante--;
-            running.porcentajeProcesado = (running.burstTime - running.tiempoRestante) / running.burstTime * 100;
-            // Terminate
-            if (running.tiempoRestante <= 0) {
-                const p = this.dispatcher.preempt(); // Remove from running
-                if (p) {
-                    this.agregarLog("process_state", `PID ${p.pid} terminado exitosamente`, p.pid);
-                    this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
-                }
-            } else if (this.scheduler.checkQuantum(running)) {
-                const p = this.dispatcher.preempt();
-                if (p) {
-                    this.agregarLog("context_switch", `Quantum agotado para PID ${p.pid}. Movido a cola Ready`, p.pid);
-                    this.scheduler.add(p);
-                }
-            } else if (this.scheduler.debeExpropiar(running)) {
-                const p = this.dispatcher.preempt();
-                if (p) {
-                    this.agregarLog("context_switch", `PID ${p.pid} expropiado por planificador`, p.pid);
-                    this.scheduler.add(p);
-                }
-            } else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
-                const devices = [
-                    "disk",
-                    "printer",
-                    "monitor",
-                    "network"
-                ];
-                const device = devices[Math.floor(Math.random() * devices.length)];
-                const p = this.dispatcher.preempt();
-                if (p) {
-                    p.estado = "blocked";
-                    this.agregarLog("process_state", `PID ${p.pid} bloqueado por I/O (${device})`, p.pid);
-                    this.agregarLog("io", `Solicitud de I/O: PID ${p.pid} → ${device}`, p.pid);
-                    this.ioManager.solicitarIO(p, device);
-                }
-            }
-        }
-        // Update waiting time
-        this.scheduler.getQueue().forEach((p)=>p.tiempoEspera++);
+        // ========== 4. EXECUTE RUNNING / SCHEDULE NEXT ==========
+        this.processManager.executeRunningProcess(this.tiempoSimulacion, this.interruptManager, (type, msg, pid)=>this.agregarLog(type, msg, pid));
+        // ========== 5. ACTUALIZAR TIEMPOS DE ESPERA ==========
+        this.processManager.updateWaitingTimes();
     }
     crearProceso(size, burstTime, prioridad, maxInterrupciones, porcentajeDatos, porcentajeVariable) {
         const proceso = this.processManager.crearProceso(this.tiempoSimulacion, size, burstTime, prioridad, maxInterrupciones, porcentajeDatos, porcentajeVariable);
@@ -806,9 +1009,11 @@ class OSSimulator {
         return resultado;
     }
     eliminarProceso(pid) {
-        const resultado = this.processManager.eliminarProceso(pid, this.memoryManager, this.scheduler, this.dispatcher, this.ioManager);
+        const resultado = this.processManager.eliminarProceso(pid, this.memoryManager, this.ioManager);
         if (resultado) {
             this.agregarLog("process_state", `Proceso PID ${pid} eliminado`, pid);
+            // Limpiar interrupciones pendientes del proceso
+            this.interruptManager.limpiarProceso(pid);
         }
         return resultado;
     }
@@ -3416,150 +3621,188 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/components/ui/card.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/components/ui/button.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-ssr] (ecmascript) <export default as AlertCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/zap.js [app-ssr] (ecmascript) <export default as Zap>");
 "use client";
 ;
 ;
 ;
-;
-function InterruptsPanel({ state, simulator }) {
+const INTERRUPT_LABELS = {
+    timer: "Timer",
+    io_request: "I/O Request",
+    io_completion: "I/O Completion",
+    process_end: "Process End",
+    error: "Error"
+};
+function InterruptsPanel({ state }) {
     if (!state) return null;
-    // Find manual interrupts (Keyboard) that are waiting
-    const manualInterrupt = state.interrupcionesActivas.find((i)=>i.esManual && i.estado === "active");
-    const handleManualAction = (id, action)=>{
-        simulator?.resolverInterrupcionManual(id, action);
+    // Combine pending and history, sort by tick descending (newest first)
+    const allInterrupts = state.interrupcionesSistema || [];
+    // Helper to get last N interrupts of a type
+    const getRecent = (type, limit = 50)=>{
+        return allInterrupts.filter((i)=>i.tipo === type).sort((a, b)=>b.tick - a.tick) // Newest first
+        .slice(0, limit);
     };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
-        className: "p-4 border border-border flex flex-col gap-4",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex justify-between items-start",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-lg font-bold",
-                    children: "Interrupciones"
+    const pendientesPorTipo = {
+        timer: getRecent("timer"),
+        io_request: getRecent("io_request"),
+        io_completion: getRecent("io_completion"),
+        process_end: getRecent("process_end"),
+        error: getRecent("error")
+    };
+    const historial = allInterrupts.filter((i)=>i.procesada);
+    const renderInterruptSection = (tipo, interrupciones)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-2",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                    className: "text-sm font-bold",
+                    children: INTERRUPT_LABELS[tipo]
                 }, void 0, false, {
                     fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                    lineNumber: 20,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                lineNumber: 19,
-                columnNumber: 7
-            }, this),
-            manualInterrupt && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-yellow-500/20 border border-yellow-500 p-3 rounded-lg animate-pulse",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-2 mb-2 text-yellow-700 font-bold text-sm",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                                className: "w-4 h-4"
-                            }, void 0, false, {
-                                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                lineNumber: 27,
-                                columnNumber: 13
-                            }, this),
-                            "Interrupción de Teclado (PID ",
-                            manualInterrupt.pidAsociado,
-                            ")"
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                        lineNumber: 26,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex gap-2",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                size: "sm",
-                                variant: "default",
-                                className: "w-full bg-green-600 hover:bg-green-700",
-                                onClick: ()=>handleManualAction(manualInterrupt.id, "continuar"),
-                                children: "Continuar"
-                            }, void 0, false, {
-                                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                lineNumber: 31,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                size: "sm",
-                                variant: "destructive",
-                                className: "w-full",
-                                onClick: ()=>handleManualAction(manualInterrupt.id, "cancelar"),
-                                children: "Cancelar"
-                            }, void 0, false, {
-                                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                lineNumber: 39,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                        lineNumber: 30,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                lineNumber: 25,
-                columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "space-y-2",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "text-sm font-semibold",
-                        children: "Interrupciones Activas"
-                    }, void 0, false, {
-                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                        lineNumber: 53,
-                        columnNumber: 9
-                    }, this),
-                    state.interrupcionesActivas.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    lineNumber: 41,
+                    columnNumber: 7
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-h-[120px] overflow-y-auto pr-2 border rounded-md p-2 bg-muted/10",
+                    children: interrupciones.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "text-xs text-muted-foreground italic",
-                        children: "Ninguna interrupción activa"
+                        children: "Sin interrupciones"
                     }, void 0, false, {
                         fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                        lineNumber: 55,
+                        lineNumber: 44,
                         columnNumber: 11
-                    }, this) : state.interrupcionesActivas.map((irq)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-xs p-2 bg-background border border-border rounded flex justify-between items-center",
+                    }, this) : interrupciones.map((irq)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between py-1 border-b last:border-b-0",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-2",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-bold uppercase mr-2",
-                                            children: irq.dispositivo
+                                            className: "font-bold text-[10px]",
+                                            children: INTERRUPT_LABELS[tipo].toUpperCase()
                                         }, void 0, false, {
                                             fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                            lineNumber: 60,
+                                            lineNumber: 54,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-muted-foreground",
+                                            className: "text-muted-foreground text-[10px]",
                                             children: [
                                                 "PID ",
                                                 irq.pidAsociado
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                            lineNumber: 61,
+                                            lineNumber: 55,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                    lineNumber: 59,
+                                    lineNumber: 53,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-[10px] text-muted-foreground",
+                                    children: [
+                                        "Tick ",
+                                        irq.tick
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                    lineNumber: 57,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, irq.id, true, {
+                            fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                            lineNumber: 49,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                    lineNumber: 42,
+                    columnNumber: 7
+                }, this)
+            ]
+        }, tipo, true, {
+            fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+            lineNumber: 40,
+            columnNumber: 5
+        }, this);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
+        className: "p-4 border border-border flex flex-col gap-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-between items-start",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                    className: "text-lg font-bold flex items-center gap-2",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"], {
+                            className: "w-5 h-5 text-yellow-500"
+                        }, void 0, false, {
+                            fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                            lineNumber: 69,
+                            columnNumber: 11
+                        }, this),
+                        "Interrupciones del Sistema"
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                    lineNumber: 68,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                lineNumber: 67,
+                columnNumber: 7
+            }, this),
+            state.interrupcionesActivas.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        className: "text-sm font-bold",
+                        children: "I/O en Progreso"
+                    }, void 0, false, {
+                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                        lineNumber: 77,
+                        columnNumber: 11
+                    }, this),
+                    state.interrupcionesActivas.map((irq)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center justify-between py-2 border-b last:border-b-0",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-2",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "font-bold text-xs",
+                                            children: irq.dispositivo.toUpperCase()
+                                        }, void 0, false, {
+                                            fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                            lineNumber: 81,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-muted-foreground text-xs",
+                                            children: [
+                                                "PID ",
+                                                irq.pidAsociado
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                            lineNumber: 82,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                    lineNumber: 80,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-2",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "w-16 h-1.5 bg-muted rounded-full overflow-hidden",
+                                            className: "w-32 h-1.5 bg-muted rounded-full overflow-hidden",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "h-full bg-blue-500",
                                                 style: {
@@ -3567,47 +3810,113 @@ function InterruptsPanel({ state, simulator }) {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                                lineNumber: 65,
+                                                lineNumber: 86,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                            lineNumber: 64,
+                                            lineNumber: 85,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "w-8 text-right",
+                                            className: "text-xs text-muted-foreground w-10 text-right",
                                             children: [
                                                 irq.tiempoRestante,
                                                 "ms"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                            lineNumber: 70,
+                                            lineNumber: 91,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                                    lineNumber: 63,
+                                    lineNumber: 84,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, irq.id, true, {
                             fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                            lineNumber: 58,
+                            lineNumber: 79,
                             columnNumber: 13
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-                lineNumber: 52,
+                lineNumber: 76,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "grid grid-cols-1 gap-4",
+                children: [
+                    renderInterruptSection("timer", pendientesPorTipo.timer),
+                    renderInterruptSection("io_request", pendientesPorTipo.io_request),
+                    renderInterruptSection("io_completion", pendientesPorTipo.io_completion),
+                    renderInterruptSection("process_end", pendientesPorTipo.process_end),
+                    renderInterruptSection("error", pendientesPorTipo.error)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                lineNumber: 99,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-2 pt-2 border-t",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                        className: "text-sm font-bold",
+                        children: "Estadísticas Totales"
+                    }, void 0, false, {
+                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                        lineNumber: 109,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid grid-cols-5 gap-2 text-center text-[10px]",
+                        children: Object.entries(INTERRUPT_LABELS).map(([tipo, label])=>{
+                            const count = historial.filter((i)=>i.tipo === tipo).length;
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-col items-center p-2 bg-background border border-border rounded",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "font-bold text-2xl",
+                                        children: count
+                                    }, void 0, false, {
+                                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                        lineNumber: 115,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-muted-foreground text-[9px] mt-1",
+                                        children: label
+                                    }, void 0, false, {
+                                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                        lineNumber: 116,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, tipo, true, {
+                                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                                lineNumber: 114,
+                                columnNumber: 15
+                            }, this);
+                        })
+                    }, void 0, false, {
+                        fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                        lineNumber: 110,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
+                lineNumber: 108,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Proyecto-Sistemas-Operativos/components/panels/interrupts-panel.tsx",
-        lineNumber: 18,
+        lineNumber: 66,
         columnNumber: 5
     }, this);
 }
@@ -4799,4 +5108,4 @@ function OSSimulatorComponent() {
 }),
 ];
 
-//# sourceMappingURL=Proyecto-Sistemas-Operativos_3028c071._.js.map
+//# sourceMappingURL=Proyecto-Sistemas-Operativos_da6e26a4._.js.map

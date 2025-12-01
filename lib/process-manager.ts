@@ -1,6 +1,9 @@
-import { Process } from "./types";
+import { Process, SystemInterrupt, DeviceType, LogEntry } from "./types";
 import { MemoryManager } from "./memory-manager";
 import { Scheduler } from "./scheduler";
+import { Dispatcher } from "./dispatcher";
+import { IOManager } from "./io-manager";
+import { InterruptManager } from "./interrupt-manager";
 
 export class ProcessManager {
   private procesos: Process[];
@@ -9,10 +12,16 @@ export class ProcessManager {
   private ultimoPID: number = 0;
   private readonly MIN_BLOCK_SIZE = 32 * 1024;
 
-  constructor() {
+  // Dependencies
+  private scheduler: Scheduler;
+  private dispatcher: Dispatcher;
+
+  constructor(scheduler: Scheduler, dispatcher: Dispatcher) {
     this.procesos = [];
     this.colaNew = [];
     this.colaTerminated = [];
+    this.scheduler = scheduler;
+    this.dispatcher = dispatcher;
   }
 
   public getAll() { return this.procesos; }
@@ -78,7 +87,7 @@ export class ProcessManager {
     return proceso;
   }
 
-  public admitirProcesos(memoria: MemoryManager, scheduler: Scheduler) {
+  public admitirProcesos(memoria: MemoryManager, onLog: (msg: string, pid: number) => void) {
     const porAdmitir = [...this.colaNew];
     for (const proceso of porAdmitir) {
       if (memoria.asignarMemoria(proceso)) {
@@ -87,8 +96,11 @@ export class ProcessManager {
         proceso.heapPointer = proceso.dirBase + dataSize;
         proceso.stackPointer = proceso.dirBase + proceso.tamanio - 1;
 
-        scheduler.add(proceso);
+        this.scheduler.add(proceso);
         this.colaNew = this.colaNew.filter((p) => p.pid !== proceso.pid);
+        
+        onLog(`PID ${proceso.pid} admitido a memoria (${(proceso.tamanio / 1024).toFixed(0)} KB)`, proceso.pid);
+        onLog(`PID ${proceso.pid} cambió de New a Ready`, proceso.pid);
       }
     }
   }
@@ -102,6 +114,175 @@ export class ProcessManager {
 
   public getProcess(pid: number): Process | undefined {
     return this.procesos.find(p => p.pid === pid);
+  }
+
+  // --- New Logic: Interrupt Handling ---
+
+  public handleInterrupt(
+    interrupcion: SystemInterrupt, 
+    ioManager: IOManager, 
+    memoria: MemoryManager,
+    tiempoSimulacion: number,
+    onLog: (type: LogEntry["tipo"], msg: string, pid: number) => void
+  ) {
+    const proceso = this.getProcess(interrupcion.pidAsociado);
+    if (!proceso) return;
+
+    onLog("interrupt", interrupcion.mensaje, proceso.pid);
+
+    switch (interrupcion.tipo) {
+      case "timer":
+        // RUNNING -> READY
+        if (proceso.estado === "running") {
+          const p = this.dispatcher.preempt();
+          if (p) {
+            onLog("context_switch", `Quantum agotado para PID ${p.pid}. Movido a Ready`, p.pid);
+            this.scheduler.add(p);
+          }
+        }
+        break;
+
+      case "io_completion":
+        // BLOCKED -> READY
+        if (proceso.estado === "blocked") {
+          proceso.estado = "ready";
+          onLog("process_state", `PID ${proceso.pid} desbloqueado, movido a Ready`, proceso.pid);
+          this.scheduler.add(proceso);
+        }
+        break;
+
+      case "process_end":
+        // RUNNING -> TERMINATED
+        if (proceso.estado === "running") {
+          const p = this.dispatcher.preempt();
+          if (p) {
+            onLog("process_state", `PID ${p.pid} terminado exitosamente`, p.pid);
+            this.terminarProceso(p, tiempoSimulacion, memoria);
+          }
+        }
+        break;
+
+      case "io_request":
+        // RUNNING -> BLOCKED
+        if (proceso.estado === "running" && interrupcion.dispositivo) {
+          const p = this.dispatcher.preempt();
+          if (p) {
+            p.estado = "blocked";
+            onLog("process_state", `PID ${p.pid} bloqueado por I/O (${interrupcion.dispositivo})`, p.pid);
+            ioManager.solicitarIO(p, interrupcion.dispositivo);
+          }
+        }
+        break;
+
+      case "error":
+        // RUNNING -> TERMINATED
+        if (proceso.estado === "running") {
+          const p = this.dispatcher.preempt();
+          if (p) {
+            proceso.errores++;
+            onLog("error", `Error detectado en PID ${p.pid}. Proceso terminado.`, p.pid);
+            this.terminarProceso(p, tiempoSimulacion, memoria);
+          }
+        }
+        break;
+    }
+  }
+
+  // --- New Logic: Running Process Execution ---
+
+  public executeRunningProcess(
+    tiempoSimulacion: number,
+    interruptManager: InterruptManager,
+    onLog: (type: LogEntry["tipo"], msg: string, pid?: number) => void
+  ) {
+    const running = this.dispatcher.getRunning();
+    if (!running) {
+      // Try to schedule next
+      const next = this.scheduler.getNext();
+      if (next) {
+        this.dispatcher.dispatch(next, tiempoSimulacion);
+        onLog("context_switch", `Cambio de contexto: PID ${next.pid} ahora en ejecución`, next.pid);
+        onLog("scheduler", `Planificador seleccionó PID ${next.pid} (${this.scheduler.getAlgorithm()})`, next.pid);
+      }
+      return;
+    }
+
+    // Execute running process logic
+    
+    // 1. Random Error (0.5%)
+    if (Math.random() < 0.005) {
+      interruptManager.generarInterrupcion(
+        "error",
+        tiempoSimulacion,
+        running.pid,
+        "running",
+        "terminated",
+        `Error aleatorio detectado en PID ${running.pid}`
+      );
+      return;
+    }
+
+    // 2. Execute instructions
+    running.programCounter++;
+    running.tiempoRestante--;
+    running.porcentajeProcesado = ((running.burstTime - running.tiempoRestante) / running.burstTime) * 100;
+
+    // 3. Check Burst End
+    if (running.tiempoRestante <= 0) {
+      interruptManager.generarInterrupcion(
+        "process_end",
+        tiempoSimulacion,
+        running.pid,
+        "running",
+        "terminated",
+        `Proceso PID ${running.pid} completó su burst time`
+      );
+      return;
+    }
+
+    // 4. Check Quantum (Round Robin)
+    if (this.scheduler.checkQuantum(running)) {
+      interruptManager.generarInterrupcion(
+        "timer",
+        tiempoSimulacion,
+        running.pid,
+        "running",
+        "ready",
+        `Quantum agotado para PID ${running.pid}`
+      );
+      return;
+    }
+
+    // 5. Check Preemption
+    if (this.scheduler.debeExpropiar(running)) {
+      const p = this.dispatcher.preempt();
+      if (p) {
+        onLog("context_switch", `PID ${p.pid} expropiado por planificador`, p.pid);
+        this.scheduler.add(p);
+      }
+      return;
+    }
+
+    // 6. Random I/O Request
+    if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
+      const devices: DeviceType[] = ["disk", "printer", "monitor", "network"];
+      const device = devices[Math.floor(Math.random() * devices.length)];
+      
+      interruptManager.generarInterrupcion(
+        "io_request",
+        tiempoSimulacion,
+        running.pid,
+        "running",
+        "blocked",
+        `Solicitud de I/O: PID ${running.pid} → ${device}`,
+        device
+      );
+      return;
+    }
+  }
+
+  public updateWaitingTimes() {
+    this.scheduler.getQueue().forEach(p => p.tiempoEspera++);
   }
 
   public editarProceso(
@@ -186,18 +367,16 @@ export class ProcessManager {
   public eliminarProceso(
     pid: number,
     memoria: MemoryManager,
-    scheduler: Scheduler,
-    dispatcher: any,
     ioManager: any
   ): boolean {
     const proceso = this.getProcess(pid);
     if (!proceso) return false;
 
     // Si está corriendo, expropiarlo
-    if (proceso.estado === "running" && dispatcher) {
-      const running = dispatcher.getRunning();
+    if (proceso.estado === "running") {
+      const running = this.dispatcher.getRunning();
       if (running && running.pid === pid) {
-        dispatcher.preempt();
+        this.dispatcher.preempt();
       }
     }
 
@@ -205,7 +384,7 @@ export class ProcessManager {
     this.colaNew = this.colaNew.filter(p => p.pid !== pid);
     
     // Remover de cola ready (scheduler)
-    const readyQueue = scheduler.getQueue();
+    const readyQueue = this.scheduler.getQueue();
     const readyIndex = readyQueue.findIndex(p => p.pid === pid);
     if (readyIndex !== -1) {
       readyQueue.splice(readyIndex, 1);

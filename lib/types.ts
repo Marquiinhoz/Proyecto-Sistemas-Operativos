@@ -54,6 +54,27 @@ export interface MemoryBlock {
   esBuddy: boolean;
 }
 
+export type InterruptType =
+  | "timer"          // Quantum agotado - RUNNING → READY
+  | "io_request"     // Solicitud I/O - RUNNING → BLOCKED
+  | "io_completion"  // I/O completado - BLOCKED → READY
+  | "process_end"    // Burst terminado - RUNNING → TERMINATED
+  | "error";         // Error aleatorio - RUNNING → TERMINATED
+
+export interface SystemInterrupt {
+  id: number;
+  tipo: InterruptType;
+  prioridad: number;      // 1=máxima, 5=mínima
+  tick: number;           // Tick donde ocurrió
+  pidAsociado: number;
+  dispositivo?: DeviceType;
+  estadoAnterior: ProcessState;
+  estadoNuevo: ProcessState;
+  procesada: boolean;
+  mensaje: string;
+}
+
+// Legacy interrupt structure for I/O (mantenido por compatibilidad)
 export interface Interrupt {
   id: number;
   dispositivo: DeviceType;
@@ -87,6 +108,9 @@ export interface OSState {
 
   // Global Interrupts (Active I/O operations)
   interrupcionesActivas: Interrupt[];
+  
+  // System interrupts queue
+  interrupcionesSistema: SystemInterrupt[];
 
   scheduler: "FCFS" | "SJF" | "RoundRobin" | "Prioridades";
   apropiativo: boolean;

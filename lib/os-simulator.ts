@@ -1,9 +1,10 @@
-import { OSState, Process, DeviceType, Interrupt, LogEntry } from "./types";
+import { OSState, Process, DeviceType, Interrupt, LogEntry, SystemInterrupt, InterruptType } from "./types";
 import { ProcessManager } from "./process-manager";
 import { MemoryManager } from "./memory-manager";
 import { IOManager } from "./io-manager";
 import { Scheduler } from "./scheduler";
 import { Dispatcher } from "./dispatcher";
+import { InterruptManager } from "./interrupt-manager";
 
 // Interfaz para el snapshot completo del simulador
 interface SimulatorSnapshot {
@@ -24,6 +25,7 @@ export class OSSimulator {
   private ioManager: IOManager;
   private scheduler: Scheduler;
   private dispatcher: Dispatcher;
+  private interruptManager: InterruptManager;
 
   private tiempoSimulacion: number = 0;
   private erroresTotal: number = 0;
@@ -98,11 +100,12 @@ export class OSSimulator {
   }
 
   constructor() {
-    this.processManager = new ProcessManager();
-    this.memoryManager = new MemoryManager();
-    this.ioManager = new IOManager();
     this.scheduler = new Scheduler();
     this.dispatcher = new Dispatcher();
+    this.processManager = new ProcessManager(this.scheduler, this.dispatcher);
+    this.memoryManager = new MemoryManager();
+    this.ioManager = new IOManager();
+    this.interruptManager = new InterruptManager();
   }
 
   public getState(): OSState {
@@ -116,6 +119,10 @@ export class OSSimulator {
       colasDispositivos: this.ioManager.getDeviceQueues(),
       memoria: this.memoryManager.getMemoryState(),
       interrupcionesActivas: this.ioManager.getActiveInterrupts(),
+      interrupcionesSistema: [
+        ...this.interruptManager.getPendientes(),
+        ...this.interruptManager.getHistorial(20)
+      ],
       scheduler: this.scheduler.getAlgorithm(),
       apropiativo: this.scheduler.isApropiativo(),
       quantum: this.scheduler.getQuantum(),
@@ -137,99 +144,39 @@ export class OSSimulator {
     
     this.tiempoSimulacion++;
 
-    // 1. I/O
-    const finishedIO = this.ioManager.verificarInterrupciones();
-    finishedIO.forEach(p => {
-      this.agregarLog("io", `I/O completado para PID ${p.pid}`, p.pid);
-      this.agregarLog("process_state", `PID ${p.pid} desbloqueado, movido a Ready`, p.pid);
-      this.scheduler.add(p);
+    // ========== 1. PROCESAR INTERRUPCIONES PENDIENTES (por prioridad) ==========
+    this.interruptManager.procesarTodas((interrupcion) => {
+      this.processManager.handleInterrupt(
+        interrupcion,
+        this.ioManager,
+        this.memoryManager,
+        this.tiempoSimulacion,
+        (type, msg, pid) => this.agregarLog(type, msg, pid)
+      );
     });
 
-    // 2. Admit
-    const procesosAdmitidos = this.processManager.getNew();
-    this.processManager.admitirProcesos(this.memoryManager, this.scheduler);
-    const nuevosAdmitidos = this.processManager.getNew();
-    procesosAdmitidos.forEach(p => {
-      if (!nuevosAdmitidos.find(np => np.pid === p.pid)) {
-        this.agregarLog("memory", `PID ${p.pid} admitido a memoria (${(p.tamanio / 1024).toFixed(0)} KB)`, p.pid);
-        this.agregarLog("process_state", `PID ${p.pid} cambió de New a Ready`, p.pid);
+    // ========== 2. I/O - Avanzar dispositivos y detectar finalizaciones ==========
+    this.ioManager.verificarInterrupciones(this.interruptManager, this.tiempoSimulacion);
+
+    // ========== 3. ADMIT - Admitir procesos new → ready ==========
+    this.processManager.admitirProcesos(this.memoryManager, (msg, pid) => {
+      // Helper to map simple log messages to typed logs
+      if (msg.includes("admitido a memoria")) {
+        this.agregarLog("memory", msg, pid);
+      } else {
+        this.agregarLog("process_state", msg, pid);
       }
     });
 
-    // 3. Scheduler/Dispatcher
-    if (!this.dispatcher.getRunning()) {
-      const next = this.scheduler.getNext();
-      if (next) {
-        this.dispatcher.dispatch(next, this.tiempoSimulacion);
-        this.agregarLog("context_switch", `Cambio de contexto: PID ${next.pid} ahora en ejecución`, next.pid);
-        this.agregarLog("scheduler", `Planificador seleccionó PID ${next.pid} (${this.scheduler.getAlgorithm()})`, next.pid);
-      }
-    } else {
-      const running = this.dispatcher.getRunning()!;
-      
-      // Random Error (0.5%)
-      if (Math.random() < 0.005) {
-        running.errores++;
-        this.erroresTotal++;
-        this.agregarLog("error", `Error detectado en PID ${running.pid}. Proceso terminado.`, running.pid);
-        // Requirement: Cancel process on error
-        const p = this.dispatcher.preempt();
-        if (p) {
-           // Log error or mark as error state? Terminated is fine.
-           this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
-           return; // End tick for this process
-        }
-      }
-
-      // Tick
-      running.programCounter++;
-      running.tiempoRestante--;
-      running.porcentajeProcesado = ((running.burstTime - running.tiempoRestante) / running.burstTime) * 100;
-
-      // Terminate
-      if (running.tiempoRestante <= 0) {
-        const p = this.dispatcher.preempt(); // Remove from running
-        if (p) {
-          this.agregarLog("process_state", `PID ${p.pid} terminado exitosamente`, p.pid);
-          this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
-        }
-      }
-      // Quantum
-      else if (this.scheduler.checkQuantum(running)) {
-        const p = this.dispatcher.preempt();
-        if (p) {
-          this.agregarLog("context_switch", `Quantum agotado para PID ${p.pid}. Movido a cola Ready`, p.pid);
-          this.scheduler.add(p);
-        }
-      }
-      // Preempt
-      else if (this.scheduler.debeExpropiar(running)) {
-        const p = this.dispatcher.preempt();
-        if (p) {
-          this.agregarLog("context_switch", `PID ${p.pid} expropiado por planificador`, p.pid);
-          this.scheduler.add(p);
-        }
-      }
-      // I/O Chance
-      // Requirement: 5-20 interrupts total.
-      // Probability = (Remaining Interrupts) / (Remaining Time) ?
-      // Or just a fixed prob that is high enough.
-      else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
-         const devices: DeviceType[] = ["disk", "printer", "monitor", "network"];
-         const device = devices[Math.floor(Math.random() * devices.length)];
-         
-         const p = this.dispatcher.preempt();
-         if (p) {
-            p.estado = "blocked";
-            this.agregarLog("process_state", `PID ${p.pid} bloqueado por I/O (${device})`, p.pid);
-            this.agregarLog("io", `Solicitud de I/O: PID ${p.pid} → ${device}`, p.pid);
-            this.ioManager.solicitarIO(p, device);
-         }
-      }
-    }
+    // ========== 4. EXECUTE RUNNING / SCHEDULE NEXT ==========
+    this.processManager.executeRunningProcess(
+      this.tiempoSimulacion,
+      this.interruptManager,
+      (type, msg, pid) => this.agregarLog(type, msg, pid)
+    );
     
-    // Update waiting time
-    this.scheduler.getQueue().forEach(p => p.tiempoEspera++);
+    // ========== 5. ACTUALIZAR TIEMPOS DE ESPERA ==========
+    this.processManager.updateWaitingTimes();
   }
 
   public crearProceso(
@@ -301,12 +248,12 @@ export class OSSimulator {
     const resultado = this.processManager.eliminarProceso(
       pid,
       this.memoryManager,
-      this.scheduler,
-      this.dispatcher,
       this.ioManager
     );
     if (resultado) {
       this.agregarLog("process_state", `Proceso PID ${pid} eliminado`, pid);
+      // Limpiar interrupciones pendientes del proceso
+      this.interruptManager.limpiarProceso(pid);
     }
     return resultado;
   }
