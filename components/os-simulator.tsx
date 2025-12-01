@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { OSSimulator, DeviceType } from "@/lib/os-simulator"
+import { OSSimulator } from "@/lib/os-simulator"
 import { ScenarioManager } from "@/lib/scenario-manager"
 import ProcessPanel from "./panels/process-panel"
 import MemoryPanel from "./panels/memory-panel"
@@ -12,6 +12,7 @@ import StatsPanel from "./panels/stats-panel"
 import LogsPanel from "./panels/logs-panel"
 import MetricsDashboard from "./panels/metrics-dashboard"
 import GanttChart from "./panels/gantt-chart"
+import DeadlockAlert from "./panels/deadlock-alert"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Download, Upload } from "lucide-react"
@@ -23,6 +24,7 @@ export default function OSSimulatorComponent() {
   const [speed, setSpeed] = useState(100)
   const [keyboardModalOpen, setKeyboardModalOpen] = useState(false)
   const [pendingKeyboardIrq, setPendingKeyboardIrq] = useState<number | null>(null)
+  const [deadlockDetected, setDeadlockDetected] = useState(false)
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -42,6 +44,12 @@ export default function OSSimulatorComponent() {
           const newState = { ...simulatorRef.current.getState() }
           setState(newState)
 
+          // Check for deadlock
+          if (newState.deadlockStatus?.detected && !deadlockDetected) {
+            setDeadlockDetected(true)
+            setRunning(false) // Pause simulation
+          }
+
           // Check for manual keyboard interrupts
           const manualIrq = newState.interrupcionesActivas.find((i: any) => i.esManual && i.estado === "active")
           if (manualIrq && !keyboardModalOpen) {
@@ -59,7 +67,7 @@ export default function OSSimulatorComponent() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [running, speed, keyboardModalOpen])
+  }, [running, speed, keyboardModalOpen, deadlockDetected])
 
   const handleKeyboardAction = (action: "continuar" | "cancelar") => {
     if (simulatorRef.current && pendingKeyboardIrq) {
@@ -155,6 +163,15 @@ export default function OSSimulatorComponent() {
     }
   }
 
+  // Handle deadlock resolution
+  const handleDeadlockResolve = (action: "cancel_process" | "ignore", pid?: number) => {
+    if (action === "cancel_process" && pid && simulatorRef.current) {
+      simulatorRef.current.eliminarProceso(pid);
+      setState({ ...simulatorRef.current.getState() });
+    }
+    setDeadlockDetected(false);
+  }
+
   if (!state) return <div className="p-4">Inicializando...</div>
 
   return (
@@ -166,6 +183,20 @@ export default function OSSimulatorComponent() {
           <div className="flex items-center gap-2">
             <Button onClick={() => setRunning(!running)} variant={running ? "destructive" : "default"}>
               {running ? "Pausar" : "Ejecutar"}
+            </Button>
+            <Button
+              onClick={() => {
+                if (simulatorRef.current) {
+                  simulatorRef.current.ejecutarTick();
+                  setState({ ...simulatorRef.current.getState() });
+                }
+              }}
+              variant="outline"
+              size="sm"
+              title="Ejecutar un solo tick de simulación"
+              disabled={running}
+            >
+              ▶ Ejecutar 1 Tick
             </Button>
             <Button
               onClick={() => {
@@ -285,6 +316,15 @@ export default function OSSimulatorComponent() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Deadlock Alert Modal */}
+      {state?.deadlockStatus && (
+        <DeadlockAlert
+          deadlockInfo={state.deadlockStatus}
+          onResolve={handleDeadlockResolve}
+          onClose={() => setDeadlockDetected(false)}
+        />
+      )}
     </div>
   )
 }
