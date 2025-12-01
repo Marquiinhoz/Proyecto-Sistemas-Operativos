@@ -1,4 +1,4 @@
-import { MemoryBlock, Process } from "./types";
+import { MemoryBlock, Process, FragmentationInfo } from "./types";
 
 export class MemoryManager {
   private memoria: MemoryBlock[];
@@ -135,13 +135,19 @@ export class MemoryManager {
     }
   }
 
-  public getFragmentation(procesos: Process[]): { internal: number; external: number } {
+  public getFragmentation(procesos: Process[]): FragmentationInfo {
     let internal = 0;
     let external = 0;
+    let externalHoles = 0;
+    let largestHole = 0;
 
     this.memoria.forEach((b) => {
       if (!b.ocupado) {
         external += b.tamanio;
+        externalHoles++;
+        if (b.tamanio > largestHole) {
+          largestHole = b.tamanio;
+        }
       } else if (b.pid !== null) {
         const p = procesos.find((proc) => proc.pid === b.pid);
         if (p) {
@@ -150,6 +156,59 @@ export class MemoryManager {
       }
     });
 
-    return { internal, external };
+    return { internal, external, externalHoles, largestHole };
+  }
+
+  /**
+   * Compactar memoria: mueve todos los bloques ocupados al inicio
+   * y combina todos los espacios libres en un solo bloque contiguo
+   */
+  public compactarMemoria(): { success: boolean; message: string } {
+    // Separar bloques ocupados y libres
+    const ocupados = this.memoria.filter(b => b.ocupado);
+
+    if (ocupados.length === 0) {
+      return { success: true, message: "No hay bloques ocupados para compactar" };
+    }
+
+    // Ordenar bloques ocupados por dirección para mantener orden
+    ocupados.sort((a, b) => a.direccionInicio - b.direccionInicio);
+
+    // Reconstruir memoria con bloques compactados
+    const nuevaMemoria: MemoryBlock[] = [];
+    let offset = 0;
+
+    // Colocar bloques ocupados al inicio
+    ocupados.forEach(bloque => {
+      const nuevoBloque: MemoryBlock = {
+        ...bloque,
+        direccionInicio: offset,
+        direccionFin: offset + bloque.tamanio,
+      };
+      nuevaMemoria.push(nuevoBloque);
+
+      // Actualizar dirBase del proceso
+      // (será manejado por el proceso después)
+      offset += bloque.tamanio;
+    });
+
+    // Crear un solo bloque libre con el espacio restante
+    if (offset < this.MEMORY_SIZE) {
+      nuevaMemoria.push({
+        direccionInicio: offset,
+        direccionFin: this.MEMORY_SIZE,
+        tamanio: this.MEMORY_SIZE - offset,
+        pid: null,
+        ocupado: false,
+        esBuddy: false,
+      });
+    }
+
+    this.memoria = nuevaMemoria;
+
+    return {
+      success: true,
+      message: `Memoria compactada: ${ocupados.length} bloques reorganizados`
+    };
   }
 }

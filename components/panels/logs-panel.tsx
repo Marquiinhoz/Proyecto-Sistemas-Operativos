@@ -3,10 +3,28 @@
 import { Card } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { LogEntry } from "@/lib/types"
+import { useState } from "react"
 
-export default function LogsPanel({ state }: any) {
+export default function LogsPanel({ state, simulator }: any) {
   if (!state || !state.logs) return null
+
+  // Filter state
+  const [filters, setFilters] = useState({
+    error: true,
+    context_switch: true,
+    process_state: true,
+    io: true,
+    memory: true,
+    scheduler: true,
+    interrupt: true,
+  });
+
+  const toggleFilter = (tipo: keyof typeof filters) => {
+    setFilters(prev => ({ ...prev, [tipo]: !prev[tipo] }));
+  };
 
   const getLogTypeColor = (tipo: LogEntry["tipo"]) => {
     switch (tipo) {
@@ -34,23 +52,68 @@ export default function LogsPanel({ state }: any) {
     }
   }
 
+  // Filter logs based on selected filters
+  const filteredLogs = state.logs.filter((log: LogEntry) => filters[log.tipo]);
+
+  // Count logs by type
+  const logCounts = state.logs.reduce((acc: any, log: LogEntry) => {
+    acc[log.tipo] = (acc[log.tipo] || 0) + 1;
+    return acc;
+  }, {});
+
   return (
-    <Card className="p-4 border border-border h-[400px] flex flex-col overflow-hidden">
-      <div className="flex justify-between items-center mb-4 flex-shrink-0">
+    <Card className="p-4 border border-border h-[500px] flex flex-col overflow-hidden">
+      <div className="flex justify-between items-center mb-3 flex-shrink-0">
         <h2 className="text-lg font-bold">Logs del Simulador</h2>
-        <div className="text-xs text-muted-foreground">
-          Total: {state.logs.length} eventos
+        <div className="flex gap-2">
+          <div className="text-xs text-muted-foreground">
+            {filteredLogs.length}/{state.logs.length} eventos
+          </div>
+          {simulator && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-6 text-xs"
+              onClick={() => simulator.clearLogs()}
+            >
+              Limpiar
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="mb-3 pb-3 border-b border-border flex-shrink-0">
+        <div className="text-xs font-semibold mb-2 text-muted-foreground">Filtros:</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {Object.entries(filters).map(([tipo, enabled]) => (
+            <div key={tipo} className="flex items-center gap-1">
+              <Checkbox
+                id={`filter-${tipo}`}
+                checked={enabled}
+                onCheckedChange={() => toggleFilter(tipo as keyof typeof filters)}
+              />
+              <label
+                htmlFor={`filter-${tipo}`}
+                className="text-[10px] cursor-pointer select-none"
+              >
+                {getLogTypeLabel(tipo as LogEntry["tipo"])} ({logCounts[tipo] || 0})
+              </label>
+            </div>
+          ))}
         </div>
       </div>
 
       <ScrollArea className="flex-1 min-h-0">
         <div className="space-y-2 pr-4">
-          {state.logs.length === 0 ? (
+          {filteredLogs.length === 0 ? (
             <div className="text-sm text-muted-foreground italic text-center py-8">
-              No hay eventos registrados aún
+              {state.logs.length === 0
+                ? "No hay eventos registrados aún"
+                : "No hay eventos que coincidan con los filtros seleccionados"}
             </div>
           ) : (
-            state.logs.map((log: LogEntry) => (
+            filteredLogs.map((log: LogEntry) => (
               <div
                 key={log.id}
                 className={`p-2 rounded border text-xs ${getLogTypeColor(log.tipo)}`}
