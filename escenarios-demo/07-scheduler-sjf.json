@@ -1,0 +1,52 @@
+{
+    "version": "1.0",
+    "timestamp": 1701385234567,
+    "scheduler": {
+        "algorithm": "SJF",
+        "apropiativo": false,
+        "quantum": 4
+    },
+    "memoryStrategy": "FirstFit",
+    "processes": [
+        {
+            "tamanio": 65536,
+            "burstTime": 5,
+            "prioridad": 1,
+            "maxInterrupciones": 5,
+            "porcentajeDatos": 20,
+            "porcentajeVariable": 12
+        },
+        {
+            "tamanio": 131072,
+            "burstTime": 18,
+            "prioridad": 2,
+            "maxInterrupciones": 15,
+            "porcentajeDatos": 30,
+            "porcentajeVariable": 18
+        },
+        {
+            "tamanio": 65536,
+            "burstTime": 8,
+            "prioridad": 1,
+            "maxInterrupciones": 7,
+            "porcentajeDatos": 22,
+            "porcentajeVariable": 14
+        },
+        {
+            "tamanio": 262144,
+            "burstTime": 14,
+            "prioridad": 3,
+            "maxInterrupciones": 12,
+            "porcentajeDatos": 35,
+            "porcentajeVariable": 20
+        },
+        {
+            "tamanio": 131072,
+            "burstTime": 10,
+            "prioridad": 2,
+            "maxInterrupciones": 9,
+            "porcentajeDatos": 28,
+            "porcentajeVariable": 16
+        }
+    ]
+}

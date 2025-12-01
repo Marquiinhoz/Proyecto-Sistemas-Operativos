@@ -102,6 +102,7 @@ export interface FragmentationInfo {
   external: number; // External fragmentation in bytes
   externalHoles: number; // Number of free holes
   largestHole: number; // Size of largest free hole in bytes
+  rechazosFragmentacion: number; // Processes rejected due to fragmentation
 }
 
 // Module 4: Deadlock Detection

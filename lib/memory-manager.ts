@@ -4,6 +4,7 @@ export class MemoryManager {
   private memoria: MemoryBlock[];
   private strategyFit: "FirstFit" | "BestFit" | "WorstFit" = "FirstFit";
   private readonly MEMORY_SIZE = 2 * 1024 * 1024; // 2MB
+  private rechazosFragmentacion: number = 0;  // Contador de rechazos por fragmentación
 
   constructor() {
     this.memoria = [
@@ -30,6 +31,14 @@ export class MemoryManager {
     this.strategyFit = strategy;
   }
 
+  public getRechazosFragmentacion(): number {
+    return this.rechazosFragmentacion;
+  }
+
+  public resetRechazos() {
+    this.rechazosFragmentacion = 0;
+  }
+
   public asignarMemoria(proceso: Process): boolean {
     const sizeNeeded = proceso.tamanio;
     const bloques = this.memoria;
@@ -43,7 +52,17 @@ export class MemoryManager {
       }
     });
 
-    if (candidates.length === 0) return false;
+    if (candidates.length === 0) {
+      // Verificar si hay memoria libre total suficiente pero fragmentada
+      const memoriaLibreTotal = bloques
+        .filter(b => !b.ocupado)
+        .reduce((sum, b) => sum + b.tamanio, 0);
+
+      if (memoriaLibreTotal >= sizeNeeded) {
+        this.rechazosFragmentacion++;  // Rechazo por fragmentación
+      }
+      return false;
+    }
 
     let selectedIdx = -1;
 
@@ -156,7 +175,13 @@ export class MemoryManager {
       }
     });
 
-    return { internal, external, externalHoles, largestHole };
+    return {
+      internal,
+      external,
+      externalHoles,
+      largestHole,
+      rechazosFragmentacion: this.rechazosFragmentacion
+    };
   }
 
   /**

@@ -1,0 +1,36 @@
+{
+    "version": "1.0",
+    "timestamp": 1701385234567,
+    "scheduler": {
+        "algorithm": "RoundRobin",
+        "apropiativo": true,
+        "quantum": 3
+    },
+    "memoryStrategy": "FirstFit",
+    "processes": [
+        {
+            "tamanio": 262144,
+            "burstTime": 18,
+            "prioridad": 1,
+            "maxInterrupciones": 15,
+            "porcentajeDatos": 30,
+            "porcentajeVariable": 20
+        },
+        {
+            "tamanio": 262144,
+            "burstTime": 18,
+            "prioridad": 1,
+            "maxInterrupciones": 15,
+            "porcentajeDatos": 30,
+            "porcentajeVariable": 20
+        },
+        {
+            "tamanio": 524288,
+            "burstTime": 20,
+            "prioridad": 0,
+            "maxInterrupciones": 18,
+            "porcentajeDatos": 35,
+            "porcentajeVariable": 22
+        }
+    ]
+}

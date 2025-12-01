@@ -119,7 +119,7 @@ export default function MemoryPanel({ state, simulator }: any) {
         </ScrollArea>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-4 text-xs">
+      <div className="mt-4 grid grid-cols-4 gap-4 text-xs">
         <div className="p-2 bg-muted rounded">
           <span className="font-bold block mb-1">Fragmentación Externa</span>
           <div>{externalFragKB.toFixed(1)} KB</div>
@@ -132,6 +132,13 @@ export default function MemoryPanel({ state, simulator }: any) {
         <div className="p-2 bg-muted rounded">
           <span className="font-bold block mb-1">Frag. Interna</span>
           <div>{internalFragKB.toFixed(1)} KB</div>
+        </div>
+        <div className="p-2 bg-muted rounded">
+          <span className="font-bold block mb-1">Rechazos</span>
+          <div className={fragmentation.rechazosFragmentacion > 0 ? "text-red-500 font-bold" : "text-green-500"}>
+            {fragmentation.rechazosFragmentacion || 0}
+          </div>
+          <div className="text-[10px] opacity-70">por fragmentación</div>
         </div>
       </div>
     </Card>

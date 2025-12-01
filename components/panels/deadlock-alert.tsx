@@ -18,6 +18,7 @@ export default function DeadlockAlert({ deadlockInfo, onResolve, onClose }: Dead
         // Cancel the first affected process
         if (deadlockInfo.affectedProcesses.length > 0) {
             onResolve("cancel_process", deadlockInfo.affectedProcesses[0]);
+            onClose();  // Close modal
         }
     };
 

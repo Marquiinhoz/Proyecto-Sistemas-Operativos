@@ -1,24 +1,199 @@
-[00:00:02.973] Server  LOG      ✓ Ready in 1793ms
-[00:00:22.891] Server  LOG      ○ Compiling / ...
-[00:00:29.344] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:30.100] Browser DEBUG   injection-tss TSS: hosted page injected
-[00:00:30.100] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
-[00:00:30.117] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:30.117] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:30.117] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764550338087}
-[00:01:47.846] Server  LOG      ✓ Compiled in 494ms
-[00:02:10.648] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:11.306] Browser DEBUG   injection-tss TSS: hosted page injected
-[00:02:11.306] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
-[00:02:11.475] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:02:11.475] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:02:11.475] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764550439391}
-[00:28:25.795] Server  LOG      ✓ Compiled in 1952ms
-[00:28:55.365] Server  LOG      ✓ Compiled in 847ms
-[00:29:18.455] Server  LOG      ✓ Compiled in 620ms
-[00:30:17.565] Server  LOG      ✓ Compiled in 2.2s
-[00:30:46.727] Server  LOG      ✓ Compiled in 578ms
-[00:31:18.167] Server  LOG      ✓ Compiled in 2.1s
-[00:31:48.644] Server  LOG      ✓ Compiled in 825ms
-[00:32:24.073] Server  LOG      ✓ Compiled in 562ms
-[00:33:34.435] Server  LOG      ✓ Compiled in 613ms
+[00:00:04.654] Server  LOG      ✓ Ready in 3.2s
+[00:00:08.096] Server  LOG      ○ Compiling / ...
+[00:00:16.961] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:17.800] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:17.800] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:17.800] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764595885130}
+[00:00:18.989] Browser DEBUG   injection-tss TSS: hosted page injected
+[00:00:18.989] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
+[00:01:54.523] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:01:54.524] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:02:00.278] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:02:00.278] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:05:45.444] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:05:45.444] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:06:15.429] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:16.452] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:06:16.452] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:06:16.452] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764596243738}
+[00:06:18.288] Browser DEBUG   injection-tss TSS: hosted page injected
+[00:06:18.288] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
+[00:13:03.099] Server  LOG      ✓ Compiled in 1497ms
+[00:15:22.126] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:23.267] Browser DEBUG   injection-tss TSS: hosted page injected
+[00:15:23.267] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
+[00:15:23.267] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:15:23.267] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:15:23.267] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764596790593}
+[00:15:25.104] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:15:25.104] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:15:35.585] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:15:35.585] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:15:35.585] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:15:35.585] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:15:35.585] Browser ERROR   Error running comparison: {}
+[00:15:47.365] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:48.334] Browser DEBUG   injection-tss TSS: hosted page injected
+[00:15:48.334] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
+[00:15:48.334] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:15:48.334] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:15:48.334] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764596815605}
+[00:16:06.401] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:16:06.401] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:16:06.401] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:16:06.401] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:16:06.401] Browser ERROR   Error running comparison: {}
+[00:20:17.809] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:20:17.810] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:22:46.488] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:22:46.488] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:23:52.811] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:23:52.811] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:27:20.601] Server  LOG      ✓ Compiled in 395ms
+[00:29:06.558] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:07.906] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:29:07.906] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:29:07.906] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1764597615240}
+[00:29:09.268] Browser DEBUG   injection-tss TSS: hosted page injected
+[00:29:09.268] Browser DEBUG   injection-tss MBTSS: Nonce:  nonce
+[00:29:13.051] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:13.051] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:24.267] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:24.267] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:24.267] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:24.267] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:31.858] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:31.858] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:36.919] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:36.919] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:36.919] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:36.919] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:46.885] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:46.885] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:50.715] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:50.715] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:29:50.715] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
+
+If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
+
+For more information, see https://radix-ui.com/primitives/docs/components/dialog
+[00:29:50.715] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:32:49.431] Server  LOG      ✓ Compiled in 1148ms
+[00:32:52.302] Browser ERROR   ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx:355:6
+Parsing ecmascript source code failed
+  353 |             </Dialog>
+  354 |         );
+> 355 |     }
+      |      ^
+  356 |
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+[00:33:12.299] Browser ERROR   ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx:355:6
+Parsing ecmascript source code failed
+  353 |             </Dialog>
+  354 |         );
+> 355 |     }
+      |      ^
+  356 |
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+[00:37:47.291] Browser ERROR   ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx:355:6
+Parsing ecmascript source code failed
+  353 |             </Dialog>
+  354 |         );
+> 355 |     }
+      |      ^
+  356 |
+
+Expected ',', got '<eof>'
+
+Import traces:
+  Client Component Browser:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component Browser]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/strategy-comparison.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Client Component SSR]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [Server Component]
+    ./Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/app/page.tsx [Server Component]
+[00:38:09.821] Server  LOG      ✓ Compiled in 549ms
+[00:38:13.289] Browser DEBUG   TSS: Counted history being replaced
+[00:38:13.289] Browser DEBUG   TSS: Caught history
+[00:38:13.289] Browser DEBUG   TSS: Checking if repeated 500 times for interval 1000 against data:  {}
+[00:40:00.642] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:00.642] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:04.520] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:04.520] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:11.994] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:11.994] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:15.356] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:15.356] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:33.276] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:33.276] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:38.685] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+[00:40:38.685] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.

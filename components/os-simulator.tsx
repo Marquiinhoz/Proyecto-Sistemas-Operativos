@@ -14,6 +14,7 @@ import MetricsDashboard from "./panels/metrics-dashboard"
 import GanttChart from "./panels/gantt-chart"
 import DeadlockAlert from "./panels/deadlock-alert"
 import StateDiagram from "./panels/state-diagram"
+import StrategyComparison from "./panels/strategy-comparison"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Download, Upload } from "lucide-react"
@@ -26,6 +27,9 @@ export default function OSSimulatorComponent() {
   const [keyboardModalOpen, setKeyboardModalOpen] = useState(false)
   const [pendingKeyboardIrq, setPendingKeyboardIrq] = useState<number | null>(null)
   const [deadlockDetected, setDeadlockDetected] = useState(false)
+  const [comparisonModalOpen, setComparisonModalOpen] = useState(false)
+  const [resetModalOpen, setResetModalOpen] = useState(false)
+  const [processCount, setProcessCount] = useState(5)
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -200,12 +204,7 @@ export default function OSSimulatorComponent() {
               ▶ Ejecutar 1 Tick
             </Button>
             <Button
-              onClick={() => {
-                simulatorRef.current = new OSSimulator()
-                simulatorRef.current.generarProcesosIniciales(5)
-                setState(simulatorRef.current.getState())
-                setRunning(false)
-              }}
+              onClick={() => setResetModalOpen(true)}
               variant="outline"
             >
               Reiniciar
@@ -227,6 +226,15 @@ export default function OSSimulatorComponent() {
             >
               <Upload className="h-4 w-4 mr-1" />
               Importar
+            </Button>
+            <Button
+              onClick={() => setComparisonModalOpen(true)}
+              variant="outline"
+              size="sm"
+              title="Ver comparativa de estrategias de memoria"
+              className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-500"
+            >
+              📊 Comparativa
             </Button>
           </div>
         </div>
@@ -331,6 +339,57 @@ export default function OSSimulatorComponent() {
           onClose={() => setDeadlockDetected(false)}
         />
       )}
+
+      {/* Reset Modal */}
+      <Dialog open={resetModalOpen} onOpenChange={setResetModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reiniciar Simulación</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Esto reiniciará el simulador y generará procesos aleatorios.
+            </p>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                ¿Cuántos procesos desea generar?
+              </label>
+              <input
+                type="number"
+                min="1"
+                max="20"
+                value={processCount}
+                onChange={(e) => setProcessCount(Math.max(1, Math.min(20, parseInt(e.target.value) || 1)))}
+                className="w-full px-3 py-2 border rounded-md"
+              />
+              <p className="text-xs text-muted-foreground">
+                Rango: 1-20 procesos
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setResetModalOpen(false)}>
+              Cancelar
+            </Button>
+            <Button onClick={() => {
+              simulatorRef.current = new OSSimulator()
+              simulatorRef.current.generarProcesosIniciales(processCount)
+              setState(simulatorRef.current.getState())
+              setRunning(false)
+              setResetModalOpen(false)
+            }}>
+              Reiniciar con {processCount} proceso{processCount !== 1 ? 's' : ''}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Strategy Comparison Modal */}
+      <StrategyComparison
+        open={comparisonModalOpen}
+        onClose={() => setComparisonModalOpen(false)}
+        currentState={state}
+      />
     </div>
   )
 }

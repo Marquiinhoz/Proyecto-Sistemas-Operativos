@@ -201,6 +201,7 @@ class MemoryManager {
     memoria;
     strategyFit = "FirstFit";
     MEMORY_SIZE = 2 * 1024 * 1024;
+    rechazosFragmentacion = 0;
     constructor(){
         this.memoria = [
             {
@@ -222,6 +223,12 @@ class MemoryManager {
     setStrategy(strategy) {
         this.strategyFit = strategy;
     }
+    getRechazosFragmentacion() {
+        return this.rechazosFragmentacion;
+    }
+    resetRechazos() {
+        this.rechazosFragmentacion = 0;
+    }
     asignarMemoria(proceso) {
         const sizeNeeded = proceso.tamanio;
         const bloques = this.memoria;
@@ -235,7 +242,14 @@ class MemoryManager {
                 });
             }
         });
-        if (candidates.length === 0) return false;
+        if (candidates.length === 0) {
+            // Verificar si hay memoria libre total suficiente pero fragmentada
+            const memoriaLibreTotal = bloques.filter((b)=>!b.ocupado).reduce((sum, b)=>sum + b.tamanio, 0);
+            if (memoriaLibreTotal >= sizeNeeded) {
+                this.rechazosFragmentacion++; // Rechazo por fragmentación
+            }
+            return false;
+        }
         let selectedIdx = -1;
         if (this.strategyFit === "FirstFit") {
             selectedIdx = candidates[0].index;
@@ -334,7 +348,8 @@ class MemoryManager {
             internal,
             external,
             externalHoles,
-            largestHole
+            largestHole,
+            rechazosFragmentacion: this.rechazosFragmentacion
         };
     }
     /**
@@ -4522,7 +4537,7 @@ function MemoryPanel({ state, simulator }) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-4 grid grid-cols-3 gap-4 text-xs",
+                className: "mt-4 grid grid-cols-4 gap-4 text-xs",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "p-2 bg-muted rounded",
@@ -4614,6 +4629,39 @@ function MemoryPanel({ state, simulator }) {
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/memory-panel.tsx",
                         lineNumber: 132,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-2 bg-muted rounded",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "font-bold block mb-1",
+                                children: "Rechazos"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/memory-panel.tsx",
+                                lineNumber: 137,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: fragmentation.rechazosFragmentacion > 0 ? "text-red-500 font-bold" : "text-green-500",
+                                children: fragmentation.rechazosFragmentacion || 0
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/memory-panel.tsx",
+                                lineNumber: 138,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-[10px] opacity-70",
+                                children: "por fragmentación"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/memory-panel.tsx",
+                                lineNumber: 141,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/memory-panel.tsx",
+                        lineNumber: 136,
                         columnNumber: 9
                     }, this)
                 ]
@@ -6673,6 +6721,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
         // Cancel the first affected process
         if (deadlockInfo.affectedProcesses.length > 0) {
             onResolve("cancel_process", deadlockInfo.affectedProcesses[0]);
+            onClose(); // Close modal
         }
     };
     const handleIgnore = ()=>{
@@ -6694,7 +6743,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     className: "h-6 w-6 text-red-500"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 34,
+                                    lineNumber: 35,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogTitle"], {
@@ -6702,26 +6751,26 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     children: "⚠️ Deadlock Detectado"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 35,
+                                    lineNumber: 36,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 33,
+                            lineNumber: 34,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogDescription"], {
                             children: "Se ha detectado un deadlock en el sistema. Todos los procesos activos están bloqueados esperando por recursos."
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 37,
+                            lineNumber: 38,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                    lineNumber: 32,
+                    lineNumber: 33,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6735,7 +6784,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     children: "Descripción del Deadlock:"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 45,
+                                    lineNumber: 46,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6743,13 +6792,13 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     children: deadlockInfo.cycle
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 46,
+                                    lineNumber: 47,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 44,
+                            lineNumber: 45,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6759,7 +6808,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     children: "Procesos Afectados:"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 53,
+                                    lineNumber: 54,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6772,18 +6821,18 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                             ]
                                         }, pid, true, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                            lineNumber: 56,
+                                            lineNumber: 57,
                                             columnNumber: 33
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 54,
+                                    lineNumber: 55,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 52,
+                            lineNumber: 53,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6794,7 +6843,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 67,
+                            lineNumber: 68,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6805,7 +6854,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                     children: "Opciones de Resolución:"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 74,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -6817,7 +6866,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                                     children: "Cancelar Proceso:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                                    lineNumber: 75,
+                                                    lineNumber: 76,
                                                     columnNumber: 33
                                                 }, this),
                                                 " Termina PID ",
@@ -6826,7 +6875,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 76,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -6835,32 +6884,32 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                                                     children: "Ignorar:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                                    lineNumber: 76,
+                                                    lineNumber: 77,
                                                     columnNumber: 33
                                                 }, this),
                                                 " Continuar simulación (algunos procesos pueden quedar bloqueados indefinidamente)"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                            lineNumber: 76,
+                                            lineNumber: 77,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 75,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 72,
+                            lineNumber: 73,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                    lineNumber: 42,
+                    lineNumber: 43,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -6872,7 +6921,7 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                             children: "Ignorar y Continuar"
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 82,
+                            lineNumber: 83,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6884,24 +6933,24 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                            lineNumber: 88,
+                            lineNumber: 89,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-                    lineNumber: 81,
+                    lineNumber: 82,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-            lineNumber: 31,
+            lineNumber: 32,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx",
-        lineNumber: 30,
+        lineNumber: 31,
         columnNumber: 9
     }, this);
 }
@@ -7575,6 +7624,9 @@ function OSSimulatorComponent() {
     const [keyboardModalOpen, setKeyboardModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [pendingKeyboardIrq, setPendingKeyboardIrq] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [deadlockDetected, setDeadlockDetected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [comparisonModalOpen, setComparisonModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [resetModalOpen, setResetModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [processCount, setProcessCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(5);
     const intervalRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         simulatorRef.current = new __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$os$2d$simulator$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OSSimulator"]();
@@ -7697,7 +7749,7 @@ function OSSimulatorComponent() {
         children: "Inicializando..."
     }, void 0, false, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-        lineNumber: 176,
+        lineNumber: 180,
         columnNumber: 22
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7714,7 +7766,7 @@ function OSSimulatorComponent() {
                                 children: "Simulador de Procesos"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 183,
+                                lineNumber: 187,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7726,7 +7778,7 @@ function OSSimulatorComponent() {
                                         children: running ? "Pausar" : "Ejecutar"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 189,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -7745,21 +7797,16 @@ function OSSimulatorComponent() {
                                         children: "▶ Ejecutar 1 Tick"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 192,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                        onClick: ()=>{
-                                            simulatorRef.current = new __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$lib$2f$os$2d$simulator$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["OSSimulator"]();
-                                            simulatorRef.current.generarProcesosIniciales(5);
-                                            setState(simulatorRef.current.getState());
-                                            setRunning(false);
-                                        },
+                                        onClick: ()=>setResetModalOpen(true),
                                         variant: "outline",
                                         children: "Reiniciar"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 202,
+                                        lineNumber: 206,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -7772,14 +7819,14 @@ function OSSimulatorComponent() {
                                                 className: "h-4 w-4 mr-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                                lineNumber: 219,
+                                                lineNumber: 218,
                                                 columnNumber: 15
                                             }, this),
                                             "Exportar"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 213,
+                                        lineNumber: 212,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -7792,26 +7839,38 @@ function OSSimulatorComponent() {
                                                 className: "h-4 w-4 mr-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 227,
                                                 columnNumber: 15
                                             }, this),
                                             "Importar"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 221,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
+                                        onClick: ()=>setComparisonModalOpen(true),
+                                        variant: "outline",
+                                        size: "sm",
+                                        title: "Ver comparativa de estrategias de memoria",
+                                        className: "bg-gradient-to-r from-green-500/10 to-blue-500/10 border-green-500",
+                                        children: "📊 Comparativa"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
+                                        lineNumber: 230,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 184,
+                                lineNumber: 188,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 182,
+                        lineNumber: 186,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7822,7 +7881,7 @@ function OSSimulatorComponent() {
                                 children: "Velocidad:"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 235,
+                                lineNumber: 243,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -7835,7 +7894,7 @@ function OSSimulatorComponent() {
                                 className: "w-48"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 236,
+                                lineNumber: 244,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -7843,19 +7902,19 @@ function OSSimulatorComponent() {
                                 children: speed === 0 ? "Muy Lenta" : speed < 50 ? "Lenta" : speed < 100 ? "Media" : speed < 150 ? "Rápida" : "Muy Rápida"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 245,
+                                lineNumber: 253,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 234,
+                        lineNumber: 242,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 181,
+                lineNumber: 185,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7874,12 +7933,12 @@ function OSSimulatorComponent() {
                                         })
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 256,
+                                    lineNumber: 264,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 255,
+                                lineNumber: 263,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7892,18 +7951,18 @@ function OSSimulatorComponent() {
                                     simulator: simulatorRef.current
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 263,
+                                    lineNumber: 271,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 262,
+                                lineNumber: 270,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 254,
+                        lineNumber: 262,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7911,12 +7970,12 @@ function OSSimulatorComponent() {
                             metrics: state.metrics
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 275,
+                            lineNumber: 283,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 274,
+                        lineNumber: 282,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7925,12 +7984,12 @@ function OSSimulatorComponent() {
                             procesos: state.procesos
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 280,
+                            lineNumber: 288,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 279,
+                        lineNumber: 287,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7938,12 +7997,12 @@ function OSSimulatorComponent() {
                             procesos: state.procesos
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 285,
+                            lineNumber: 293,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 284,
+                        lineNumber: 292,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7954,7 +8013,7 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 290,
+                                lineNumber: 298,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$interrupts$2d$panel$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -7962,13 +8021,13 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 291,
+                                lineNumber: 299,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 289,
+                        lineNumber: 297,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7976,12 +8035,12 @@ function OSSimulatorComponent() {
                             state: state
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 296,
+                            lineNumber: 304,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 295,
+                        lineNumber: 303,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7991,7 +8050,7 @@ function OSSimulatorComponent() {
                                 state: state
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 301,
+                                lineNumber: 309,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$logs$2d$panel$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -7999,19 +8058,19 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 302,
+                                lineNumber: 310,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 300,
+                        lineNumber: 308,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 252,
+                lineNumber: 260,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -8024,12 +8083,12 @@ function OSSimulatorComponent() {
                                 children: "Interrupción de Teclado"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 310,
+                                lineNumber: 318,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 309,
+                            lineNumber: 317,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -8037,7 +8096,7 @@ function OSSimulatorComponent() {
                             children: "Un proceso ha solicitado entrada de teclado. ¿Desea continuar o cancelar la operación?"
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 312,
+                            lineNumber: 320,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -8048,7 +8107,7 @@ function OSSimulatorComponent() {
                                     children: "Cancelar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 316,
+                                    lineNumber: 324,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -8056,24 +8115,24 @@ function OSSimulatorComponent() {
                                     children: "Continuar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 319,
+                                    lineNumber: 327,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 315,
+                            lineNumber: 323,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                    lineNumber: 308,
+                    lineNumber: 316,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 307,
+                lineNumber: 315,
                 columnNumber: 7
             }, this),
             state?.deadlockStatus && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$deadlock$2d$alert$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -8082,13 +8141,13 @@ function OSSimulatorComponent() {
                 onClose: ()=>setDeadlockDetected(false)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 328,
+                lineNumber: 336,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-        lineNumber: 179,
+        lineNumber: 183,
         columnNumber: 5
     }, this);
 }
