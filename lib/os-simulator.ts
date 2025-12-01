@@ -176,7 +176,7 @@ export class OSSimulator {
       // Requirement: 5-20 interrupts total.
       // Probability = (Remaining Interrupts) / (Remaining Time) ?
       // Or just a fixed prob that is high enough.
-      else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
+      else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.05) {
         const devices: DeviceType[] = ["disk", "printer", "monitor", "network"];
         const device = devices[Math.floor(Math.random() * devices.length)];
 

@@ -5363,10 +5363,6 @@
     color: var(--color-green-300);
   }
 
-  .dark\:text-green-400:is(.dark *) {
-    color: var(--color-green-400);
-  }
-
   .dark\:text-muted-foreground:is(.dark *) {
     color: var(--muted-foreground);
   }

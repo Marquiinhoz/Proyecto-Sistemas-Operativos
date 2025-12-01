@@ -63,7 +63,7 @@ class ProcessManager {
             stackPointer: 0,
             heapPointer: 0,
             interrupciones: 0,
-            maxInterrupciones: maxInterrupcionesSolicitadas ?? Math.floor(Math.random() * 16) + 5,
+            maxInterrupciones: maxInterrupcionesSolicitadas ?? Math.floor(Math.random() * 7) + 2,
             errores: 0,
             cambiosContexto: 0,
             porcentajeProcesado: 0,
@@ -811,7 +811,7 @@ class OSSimulator {
                     this.agregarLog("context_switch", `PID ${p.pid} expropiado por planificador`, p.pid);
                     this.scheduler.add(p);
                 }
-            } else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
+            } else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.05) {
                 const devices = [
                     "disk",
                     "printer",
@@ -7600,28 +7600,43 @@ function runStrategyComparison(currentState, maxTicks = 200) {
         activeProcesses.forEach((p)=>{
             simulator.crearProceso(p.tamanio, p.burstTime, p.prioridad, p.maxInterrupciones, p.porcentajeDatos, p.porcentajeVariable);
         });
-        // Run simulation
+        // Run simulation and track metrics during execution
         let ticksExecuted = 0;
+        let maxOccupiedMemory = 0;
+        let totalFragExternal = 0;
+        let totalFragInternal = 0;
+        let fragmentationSamples = 0;
         for(let i = 0; i < maxTicks; i++){
             simulator.ejecutarTick();
             ticksExecuted++;
-            // Stop if all processes completed
+            // Collect metrics during execution
             const state = simulator.getState();
+            const currentOccupied = state.memoria.filter((b)=>b.ocupado).reduce((sum, b)=>sum + b.tamanio, 0);
+            maxOccupiedMemory = Math.max(maxOccupiedMemory, currentOccupied);
+            // Sample fragmentation (only when there are active processes)
+            if (state.procesos.filter((p)=>p.estado !== 'terminated').length > 0) {
+                totalFragExternal += state.fragmentation.external;
+                totalFragInternal += state.fragmentation.internal;
+                fragmentationSamples++;
+            }
+            // Stop if all processes completed
             if (state.colaTerminated.length >= activeProcesses.length && activeProcesses.length > 0) {
                 break;
             }
         }
-        // Collect metrics
+        // Collect final metrics
         const finalState = simulator.getState();
         const totalMemory = 2 * 1024 * 1024; // 2MB
-        const occupiedMemory = finalState.memoria.filter((b)=>b.ocupado).reduce((sum, b)=>sum + b.tamanio, 0);
+        // Use average fragmentation instead of final state
+        const avgFragExternal = fragmentationSamples > 0 ? totalFragExternal / fragmentationSamples : finalState.fragmentation.external;
+        const avgFragInternal = fragmentationSamples > 0 ? totalFragInternal / fragmentationSamples : finalState.fragmentation.internal;
         return {
             strategy,
-            fragExternal: totalMemory > 0 ? finalState.fragmentation.external / totalMemory * 100 : 0,
-            fragInterna: totalMemory > 0 ? finalState.fragmentation.internal / totalMemory * 100 : 0,
+            fragExternal: totalMemory > 0 ? avgFragExternal / totalMemory * 100 : 0,
+            fragInterna: totalMemory > 0 ? avgFragInternal / totalMemory * 100 : 0,
             huecos: finalState.fragmentation.externalHoles,
             rechazos: finalState.fragmentation.rechazosFragmentacion,
-            utilizacion: totalMemory > 0 ? occupiedMemory / totalMemory * 100 : 0,
+            utilizacion: totalMemory > 0 ? maxOccupiedMemory / totalMemory * 100 : 0,
             avgTurnaroundTime: finalState.metrics.avgTurnaroundTime,
             avgWaitingTime: finalState.metrics.avgWaitingTime,
             completedProcesses: finalState.metrics.completedProcesses,

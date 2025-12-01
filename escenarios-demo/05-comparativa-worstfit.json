@@ -2,51 +2,51 @@
     "version": "1.0",
     "timestamp": 1701385234567,
     "scheduler": {
-        "algorithm": "RoundRobin",
-        "apropiativo": true,
+        "algorithm": "FCFS",
+        "apropiativo": false,
         "quantum": 3
     },
     "memoryStrategy": "WorstFit",
     "processes": [
         {
-            "tamanio": 131072,
-            "burstTime": 10,
-            "prioridad": 2,
-            "maxInterrupciones": 8,
-            "porcentajeDatos": 25,
+            "tamanio": 524288,
+            "burstTime": 5,
+            "prioridad": 1,
+            "maxInterrupciones": 1,
+            "porcentajeDatos": 30,
             "porcentajeVariable": 15
         },
         {
             "tamanio": 262144,
-            "burstTime": 12,
-            "prioridad": 1,
-            "maxInterrupciones": 10,
-            "porcentajeDatos": 30,
-            "porcentajeVariable": 18
-        },
-        {
-            "tamanio": 65536,
-            "burstTime": 8,
-            "prioridad": 3,
-            "maxInterrupciones": 6,
-            "porcentajeDatos": 20,
+            "burstTime": 20,
+            "prioridad": 2,
+            "maxInterrupciones": 1,
+            "porcentajeDatos": 25,
             "porcentajeVariable": 12
         },
         {
-            "tamanio": 131072,
-            "burstTime": 15,
-            "prioridad": 1,
-            "maxInterrupciones": 12,
-            "porcentajeDatos": 28,
-            "porcentajeVariable": 16
+            "tamanio": 524288,
+            "burstTime": 18,
+            "prioridad": 3,
+            "maxInterrupciones": 1,
+            "porcentajeDatos": 20,
+            "porcentajeVariable": 10
         },
         {
-            "tamanio": 65536,
-            "burstTime": 9,
-            "prioridad": 2,
-            "maxInterrupciones": 7,
-            "porcentajeDatos": 22,
+            "tamanio": 262144,
+            "burstTime": 8,
+            "prioridad": 1,
+            "maxInterrupciones": 1,
+            "porcentajeDatos": 28,
             "porcentajeVariable": 14
+        },
+        {
+            "tamanio": 131072,
+            "burstTime": 12,
+            "prioridad": 2,
+            "maxInterrupciones": 1,
+            "porcentajeDatos": 22,
+            "porcentajeVariable": 11
         }
     ]
 }

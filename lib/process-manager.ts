@@ -65,7 +65,7 @@ export class ProcessManager {
       stackPointer: 0,
       heapPointer: 0,
       interrupciones: 0,
-      maxInterrupciones: maxInterrupcionesSolicitadas ?? (Math.floor(Math.random() * 16) + 5), // 5 to 20
+      maxInterrupciones: maxInterrupcionesSolicitadas ?? (Math.floor(Math.random() * 7) + 2), // 2 to 8 (reduced to decrease deadlock frequency)
       errores: 0,
       cambiosContexto: 0,
       porcentajeProcesado: 0,
