@@ -1984,6 +1984,988 @@ function SelectScrollDownButton({ className, ...props }) {
 }
 ;
 }),
+"[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>ProcessDetailsModal
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/dialog.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/scroll-area.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/badge.tsx [app-ssr] (ecmascript)");
+"use client";
+;
+;
+;
+;
+function ProcessDetailsModal({ process, isOpen, onClose }) {
+    if (!process) return null;
+    const getStateColor = (estado)=>{
+        switch(estado){
+            case "new":
+                return "bg-gray-500";
+            case "ready":
+                return "bg-blue-500";
+            case "running":
+                return "bg-green-500";
+            case "blocked":
+                return "bg-yellow-500";
+            case "terminated":
+                return "bg-red-500";
+            default:
+                return "bg-gray-500";
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
+        open: isOpen,
+        onOpenChange: onClose,
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogContent"], {
+            className: "max-w-2xl max-h-[80vh]",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogHeader"], {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogTitle"], {
+                        className: "flex items-center gap-3",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                children: [
+                                    "Detalles del Proceso - PID ",
+                                    process.pid
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 33,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
+                                className: `${getStateColor(process.estado)} text-white`,
+                                children: process.estado.toUpperCase()
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 34,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                        lineNumber: 32,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                    lineNumber: 31,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ScrollArea"], {
+                    className: "h-[60vh] pr-4",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "space-y-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted rounded-lg",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-sm font-bold mb-3 text-primary",
+                                        children: "Información Básica"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 44,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-2 gap-3 text-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "PID:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 47,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.pid
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 48,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 46,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Estado:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 51,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold capitalize",
+                                                        children: process.estado
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 52,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 50,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Prioridad:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 55,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.prioridad
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 56,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 54,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Program Counter:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 59,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.programCounter
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 60,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 58,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 45,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 43,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted rounded-lg",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-sm font-bold mb-3 text-primary",
+                                        children: "Tiempos de Ejecución"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 67,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-2 gap-3 text-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Burst Time:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 70,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.burstTime,
+                                                            " ticks"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 71,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 69,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo Restante:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 74,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.tiempoRestante,
+                                                            " ticks"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 75,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 73,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo de Llegada:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 78,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            "t=",
+                                                            process.tiempoLlegada
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 79,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 77,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo de Inicio:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 82,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.tiempoInicio >= 0 ? `t=${process.tiempoInicio}` : "No iniciado"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 83,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 81,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo Final:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 86,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.tiempoFinal >= 0 ? `t=${process.tiempoFinal}` : "No terminado"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 87,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 85,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Progreso:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 90,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.porcentajeProcesado.toFixed(1),
+                                                            "%"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 91,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 89,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 68,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "mt-3",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "w-full bg-background rounded h-3",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "bg-gradient-to-r from-green-500 to-blue-500 h-full rounded transition-all",
+                                                style: {
+                                                    width: `${process.porcentajeProcesado}%`
+                                                }
+                                            }, void 0, false, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 98,
+                                                columnNumber: 37
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                            lineNumber: 97,
+                                            columnNumber: 33
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 96,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 66,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted rounded-lg",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-sm font-bold mb-3 text-primary",
+                                        children: "Métricas de Rendimiento"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 108,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-2 gap-3 text-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo de Espera:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 111,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold text-blue-600",
+                                                        children: [
+                                                            process.tiempoEspera,
+                                                            " ticks"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 112,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 110,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo de Respuesta:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 115,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold text-purple-600",
+                                                        children: process.tiempoRespuesta >= 0 ? `${process.tiempoRespuesta} ticks` : "N/A"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 116,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 114,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tiempo de Retorno:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 121,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold text-green-600",
+                                                        children: process.tiempoTurnaround >= 0 ? `${process.tiempoTurnaround} ticks` : "N/A"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 122,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 120,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Cambios de Contexto:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 127,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: process.cambiosContexto
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 128,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 126,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 109,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 107,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted rounded-lg",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-sm font-bold mb-3 text-primary",
+                                        children: "Gestión de Memoria"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 135,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-2 gap-3 text-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Tamaño:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 138,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            (process.tamanio / 1024).toFixed(0),
+                                                            " KB"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 139,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 137,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Dirección Base:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 142,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-mono text-xs",
+                                                        children: [
+                                                            "0x",
+                                                            process.dirBase.toString(16).toUpperCase()
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 143,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 141,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Stack Pointer:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 146,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-mono text-xs",
+                                                        children: [
+                                                            "0x",
+                                                            process.stackPointer.toString(16).toUpperCase()
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 147,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 145,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Heap Pointer:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 150,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-mono text-xs",
+                                                        children: [
+                                                            "0x",
+                                                            process.heapPointer.toString(16).toUpperCase()
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 151,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 149,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Datos:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 154,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.porcentajeDatos,
+                                                            "%"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 155,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 153,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Variables:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 158,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.porcentajeVariable,
+                                                            "%"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 159,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 157,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 136,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 134,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted rounded-lg",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-sm font-bold mb-3 text-primary",
+                                        children: "Interrupciones y Errores"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 166,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-2 gap-3 text-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Interrupciones:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 169,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold",
+                                                        children: [
+                                                            process.interrupciones,
+                                                            " / ",
+                                                            process.maxInterrupciones
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 170,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 168,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "text-muted-foreground",
+                                                        children: "Errores:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 173,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "ml-2 font-semibold text-red-600",
+                                                        children: process.errores
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 174,
+                                                        columnNumber: 37
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 172,
+                                                columnNumber: 33
+                                            }, this),
+                                            process.ioType && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-muted-foreground",
+                                                                children: "Dispositivo I/O:"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                                lineNumber: 179,
+                                                                columnNumber: 45
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "ml-2 font-semibold capitalize",
+                                                                children: process.ioType
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                                lineNumber: 180,
+                                                                columnNumber: 45
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 178,
+                                                        columnNumber: 41
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "text-muted-foreground",
+                                                                children: "Tiempo I/O Restante:"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                                lineNumber: 183,
+                                                                columnNumber: 45
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                className: "ml-2 font-semibold",
+                                                                children: [
+                                                                    process.ioTimeRemaining,
+                                                                    " ticks"
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                                lineNumber: 184,
+                                                                columnNumber: 45
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 182,
+                                                        columnNumber: 41
+                                                    }, this)
+                                                ]
+                                            }, void 0, true)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 167,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 165,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 bg-muted/50 rounded-lg border border-border",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-xs font-bold mb-2 text-muted-foreground",
+                                        children: "Fórmulas de Cálculo"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 193,
+                                        columnNumber: 29
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "text-[10px] text-muted-foreground space-y-1",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    "• ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Tiempo de Espera:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 195,
+                                                        columnNumber: 40
+                                                    }, this),
+                                                    " Acumulado en cola Ready"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 195,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    "• ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Tiempo de Respuesta:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 196,
+                                                        columnNumber: 40
+                                                    }, this),
+                                                    " ",
+                                                    process.tiempoInicio,
+                                                    " - ",
+                                                    process.tiempoLlegada,
+                                                    " = ",
+                                                    process.tiempoRespuesta >= 0 ? process.tiempoRespuesta : "N/A"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 196,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    "• ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Tiempo de Retorno:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 197,
+                                                        columnNumber: 40
+                                                    }, this),
+                                                    " ",
+                                                    process.tiempoFinal >= 0 ? `${process.tiempoFinal} - ${process.tiempoLlegada} = ${process.tiempoTurnaround}` : "Pendiente"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 197,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: [
+                                                    "• ",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                        children: "Progreso:"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                        lineNumber: 198,
+                                                        columnNumber: 40
+                                                    }, this),
+                                                    " (",
+                                                    process.burstTime - process.tiempoRestante,
+                                                    " / ",
+                                                    process.burstTime,
+                                                    ") × 100 = ",
+                                                    process.porcentajeProcesado.toFixed(1),
+                                                    "%"
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                                lineNumber: 198,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                        lineNumber: 194,
+                                        columnNumber: 29
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                                lineNumber: 192,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                        lineNumber: 41,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+                    lineNumber: 40,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+            lineNumber: 30,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx",
+        lineNumber: 29,
+        columnNumber: 9
+    }, this);
+}
+}),
 "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -2006,7 +2988,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$pen$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/square-pen.js [app-ssr] (ecmascript) <export default as Edit>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/info.js [app-ssr] (ecmascript) <export default as Info>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$process$2d$details$2d$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-details-modal.tsx [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -3268,6 +4252,18 @@ function ProcessPanel({ state, onCreate, onEdit, onDelete, simulator }) {
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
                 lineNumber: 370,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$process$2d$details$2d$modal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                process: selectedProcess,
+                isOpen: detailsModalOpen,
+                onClose: ()=>{
+                    setDetailsModalOpen(false);
+                    setSelectedProcess(null);
+                }
+            }, void 0, false, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/process-panel.tsx",
+                lineNumber: 464,
                 columnNumber: 7
             }, this)
         ]
@@ -5910,6 +6906,622 @@ function DeadlockAlert({ deadlockInfo, onResolve, onClose }) {
     }, this);
 }
 }),
+"[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>StateDiagram
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/card.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/badge.tsx [app-ssr] (ecmascript)");
+"use client";
+;
+;
+;
+function StateDiagram({ procesos }) {
+    // Contar procesos por estado
+    const countByState = {
+        new: procesos.filter((p)=>p.estado === "new").length,
+        ready: procesos.filter((p)=>p.estado === "ready").length,
+        running: procesos.filter((p)=>p.estado === "running").length,
+        blocked: procesos.filter((p)=>p.estado === "blocked").length,
+        terminated: procesos.filter((p)=>p.estado === "terminated").length
+    };
+    // Obtener PIDs por estado
+    const pidsByState = {
+        new: procesos.filter((p)=>p.estado === "new").map((p)=>p.pid),
+        ready: procesos.filter((p)=>p.estado === "ready").map((p)=>p.pid),
+        running: procesos.filter((p)=>p.estado === "running").map((p)=>p.pid),
+        blocked: procesos.filter((p)=>p.estado === "blocked").map((p)=>p.pid),
+        terminated: procesos.filter((p)=>p.estado === "terminated").map((p)=>p.pid)
+    };
+    const StateBox = ({ estado, color, count, pids })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex flex-col items-center",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `
+          relative
+          ${color} 
+          border-2 border-${color.replace('bg-', 'border-')}
+          rounded-lg p-4 w-32 text-center
+          transition-all hover:scale-105 hover:shadow-lg
+          group
+        `,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "font-bold text-white text-sm mb-1 uppercase",
+                        children: estado
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 52,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-2xl font-bold text-white",
+                        children: count
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 55,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-xs text-white/80 mt-1",
+                        children: count === 1 ? "proceso" : "procesos"
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 58,
+                        columnNumber: 17
+                    }, this),
+                    count > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block z-10",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "bg-black text-white text-xs px-3 py-2 rounded whitespace-nowrap shadow-lg",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "font-semibold mb-1",
+                                    children: "PIDs:"
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                    lineNumber: 66,
+                                    columnNumber: 29
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex flex-wrap gap-1",
+                                    children: [
+                                        pids.slice(0, 10).map((pid)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Badge"], {
+                                                variant: "outline",
+                                                className: "text-white border-white",
+                                                children: pid
+                                            }, pid, false, {
+                                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                                lineNumber: 69,
+                                                columnNumber: 37
+                                            }, this)),
+                                        pids.length > 10 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-white/60",
+                                            children: [
+                                                "+",
+                                                pids.length - 10
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                            lineNumber: 74,
+                                            columnNumber: 37
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                    lineNumber: 67,
+                                    columnNumber: 29
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                            lineNumber: 65,
+                            columnNumber: 25
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 64,
+                        columnNumber: 21
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 42,
+                columnNumber: 13
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+            lineNumber: 41,
+            columnNumber: 9
+        }, this);
+    const Arrow = ({ direction = "right", label = "" })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: `flex items-center justify-center ${direction === "down" || direction === "up" ? "flex-col" : ""}`,
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative",
+                children: [
+                    direction === "right" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "h-0.5 w-12 bg-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 89,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-l-8 border-l-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 90,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 88,
+                        columnNumber: 21
+                    }, this),
+                    direction === "down" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-col items-center",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-0.5 h-12 bg-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 95,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-8 border-t-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 96,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 94,
+                        columnNumber: 21
+                    }, this),
+                    direction === "up" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex flex-col items-center",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-b-8 border-b-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 101,
+                                columnNumber: 25
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-0.5 h-12 bg-muted-foreground"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 102,
+                                columnNumber: 25
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 100,
+                        columnNumber: 21
+                    }, this),
+                    label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background px-2 py-0.5 text-[9px] text-muted-foreground whitespace-nowrap border border-border rounded",
+                        children: label
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 106,
+                        columnNumber: 21
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 86,
+                columnNumber: 13
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+            lineNumber: 85,
+            columnNumber: 9
+        }, this);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Card"], {
+        className: "p-6 border border-border",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                className: "text-lg font-bold mb-6",
+                children: "Diagrama de Estados de Procesos"
+            }, void 0, false, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 116,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-col items-center space-y-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StateBox, {
+                                estado: "NEW",
+                                color: "bg-gray-500",
+                                count: countByState.new,
+                                pids: pidsByState.new
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 122,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                label: "admit"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 128,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StateBox, {
+                                estado: "READY",
+                                color: "bg-blue-500",
+                                count: countByState.ready,
+                                pids: pidsByState.ready
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 129,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 121,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-32"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 139,
+                                columnNumber: 21
+                            }, this),
+                            " ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-col items-center",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                        direction: "down",
+                                        label: "dispatch"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 141,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StateBox, {
+                                        estado: "RUNNING",
+                                        color: "bg-green-500",
+                                        count: countByState.running,
+                                        pids: pidsByState.running
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 142,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                        direction: "up",
+                                        label: "preempt"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 148,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 140,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 138,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StateBox, {
+                                estado: "BLOCKED",
+                                color: "bg-yellow-500",
+                                count: countByState.blocked,
+                                pids: pidsByState.blocked
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 154,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-col items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                        direction: "right",
+                                        label: "I/O wait"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 161,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                        direction: "right",
+                                        label: "I/O complete"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 162,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 160,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-32"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 164,
+                                columnNumber: 21
+                            }, this),
+                            " "
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 153,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-32"
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 169,
+                                columnNumber: 21
+                            }, this),
+                            " ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex flex-col items-center",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Arrow, {
+                                        direction: "down",
+                                        label: "exit"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 171,
+                                        columnNumber: 25
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StateBox, {
+                                        estado: "TERMINATED",
+                                        color: "bg-red-500",
+                                        count: countByState.terminated,
+                                        pids: pidsByState.terminated
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 172,
+                                        columnNumber: 25
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 170,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 168,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 119,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-6 pt-4 border-t border-border",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-xs font-semibold mb-2 text-muted-foreground",
+                        children: "Transiciones:"
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 184,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "grid grid-cols-2 gap-2 text-[10px] text-muted-foreground",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "admit:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 186,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Asignación de memoria"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 186,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "dispatch:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 187,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Selección por scheduler"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 187,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "preempt:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 188,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Quantum agotado o expropiación"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 188,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "I/O wait:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 189,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Solicitud de E/S"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 189,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "I/O complete:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 190,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Finalización de E/S"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 190,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    "• ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "exit:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                        lineNumber: 191,
+                                        columnNumber: 28
+                                    }, this),
+                                    " Proceso terminado"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 191,
+                                columnNumber: 21
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 185,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 183,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-4 p-3 bg-muted rounded text-sm",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "font-semibold mb-1",
+                        children: "Resumen:"
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 197,
+                        columnNumber: 17
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-xs text-muted-foreground",
+                        children: [
+                            "Total de procesos: ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                children: procesos.length
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 199,
+                                columnNumber: 40
+                            }, this),
+                            " ",
+                            "| Activos: ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                children: procesos.filter((p)=>p.estado !== "terminated").length
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 200,
+                                columnNumber: 37
+                            }, this),
+                            " ",
+                            "| Completados: ",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                children: countByState.terminated
+                            }, void 0, false, {
+                                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                                lineNumber: 201,
+                                columnNumber: 41
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                        lineNumber: 198,
+                        columnNumber: 17
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+                lineNumber: 196,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx",
+        lineNumber: 115,
+        columnNumber: 9
+    }, this);
+}
+}),
 "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -5931,11 +7543,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$metrics$2d$dashboard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/metrics-dashboard.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$gantt$2d$chart$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/gantt-chart.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$deadlock$2d$alert$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/deadlock-alert.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$state$2d$diagram$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/panels/state-diagram.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/button.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/ui/dialog.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$download$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Download$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/download.js [app-ssr] (ecmascript) <export default as Download>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__ = __turbopack_context__.i("[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/node_modules/lucide-react/dist/esm/icons/upload.js [app-ssr] (ecmascript) <export default as Upload>");
 "use client";
+;
 ;
 ;
 ;
@@ -6083,7 +7697,7 @@ function OSSimulatorComponent() {
         children: "Inicializando..."
     }, void 0, false, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-        lineNumber: 175,
+        lineNumber: 176,
         columnNumber: 22
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6100,7 +7714,7 @@ function OSSimulatorComponent() {
                                 children: "Simulador de Procesos"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 182,
+                                lineNumber: 183,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6112,7 +7726,7 @@ function OSSimulatorComponent() {
                                         children: running ? "Pausar" : "Ejecutar"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 184,
+                                        lineNumber: 185,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6131,7 +7745,7 @@ function OSSimulatorComponent() {
                                         children: "▶ Ejecutar 1 Tick"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 187,
+                                        lineNumber: 188,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6145,7 +7759,7 @@ function OSSimulatorComponent() {
                                         children: "Reiniciar"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 202,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6158,14 +7772,14 @@ function OSSimulatorComponent() {
                                                 className: "h-4 w-4 mr-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                                lineNumber: 218,
+                                                lineNumber: 219,
                                                 columnNumber: 15
                                             }, this),
                                             "Exportar"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 212,
+                                        lineNumber: 213,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6178,26 +7792,26 @@ function OSSimulatorComponent() {
                                                 className: "h-4 w-4 mr-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 228,
                                                 columnNumber: 15
                                             }, this),
                                             "Importar"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 222,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 183,
+                                lineNumber: 184,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 181,
+                        lineNumber: 182,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6208,7 +7822,7 @@ function OSSimulatorComponent() {
                                 children: "Velocidad:"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 234,
+                                lineNumber: 235,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -6221,7 +7835,7 @@ function OSSimulatorComponent() {
                                 className: "w-48"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 235,
+                                lineNumber: 236,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -6229,19 +7843,19 @@ function OSSimulatorComponent() {
                                 children: speed === 0 ? "Muy Lenta" : speed < 50 ? "Lenta" : speed < 100 ? "Media" : speed < 150 ? "Rápida" : "Muy Rápida"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 244,
+                                lineNumber: 245,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 233,
+                        lineNumber: 234,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 180,
+                lineNumber: 181,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6260,12 +7874,12 @@ function OSSimulatorComponent() {
                                         })
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 256,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 254,
+                                lineNumber: 255,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6278,18 +7892,18 @@ function OSSimulatorComponent() {
                                     simulator: simulatorRef.current
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 262,
+                                    lineNumber: 263,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 261,
+                                lineNumber: 262,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 253,
+                        lineNumber: 254,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6297,12 +7911,12 @@ function OSSimulatorComponent() {
                             metrics: state.metrics
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 274,
+                            lineNumber: 275,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 273,
+                        lineNumber: 274,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6311,12 +7925,25 @@ function OSSimulatorComponent() {
                             procesos: state.procesos
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 279,
+                            lineNumber: 280,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 278,
+                        lineNumber: 279,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$state$2d$diagram$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            procesos: state.procesos
+                        }, void 0, false, {
+                            fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
+                            lineNumber: 285,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
+                        lineNumber: 284,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6327,7 +7954,7 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 284,
+                                lineNumber: 290,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$interrupts$2d$panel$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -6335,13 +7962,13 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 285,
+                                lineNumber: 291,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 283,
+                        lineNumber: 289,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6349,12 +7976,12 @@ function OSSimulatorComponent() {
                             state: state
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 290,
+                            lineNumber: 296,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 289,
+                        lineNumber: 295,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6364,7 +7991,7 @@ function OSSimulatorComponent() {
                                 state: state
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 295,
+                                lineNumber: 301,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$logs$2d$panel$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -6372,19 +7999,19 @@ function OSSimulatorComponent() {
                                 simulator: simulatorRef.current
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 296,
+                                lineNumber: 302,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                        lineNumber: 294,
+                        lineNumber: 300,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 251,
+                lineNumber: 252,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Dialog"], {
@@ -6397,12 +8024,12 @@ function OSSimulatorComponent() {
                                 children: "Interrupción de Teclado"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                lineNumber: 304,
+                                lineNumber: 310,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 303,
+                            lineNumber: 309,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -6410,7 +8037,7 @@ function OSSimulatorComponent() {
                             children: "Un proceso ha solicitado entrada de teclado. ¿Desea continuar o cancelar la operación?"
                         }, void 0, false, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 306,
+                            lineNumber: 312,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -6421,7 +8048,7 @@ function OSSimulatorComponent() {
                                     children: "Cancelar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 310,
+                                    lineNumber: 316,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -6429,24 +8056,24 @@ function OSSimulatorComponent() {
                                     children: "Continuar"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                                    lineNumber: 313,
+                                    lineNumber: 319,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                            lineNumber: 309,
+                            lineNumber: 315,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                    lineNumber: 302,
+                    lineNumber: 308,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 301,
+                lineNumber: 307,
                 columnNumber: 7
             }, this),
             state?.deadlockStatus && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$UNI$2f$Sistemas__Operativos$2f$Proyecto__Final$2f$Proyecto$2d$Sistemas$2d$Operativos$2f$components$2f$panels$2f$deadlock$2d$alert$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -6455,17 +8082,17 @@ function OSSimulatorComponent() {
                 onClose: ()=>setDeadlockDetected(false)
             }, void 0, false, {
                 fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-                lineNumber: 322,
+                lineNumber: 328,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/UNI/Sistemas Operativos/Proyecto Final/Proyecto-Sistemas-Operativos/components/os-simulator.tsx",
-        lineNumber: 178,
+        lineNumber: 179,
         columnNumber: 5
     }, this);
 }
 }),
 ];
 
-//# sourceMappingURL=3d860_UNI_Sistemas%20Operativos_Proyecto%20Final_Proyecto-Sistemas-Operativos_5206501b._.js.map
+//# sourceMappingURL=3d860_UNI_Sistemas%20Operativos_Proyecto%20Final_Proyecto-Sistemas-Operativos_473e1e22._.js.map
