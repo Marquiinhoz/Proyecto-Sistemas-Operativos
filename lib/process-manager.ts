@@ -21,7 +21,7 @@ export class ProcessManager {
   public getLastPID() { return this.ultimoPID; }
 
   public crearProceso(
-    tiempoSimulacion: number, 
+    tiempoSimulacion: number,
     tamanioSolicitado?: number,
     burstTimeSolicitado?: number,
     prioridadSolicitada?: number,
@@ -65,12 +65,26 @@ export class ProcessManager {
       stackPointer: 0,
       heapPointer: 0,
       interrupciones: 0,
-      maxInterrupciones: maxInterrupcionesSolicitadas ?? (Math.floor(Math.random() * 16) + 5), // 5 to 20
+      // Rigorous Requirement: Interrupts dependent on size and burst time
+      maxInterrupciones: maxInterrupcionesSolicitadas ?? Math.min(20, Math.max(5, Math.floor((burstTime * 0.5) + ((tamanio / 1024) / 50) + (Math.random() * 5)))),
       errores: 0,
       cambiosContexto: 0,
       porcentajeProcesado: 0,
       ioType: null,
       ioTimeRemaining: 0,
+      isIdle: false,
+      memoryAddress: `0x${Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0')}`,
+      pcbOffsets: {
+        pid: "0x00",
+        estado: "0x04",
+        pc: "0x08",
+        regs: "0x0C",
+        memLimit: "0x10",
+        files: "0x18"
+      },
+      esProceSO: false,
+      archivosAbiertos: Math.floor(Math.random() * 3),
+      paginasMemoria: []
     };
 
     this.procesos.push(proceso);
@@ -93,11 +107,58 @@ export class ProcessManager {
     }
   }
 
-  public terminarProceso(proceso: Process, tiempoSimulacion: number, memoria: MemoryManager) {
-    proceso.tiempoTurnaround = tiempoSimulacion - proceso.tiempoLlegada;
+  public terminarProceso(
+    proceso: Process,
+    tiempoActual: number,
+    memoryManager: MemoryManager
+  ): void {
     proceso.estado = "terminated";
+    proceso.tiempoFinalizacion = tiempoActual;
+    proceso.tiempoTurnaround =
+      proceso.tiempoFinalizacion - proceso.tiempoLlegada;
+
+    // Rigorous Requirement: Release resources beyond memory
+    if (proceso.archivosAbiertos > 0) {
+      console.log(`[System] Liberando ${proceso.archivosAbiertos} descriptores de archivo para PID ${proceso.pid}`);
+      proceso.archivosAbiertos = 0;
+    }
+
+    memoryManager.liberarMemoria(proceso.pid);
     this.colaTerminated.push(proceso);
-    memoria.liberarMemoria(proceso.pid);
+  }
+
+  public createIdleProcess(): Process {
+    return {
+      pid: 0,
+      estado: "ready",
+      programCounter: 0,
+      burstTime: Infinity,
+      tiempoRestante: Infinity,
+      tiempoLlegada: 0,
+      tiempoEspera: 0,
+      tiempoRespuesta: 0,
+      tiempoTurnaround: 0,
+      prioridad: -1,
+      tamanio: 0,
+      dirBase: 0,
+      porcentajeDatos: 0,
+      porcentajeVariable: 0,
+      stackPointer: 0,
+      heapPointer: 0,
+      interrupciones: 0,
+      maxInterrupciones: 0,
+      errores: 0,
+      cambiosContexto: 0,
+      porcentajeProcesado: 0,
+      ioType: null,
+      ioTimeRemaining: 0,
+      isIdle: true,
+      esProceSO: true, // System Process
+      memoryAddress: "0x0000",
+      pcbOffsets: {},
+      archivosAbiertos: 0,
+      paginasMemoria: []
+    };
   }
 
   public getProcess(pid: number): Process | undefined {
@@ -130,15 +191,15 @@ export class ProcessManager {
       }
       proceso.dirBase = -1;
       proceso.estado = "new";
-      
+
       // Actualizar tamaño
       proceso.tamanio = nuevoTamanio;
-      
+
       // Intentar reasignar memoria
       if (!memoria.asignarMemoria(proceso)) {
         return false; // No hay memoria disponible
       }
-      
+
       // Recalcular punteros
       const dataSize = Math.floor(proceso.tamanio * (proceso.porcentajeDatos / 100));
       proceso.heapPointer = proceso.dirBase + dataSize;
@@ -155,15 +216,15 @@ export class ProcessManager {
       } else {
         proceso.tiempoRestante = updates.burstTime;
       }
-      proceso.porcentajeProcesado = proceso.burstTime > 0 
-        ? ((proceso.burstTime - proceso.tiempoRestante) / proceso.burstTime) * 100 
+      proceso.porcentajeProcesado = proceso.burstTime > 0
+        ? ((proceso.burstTime - proceso.tiempoRestante) / proceso.burstTime) * 100
         : 0;
     }
-    
+
     if (updates.prioridad !== undefined) {
       proceso.prioridad = Math.max(0, Math.min(3, updates.prioridad));
     }
-    
+
     if (updates.porcentajeDatos !== undefined) {
       proceso.porcentajeDatos = Math.min(100, Math.max(0, updates.porcentajeDatos));
       if (proceso.dirBase !== -1) {
@@ -171,11 +232,11 @@ export class ProcessManager {
         proceso.heapPointer = proceso.dirBase + dataSize;
       }
     }
-    
+
     if (updates.porcentajeVariable !== undefined) {
       proceso.porcentajeVariable = Math.min(100, Math.max(0, updates.porcentajeVariable));
     }
-    
+
     if (updates.maxInterrupciones !== undefined) {
       proceso.maxInterrupciones = Math.max(1, Math.min(20, updates.maxInterrupciones));
     }
@@ -203,7 +264,7 @@ export class ProcessManager {
 
     // Remover de todas las colas
     this.colaNew = this.colaNew.filter(p => p.pid !== pid);
-    
+
     // Remover de cola ready (scheduler)
     const readyQueue = scheduler.getQueue();
     const readyIndex = readyQueue.findIndex(p => p.pid === pid);

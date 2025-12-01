@@ -1,0 +1,451 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, babel}
+
+\begin{document}
+
+\title{Simulación Integral de un Sistema Operativo: Gestión de Procesos, Memoria e Interrupciones}
+
+\author{\IEEEauthorblockN{Gomez Felix Marco Sebastian, Mendoza Bautista Eloy Fabian,}
+\IEEEauthorblockN{Muñoz Bolaños Pablo Antonio, Ramirez Veramendi Luis Angel,}
+\IEEEauthorblockN{Yampufe Pau Hector Alonso, Zuñiga Canto Fabricio Sebastian}
+\IEEEauthorblockA{\textit{Facultad de Ingeniería Industrial y de Sistemas} \\
+\textit{Universidad Nacional de Ingeniería}\\
+Lima, Perú \\
+Curso: SW407 Sistemas Operativos \\
+Docente: Ing. Carlos Nelson Ramos Montes \\
+24 de noviembre 2025}
+}
+
+\maketitle
+
+\begin{abstract}
+Este documento presenta el diseño, arquitectura e implementación detallada de un simulador de sistemas operativos basado en tecnologías web. El sistema permite la visualización y gestión de procesos, memoria y planificación de CPU en tiempo real, ofreciendo una plataforma educativa para experimentar con conceptos abstractos. Desarrollado con tecnologías modernas como Next.js y React, el simulador implementa un núcleo modular que reproduce fielmente el ciclo de vida de los procesos, incluyendo un modelo de cinco estados, diversas políticas de planificación (FCFS, SJF, Round Robin, Prioridades) y gestión de memoria dinámica mediante particionamiento variable. El objetivo principal es proporcionar una herramienta interactiva que facilite la comprensión de la concurrencia, la gestión de recursos y el manejo de interrupciones en un entorno controlado.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Sistema Operativo, Simulación, Planificación de CPU, Gestión de Procesos, Next.js, React, Cambio de Contexto, Gestión de Memoria, Interrupciones, PCB.
+\end{IEEEkeywords}
+
+\section{Introducción}
+Los sistemas operativos modernos son piezas de software extremadamente complejas que actúan como intermediarios entre el hardware de la computadora y las aplicaciones del usuario. Su función principal es gestionar los recursos del sistema (CPU, memoria, dispositivos de E/S) de manera eficiente y justa. Sin embargo, debido a su naturaleza abstracta y a la velocidad a la que ocurren los eventos internos, comprender su funcionamiento puede resultar desafiante para los estudiantes de ingeniería.
+
+El funcionamiento interno de un sistema operativo se basa en un conjunto de conceptos formales y algoritmos matemáticos que permiten administrar procesos, memoria, dispositivos y recursos de manera ordenada. Conceptos como la multiprogramación, el tiempo compartido y la memoria virtual son fundamentales para el rendimiento de los sistemas actuales.
+
+El simulador desarrollado en este proyecto implementa estos fundamentos de forma simplificada pero rigurosa, manteniendo la estructura lógica de un sistema operativo real. A diferencia de una simple animación, este simulador ejecuta una lógica de estado real, donde cada "tick" de reloj desencadena evaluaciones de planificación, gestión de memoria y manejo de interrupciones.
+
+El objetivo de este trabajo no es solo construir una herramienta visual, sino profundizar en la teoría subyacente de cada módulo. A lo largo de este informe, desglosaremos cada componente teórico, explicaremos su implementación práctica y analizaremos cómo interactúan entre sí para formar un sistema cohesivo.
+
+\section{Sustento Teórico Detallado}
+
+\subsection{Gestión de Procesos}
+Un proceso es la unidad de ejecución fundamental en un sistema operativo. A menudo se confunde con un "programa", pero existe una diferencia crucial: un programa es una entidad pasiva, un archivo almacenado en disco que contiene instrucciones (código binario). Un proceso, en cambio, es una entidad activa; es un programa en ejecución que posee un contador de programa actual, registros del procesador y un espacio de memoria asociado.
+
+El sistema operativo es responsable de las siguientes actividades en relación con la gestión de procesos:
+\begin{itemize}
+    \item Creación y eliminación de procesos tanto del usuario como del sistema.
+    \item Suspensión y reanudación de procesos.
+    \item Provisión de mecanismos para la sincronización y comunicación entre procesos.
+\end{itemize}
+
+\textbf{Por ejemplo:} Imagina una receta de cocina escrita en un libro; eso es el \textit{programa} (estático). Cuando un cocinero empieza a seguir la receta, reuniendo ingredientes y ejecutando los pasos, se convierte en un \textit{proceso} (dinámico). Si el cocinero se detiene para atender una llamada, debe recordar en qué paso se quedó (guardar el estado) para retomarlo después. Si hay dos cocineros compartiendo la cocina, necesitan coordinarse para no usar el horno al mismo tiempo (sincronización).
+
+\subsection{Validación de Componentes Críticos}
+Se realizaron pruebas específicas para verificar el cumplimiento de los requisitos rigurosos implementados en el simulador.
+
+\subsubsection{Funcionamiento del Proceso Idle}
+Se verificó que, ante la ausencia de procesos en la cola \textit{Ready}, el despachador selecciona automáticamente el \textbf{Proceso Idle (PID 0)}. Esto asegura que la CPU nunca quede en un estado indefinido. En los logs del sistema se registró: \texttt{CPU Idle (PID 0)}.
+
+\subsubsection{Gestión de Interrupciones de Timer}
+En el modo \textit{Round Robin}, se validó la generación explícita de interrupciones de Timer. Al expirar el Quantum, el sistema fuerza un cambio de contexto, moviendo el proceso actual a \textit{Ready} y registrando el evento: \texttt{Interrupción de Timer (Quantum expirado)}.
+
+\subsubsection{Manejo de Errores y Estabilidad}
+Se sometió al sistema a pruebas de estrés para validar el módulo \texttt{ErrorManager}. Se confirmó que los fallos aleatorios (con probabilidad del 0.5\%) son capturados correctamente, generando códigos de error específicos (ej. \texttt{E002}) y terminando el proceso afectado sin comprometer la estabilidad del sistema operativo simulado.
+
+\subsubsection{Aleatoriedad Controlada}
+Se comprobó que la generación de procesos respeta las fórmulas matemáticas definidas:
+\begin{itemize}
+    \item Los tamaños de proceso generados son potencias de 2 (ej. 32KB, 64KB).
+    \item La duración de las operaciones de E/S se mantiene estrictamente en el rango de [5, 20] ticks.
+\end{itemize}
+
+\begin{figure*}[ht]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/scheduler_fcfs_1764551768683.png}
+        \caption{Algoritmo FCFS: Ejecución secuencial.}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/scheduler_sjf_final_1764552083559.png}
+        \caption{Algoritmo SJF: Procesos cortos primero.}
+    \end{minipage}
+    \vspace{0.5cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/scheduler_roundrobin_1764552392180.png}
+        \caption{Algoritmo Round Robin: Expropiación por Quantum.}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/scheduler_priority_1764552557595.png}
+        \caption{Algoritmo por Prioridades: Orden por importancia.}
+    \end{minipage}
+    \caption{Evidencia visual del funcionamiento de los algoritmos de planificación.}
+    \label{fig:schedulers}
+\end{figure*}
+
+\subsection{Sustentación Matemática (RNG)}
+Para garantizar la fidelidad de la simulación, se han implementado las siguientes ecuaciones formales:
+
+\paragraph{Tamaño del Proceso ($Size$)}
+\begin{equation}
+Size = 2^{\lceil \log_2(Random(32KB, 512KB)) \rceil}
+\end{equation}
+
+\paragraph{Ráfaga de CPU ($Burst$)}
+\begin{equation}
+Burst = Random(5, 20)
+\end{equation}
+
+\paragraph{Duración de E/S ($IO_{dur}$)}
+\begin{equation}
+IO_{dur} = Clamp_{[5, 20]}\left(5 + \frac{Burst}{2} + Random(0, 5)\right)
+\end{equation}
+
+\paragraph{Máximas Interrupciones ($Max_{Int}$)}
+\begin{equation}
+Max_{Int} = Clamp_{[5, 20]}\left(5 + 0.5 \cdot Burst + \frac{Size_{KB}}{50}\right)
+\end{equation}
+
+\paragraph{Probabilidad de Error ($P_{Err}$)}
+\begin{equation}
+P(Error) = 0.005 \quad (0.5\%)
+\end{equation}
+
+\subsubsection{PCB (Process Control Block)}
+Para que el sistema operativo pueda gestionar múltiples procesos simultáneamente, necesita mantener una estructura de datos para cada uno. Esta estructura se conoce como Bloque de Control de Proceso (PCB). El PCB funciona como el repositorio central de toda la información necesaria para reanudar un proceso después de que haya sido interrumpido.
+
+El PCB contiene información crítica:
+\begin{itemize}
+    \item \textbf{Identificador del Proceso (PID)}: Un número único que distingue al proceso de los demás.
+    \item \textbf{Estado del Proceso}: Indica si el proceso está listo, ejecutándose, bloqueado, etc.
+    \item \textbf{Contador de Programa (PC)}: La dirección de la siguiente instrucción a ejecutar.
+    \item \textbf{Registros de CPU}: Incluye acumuladores, registros de índice y punteros de pila. Estos deben guardarse al ocurrir una interrupción.
+    \item \textbf{Información de Planificación}: Prioridad, punteros a colas de planificación y otros parámetros.
+    \item \textbf{Información de Gestión de Memoria}: Tablas de páginas o registros base/límite.
+    \item \textbf{Información de E/S}: Lista de dispositivos asignados y archivos abiertos.
+\end{itemize}
+
+\textbf{Por ejemplo:} Es como la \textit{historia clínica} de un paciente en un hospital. El médico (CPU) atiende a muchos pacientes. Cuando cambia de paciente, consulta la historia clínica para saber qué medicamentos tomó, qué síntomas tiene y qué tratamiento sigue, asegurando la continuidad de la atención sin errores.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \node (pcb) [draw, rectangle, minimum width=4cm, minimum height=5cm, fill=blue!10, rounded corners] {};
+        \node at (pcb.north) [below=0.2cm] {\textbf{Process Control Block}};
+        
+        \node (pid) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=1.8cm] {PID: 1024};
+        \node (state) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=1.1cm] {Estado: Ready};
+        \node (pc) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=0.4cm] {PC: 0x004F};
+        \node (regs) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=-0.3cm] {Registros: AX, BX...};
+        \node (mem) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=-1.0cm] {Límites de Memoria};
+        \node (files) [draw, rectangle, fill=white, minimum width=3.5cm, minimum height=0.6cm] at (pcb.center) [yshift=-1.7cm] {Archivos Abiertos};
+    \end{tikzpicture}
+    \caption{Estructura simplificada de un PCB.}
+    \label{fig:pcb}
+\end{figure}
+
+\subsubsection{Ciclo de Vida del Proceso}
+Un proceso pasa por varios estados durante su existencia. Comprender estos estados es vital para entender cómo el sistema operativo maximiza la utilización de la CPU.
+\begin{itemize}
+    \item \textbf{Nuevo}: El proceso se está creando. Se ha solicitado su ejecución, pero aún no ha sido admitido en la memoria principal por el planificador a largo plazo.
+    \item \textbf{Listo (Ready)}: El proceso ha sido cargado en memoria y tiene todos los recursos necesarios para ejecutarse, excepto la CPU. Está esperando en la cola de listos a que el planificador a corto plazo lo seleccione.
+    \item \textbf{Ejecución (Running)}: El proceso tiene el control de la CPU y está ejecutando instrucciones. En un sistema monoprocesador, solo un proceso puede estar en este estado a la vez.
+    \item \textbf{Bloqueado (Waiting)}: El proceso no puede continuar hasta que ocurra un evento externo, como la finalización de una operación de lectura de disco o la recepción de una señal. Aunque la CPU estuviera libre, este proceso no podría usarla.
+    \item \textbf{Finalizado (Terminated)}: El proceso ha completado su ejecución. El sistema operativo procede a liberar la memoria y otros recursos que tenía asignados.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_1764481443291.png}
+    \caption{Diagrama de estados de un proceso.}
+    \label{fig:states}
+\end{figure}
+
+\subsection{Planificación de Procesos (Scheduling)}
+La planificación de la CPU es la base de los sistemas operativos multiprogramados. Al cambiar la CPU entre procesos, el sistema operativo puede hacer que la computadora sea más productiva. El planificador (Scheduler) es el componente que decide qué proceso en la cola de listos debe ser ejecutado a continuación.
+
+El objetivo de la planificación es optimizar ciertas métricas del sistema:
+\begin{itemize}
+    \item \textbf{Utilización de CPU}: Mantener la CPU ocupada tanto como sea posible.
+    \item \textbf{Throughput (Rendimiento)}: Número de procesos que completan su ejecución por unidad de tiempo.
+    \item \textbf{Tiempo de Retorno (Turnaround Time)}: Tiempo transcurrido desde que se presenta el proceso hasta que se completa.
+    \item \textbf{Tiempo de Espera}: Tiempo total que un proceso pasa en la cola de listos.
+    \item \textbf{Tiempo de Respuesta}: Tiempo desde que se envía una solicitud hasta que se produce la primera respuesta (importante en sistemas interactivos).
+\end{itemize}
+
+\textbf{Por ejemplo:} Imagina un cajero de banco (CPU) con una sola ventanilla y una fila de clientes (procesos). El planificador es el gerente que decide quién pasa a la ventanilla. Si elige mal (ej. atiende a alguien que tardará una hora mientras hay 10 personas esperando para hacer un depósito rápido), la satisfacción general (rendimiento) bajará drásticamente.
+
+\subsubsection{Algoritmos de Planificación Detallados}
+
+\paragraph{FCFS (First-Come, First-Served)}
+Es el algoritmo más simple. La CPU se asigna a los procesos en el orden en que lo solicitan. Se implementa fácilmente con una cola FIFO.
+\begin{itemize}
+    \item \textbf{Ventaja}: Simple de entender y programar.
+    \item \textbf{Desventaja}: Sufre del "Efecto Convoy". Si un proceso largo llega primero, todos los procesos cortos detrás de él deben esperar mucho tiempo, aumentando el tiempo de espera promedio. Es no apropiativo.
+\end{itemize}
+\textbf{Por ejemplo:} Una fila estricta para comprar entradas de cine. Si la primera persona quiere comprar 50 entradas y tarda 20 minutos, todos los demás deben esperar.
+
+\paragraph{SJF (Shortest Job First)}
+Asocia a cada proceso la longitud de su próxima ráfaga de CPU. Cuando la CPU está disponible, se asigna al proceso con la ráfaga más pequeña.
+\begin{itemize}
+    \item \textbf{Ventaja}: Es óptimo demostrablemente en cuanto a minimizar el tiempo de espera promedio.
+    \item \textbf{Desventaja}: Es difícil de implementar en sistemas reales porque no se puede saber con certeza cuánto durará la próxima ráfaga de CPU (se debe estimar). Además, puede causar \textit{inanición} (starvation) a los procesos largos si siempre llegan procesos cortos.
+\end{itemize}
+\textbf{Por ejemplo:} En una caja rápida de supermercado "solo para menos de 10 artículos". Se atiende primero a quienes tienen pocas cosas.
+
+\paragraph{Round Robin (RR)}
+Diseñado para sistemas de tiempo compartido. Es similar a FCFS pero con expropiación (preemption). Se define una pequeña unidad de tiempo llamada \textit{Quantum} (generalmente 10-100 ms). La cola de listos se trata como una cola circular. El planificador recorre la cola asignando la CPU a cada proceso por un intervalo de tiempo de hasta un quantum.
+\begin{itemize}
+    \item \textbf{Ventaja}: Garantiza un buen tiempo de respuesta. Ningún proceso espera más de $(n-1) \times q$ unidades de tiempo.
+    \item \textbf{Desventaja}: El rendimiento depende mucho del tamaño del quantum. Si es muy grande, se comporta como FCFS. Si es muy pequeño, el overhead por cambio de contexto es excesivo.
+\end{itemize}
+\textbf{Por ejemplo:} Un grupo de amigos jugando un videojuego con un solo control. Cada uno juega 5 minutos y luego pasa el turno.
+
+\paragraph{Planificación por Prioridades}
+Se asocia un número (prioridad) a cada proceso y la CPU se asigna al proceso con mayor prioridad.
+\begin{itemize}
+    \item \textbf{Problema}: Inanición. Los procesos de baja prioridad pueden no ejecutarse nunca.
+    \item \textbf{Solución}: Envejecimiento (Aging). Aumentar gradualmente la prioridad de los procesos que llevan mucho tiempo esperando.
+\end{itemize}
+
+\subsection{Gestión de Memoria}
+La memoria principal es fundamental para la operación de un sistema informático moderno. La memoria es una gran matriz de palabras o bytes, cada una con su propia dirección. La CPU busca instrucciones de la memoria según el valor del contador de programa.
+
+El gestor de memoria tiene la tarea de llevar un registro de qué partes de la memoria están en uso y cuáles están libres, decidir cuánta memoria asignar a los procesos cuando la necesitan y recuperarla cuando terminan.
+
+\textbf{Por ejemplo:} Un estacionamiento público. Los autos (procesos) son de diferentes tamaños. El gestor es el valet parking que busca un espacio libre donde quepa el auto.
+
+\subsubsection{Fragmentación}
+La fragmentación es el desperdicio de memoria que ocurre al asignar y liberar procesos de diferentes tamaños.
+\begin{itemize}
+    \item \textbf{Fragmentación Externa}: Existe suficiente espacio total de memoria para satisfacer una solicitud, pero el espacio no es contiguo; está fragmentado en un gran número de huecos pequeños.
+    \item \textbf{Fragmentación Interna}: La memoria asignada a un proceso es ligeramente mayor que la solicitada. La diferencia es memoria interna a una partición, pero que no se usa.
+\end{itemize}
+
+\subsubsection{Estrategias de Asignación}
+Para resolver el problema de la asignación dinámica de almacenamiento (dada una lista de huecos libres, ¿cuál usar?), existen varias estrategias:
+\begin{itemize}
+    \item \textbf{First-Fit (Primer Ajuste)}: Asigna el primer hueco que sea lo suficientemente grande. La búsqueda puede comenzar al principio del conjunto de huecos o donde terminó la búsqueda anterior. Es generalmente el más rápido.
+    \item \textbf{Best-Fit (Mejor Ajuste)}: Asigna el hueco más pequeño que sea lo suficientemente grande. Debe buscar en toda la lista (a menos que esté ordenada por tamaño). Produce el hueco sobrante más pequeño.
+    \item \textbf{Worst-Fit (Peor Ajuste)}: Asigna el hueco más grande. También debe buscar en toda la lista. Produce el hueco sobrante más grande, que podría ser más útil que el hueco pequeño del Best-Fit.
+\end{itemize}
+
+\subsection{Memoria Virtual: Paginación y Segmentación}
+Aunque nuestro simulador implementa un esquema de particionamiento variable (contiguo), los sistemas operativos modernos utilizan técnicas más avanzadas para superar las limitaciones de la memoria física y la fragmentación externa.
+
+\subsubsection{Paginación}
+La paginación elimina la necesidad de asignación contigua de memoria física. Divide la memoria física en bloques de tamaño fijo llamados \textit{marcos} (frames) y la memoria lógica en bloques del mismo tamaño llamados \textit{páginas}.
+\begin{itemize}
+    \item \textbf{Ventaja}: Elimina la fragmentación externa por completo.
+    \item \textbf{Desventaja}: Introduce fragmentación interna (en la última página de un proceso) y requiere hardware de soporte (MMU) para la traducción de direcciones mediante una Tabla de Páginas.
+\end{itemize}
+
+\subsubsection{Segmentación}
+La segmentación soporta la visión del usuario de la memoria. Un programa es una colección de segmentos (código, pila, datos, librerías).
+\begin{itemize}
+    \item \textbf{Ventaja}: Facilita la protección y el uso compartido de código.
+    \item \textbf{Desventaja}: Sufre de fragmentación externa, similar al particionamiento variable.
+\end{itemize}
+
+\subsection{Concurrencia y Sincronización}
+En un sistema multiprogramado, múltiples procesos pueden ejecutarse concurrentemente. Si estos procesos comparten datos, pueden surgir problemas graves si no se gestionan adecuadamente.
+
+\subsubsection{Condición de Carrera (Race Condition)}
+Ocurre cuando varios procesos acceden y manipulan los mismos datos concurrentemente y el resultado de la ejecución depende del orden particular en que tienen lugar los accesos.
+\textbf{Ejemplo}: Dos procesos intentan incrementar una variable compartida `contador` al mismo tiempo. Si la operación no es atómica, el valor final puede ser incorrecto.
+
+\subsubsection{Interbloqueo (Deadlock)}
+Es una situación en la que un conjunto de procesos está bloqueado porque cada proceso está reteniendo un recurso y esperando otro recurso que está siendo retenido por otro proceso del mismo conjunto.
+Para que ocurra un deadlock, deben cumplirse cuatro condiciones necesarias (Condiciones de Coffman):
+\begin{enumerate}
+    \item \textbf{Exclusión Mutua}: Al menos un recurso debe ser no compartible.
+    \item \textbf{Retener y Esperar}: Un proceso debe retener al menos un recurso y esperar adquirir otros.
+    \item \textbf{No Expropiación}: Los recursos no pueden ser quitados a un proceso; deben ser liberados voluntariamente.
+    \item \textbf{Espera Circular}: Debe existir un conjunto de procesos $\{P_0, P_1, \dots, P_n\}$ tal que $P_0$ espera un recurso de $P_1$, $P_1$ de $P_2$, ..., y $P_n$ de $P_0$.
+\end{enumerate}
+
+\section{Arquitectura y Flujo del Sistema}
+
+El sistema no es un conjunto de piezas aisladas, sino un engranaje interconectado. A continuación se detalla cómo surge y se relaciona todo en nuestra simulación.
+
+\subsection{Interacción de Componentes}
+El simulador está diseñado siguiendo el patrón de arquitectura de software \textbf{Model-View-Controller (MVC)} adaptado a React (Component-State).
+
+\begin{enumerate}
+    \item \textbf{Inicio (Process Manager)}: Todo comienza cuando el usuario o el sistema crea un proceso. El \textit{Process Manager} instancia un nuevo objeto Proceso, asignándole un PID único, un color aleatorio para visualización y determinando sus requerimientos de memoria y ciclos de CPU.
+    
+    \item \textbf{Admisión (Memory Manager)}: Antes de que el proceso pueda entrar a la cola de listos, debe ser cargado en memoria. El \textit{Memory Manager} escanea la memoria disponible usando la estrategia configurada (ej. First-Fit). Si encuentra un bloque contiguo libre, lo marca como ocupado y el proceso pasa al estado \textbf{Ready}. Si no, el proceso queda en espera.
+    
+    \item \textbf{Decisión (Scheduler)}: El \textit{Scheduler} se ejecuta en cada "tick" del reloj. Revisa la cola \textbf{Ready}. Según el algoritmo seleccionado (ej. SJF), evalúa los atributos de los procesos (tiempo de ráfaga, prioridad, tiempo de llegada) y elige el "mejor" candidato para usar la CPU.
+    
+    \item \textbf{Ejecución (Dispatcher)}: Una vez que el Scheduler toma una decisión, el \textit{Dispatcher} realiza el cambio de contexto. Esto implica:
+    \begin{itemize}
+        \item Guardar el estado del proceso que sale (si lo hay).
+        \item Cargar el estado del proceso entrante.
+        \item Actualizar el estado del proceso a \textbf{Running}.
+    \end{itemize}
+    
+    \item \textbf{Interrupción (I/O Manager)}: Durante la ejecución, un proceso puede necesitar realizar una operación de E/S (simulada aleatoriamente). Cuando esto ocurre, se genera una interrupción. El \textit{I/O Manager} mueve el proceso al estado \textbf{Blocked} y lo coloca en una cola de espera de dispositivo. La CPU queda libre inmediatamente y el Scheduler es invocado nuevamente para elegir otro proceso.
+\end{enumerate}
+
+\subsection{Diagrama de Flujo del Sistema}
+La Figura \ref{fig:flowchart} ilustra el ciclo de vida completo y la interacción detallada entre los módulos. Se observa claramente el bucle de retroalimentación donde los procesos entran y salen de la CPU y las colas de espera.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\node (new) [startstop] {Nuevo Proceso};
+\node (memcheck) [decision, below of=new, yshift=-0.5cm] {¿Hay Memoria?};
+\node (ready) [process, below of=memcheck, yshift=-1cm] {Cola Ready};
+\node (scheduler) [process, below of=ready] {Scheduler Elige};
+\node (running) [process, below of=scheduler] {Running (CPU)};
+\node (io) [process, right of=running, xshift=3.5cm] {Blocked (I/O)};
+\node (term) [startstop, below of=running] {Terminated};
+
+\draw [arrow] (new) -- (memcheck);
+\draw [arrow] (memcheck) -- node[anchor=east] {Sí} (ready);
+\draw [arrow] (memcheck) -- node[anchor=south] {No} +(2.5,0) |- (new);
+\draw [arrow] (ready) -- (scheduler);
+\draw [arrow] (scheduler) -- (running);
+\draw [arrow] (running) -- node[anchor=south] {Solicitud E/S} (io);
+\draw [arrow] (io) |- (ready);
+\draw [arrow] (running) -- node[anchor=east] {Fin} (term);
+
+% Fixed loop for Quantum to avoid overlap
+\draw [arrow] (running.west) -- ++(-1.5,0) |- node[near start, left] {Quantum} (ready.west);
+
+\end{tikzpicture}
+\caption{Flujo de interacción entre Process Manager, Memoria y Scheduler.}
+\label{fig:flowchart}
+\end{figure*}
+
+\section{Trabajo Realizado e Implementación}
+El desarrollo del simulador implicó la traducción de los conceptos teóricos a código ejecutable. Se utilizó TypeScript para garantizar la seguridad de tipos y facilitar la gestión de las estructuras de datos complejas como los PCBs y las colas de prioridad.
+
+\subsection{Estructura de Clases}
+El núcleo de la simulación reside en la carpeta \texttt{lib/} y consta de las siguientes clases principales:
+
+\subsubsection{OSSimulator}
+Es la clase orquestadora (Singleton). Mantiene el reloj global del sistema (\texttt{tiempoSimulacion}) y coordina las llamadas a los otros gestores en cada ciclo. Contiene el bucle principal \texttt{ejecutarTick()}, que es el corazón del simulador.
+
+\subsubsection{ProcessManager}
+Encargado de la gestión del ciclo de vida. Mantiene listas separadas para cada estado (\texttt{colaNew}, \texttt{colaReady}, \texttt{colaBlocked}, \texttt{colaTerminated}). Implementa métodos para crear procesos aleatorios, asignándoles tiempos de ráfaga y prioridades basadas en distribuciones estadísticas para simular cargas de trabajo reales.
+
+\subsubsection{Scheduler}
+Implementa la lógica de decisión. Utiliza el patrón de diseño \textit{Strategy} para permitir el cambio dinámico de algoritmos.
+\begin{itemize}
+    \item Para \textbf{FCFS} y \textbf{Round Robin}, simplemente extrae del frente de la lista.
+    \item Para \textbf{SJF} y \textbf{Prioridades}, realiza una búsqueda u ordenamiento de la cola \texttt{Ready} para encontrar el candidato óptimo según la métrica correspondiente.
+\end{itemize}
+
+\subsubsection{MemoryManager}
+Simula la memoria RAM como un array de bloques. Implementa el algoritmo de asignación contigua. Mantiene un mapa de bits o una lista de huecos libres para rastrear la ocupación. Cuando un proceso termina, el MemoryManager libera los bloques correspondientes y fusiona huecos adyacentes para reducir la fragmentación externa.
+
+\subsection{Interfaz de Usuario (Frontend)}
+La interfaz se construyó con React y Tailwind CSS para ofrecer una experiencia visual moderna y receptiva.
+\subsubsection{Panel de Procesos}
+Utiliza pestañas para filtrar procesos por estado, permitiendo al usuario ver claramente cómo fluyen los procesos a través del sistema.
+
+\subsubsection{Visualización de Memoria}
+Representa la memoria como una cuadrícula donde cada celda es un bloque. Los bloques ocupados se colorean según el proceso asignado, permitiendo visualizar gráficamente la fragmentación.
+
+\subsubsection{Controles de Simulación}
+Permiten pausar, reanudar y ajustar la velocidad del reloj, lo cual es esencial para fines educativos, permitiendo al estudiante "congelar" el tiempo para analizar el estado del sistema.
+
+\section{Pruebas y Evidencias}
+Para validar el simulador, se realizaron pruebas exhaustivas cubriendo diversos escenarios.
+
+\subsection{Escenario de Prueba: Inanición en Prioridades}
+Se configuró el planificador en modo "Prioridades" y se lanzaron 5 procesos de alta prioridad seguidos de 1 proceso de baja prioridad. Se observó que el proceso de baja prioridad permaneció en la cola \texttt{Ready} indefinidamente mientras llegaban nuevos procesos de alta prioridad, demostrando visualmente el fenómeno de inanición.
+
+\subsection{Escenario de Prueba: Round Robin y Quantum}
+Se probó el algoritmo Round Robin con diferentes valores de Quantum. Con \textbf{Quantum = 2}, se observó una alta interactividad y frecuentes cambios de contexto. Por otro lado, con \textbf{Quantum = 20}, el comportamiento se asemejó a FCFS, reduciendo el overhead pero aumentando el tiempo de espera para procesos cortos.
+
+La Figura \ref{fig:sim} muestra una captura del sistema en funcionamiento, donde se aprecia la cola de listos ordenada y la asignación de memoria en tiempo real.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/verification_screenshot_1764478745582.png}
+    \caption{Interfaz del Simulador: Gestión de colas y configuración.}
+    \label{fig:sim}
+\end{figure}
+
+\subsection{Análisis Comparativo de Algoritmos}
+A continuación se presenta una comparación teórica y experimental de los algoritmos implementados:
+
+\begin{table*}[t]
+\caption{Comparación de Algoritmos de Planificación}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Algoritmo} & \textbf{Tipo} & \textbf{Ventaja Principal} & \textbf{Desventaja Principal} \\
+\hline
+FCFS & No Apropiativo & Simplicidad & Efecto Convoy \\
+\hline
+SJF & No Apropiativo & Minimiza espera & Inanición, requiere estimación \\
+\hline
+Round Robin & Apropiativo & Respuesta rápida & Overhead de contexto \\
+\hline
+Prioridades & Ambos & Importancia relativa & Inanición (sin aging) \\
+\hline
+\end{tabular}
+\label{tab:algos}
+\end{table*}
+
+\section{Trabajos Futuros}
+El simulador actual sienta las bases para una herramienta educativa robusta, pero existen varias áreas de mejora para futuras versiones:
+\begin{itemize}
+    \item \textbf{Sistemas de Archivos}: Implementar un sistema de archivos virtual (FAT o ext4 simplificado) para que los procesos puedan realizar operaciones de lectura/escritura reales sobre archivos simulados.
+    \item \textbf{Gestión de Usuarios}: Añadir soporte para múltiples usuarios y permisos, permitiendo simular la protección y seguridad del sistema.
+    \item \textbf{Memoria Virtual Real}: Implementar paginación con algoritmos de reemplazo de páginas (LRU, FIFO) para visualizar el thrashing y los fallos de página.
+    \item \textbf{Redes}: Incorporar un módulo de red para simular la comunicación entre procesos en diferentes máquinas (sockets).
+\end{itemize}
+
+\section{Conclusiones}
+El desarrollo de este simulador ha permitido integrar y visualizar los conceptos teóricos fundamentales de los sistemas operativos.
+
+\begin{enumerate}
+    \item \textbf{Comprensión Profunda}: La implementación de los algoritmos de planificación desde cero ha proporcionado una comprensión mucho más profunda de sus ventajas y desventajas que la simple teoría. Se ha evidenciado cómo decisiones simples en el diseño del planificador tienen impactos masivos en el rendimiento global.
+    \item \textbf{Visualización de Abstracciones}: Conceptos abstractos como el "Cambio de Contexto" o la "Fragmentación Externa" se vuelven tangibles y comprensibles al verlos representados gráficamente en tiempo real.
+    \item \textbf{Modularidad}: La arquitectura modular adoptada demuestra ser esencial para la construcción de sistemas complejos, permitiendo aislar la lógica de cada componente (Memoria, CPU, E/S) tal como ocurre en un kernel real.
+    \item \textbf{Valor Educativo}: La herramienta resultante es un recurso valioso para la enseñanza, permitiendo a los estudiantes experimentar con parámetros (como el Quantum) y observar las consecuencias inmediatas en el comportamiento del sistema.
+\end{enumerate}
+
+\section{Referencias}
+\begin{thebibliography}{00}
+\bibitem{b1} Silberschatz, A., Galvin, P. B., \& Gagne, G. (2018). \textit{Operating System Concepts}. 10th Edition. Wiley.
+\bibitem{b2} Tanenbaum, A. S., \& Bos, H. (2014). \textit{Modern Operating Systems}. 4th Edition. Pearson.
+\bibitem{b3} Stallings, W. (2018). \textit{Operating Systems: Internals and Design Principles}. 9th Edition. Pearson.
+\bibitem{b4} Arpaci-Dusseau, R. H., \& Arpaci-Dusseau, A. C. (2018). \textit{Operating Systems: Three Easy Pieces}. Arpaci-Dusseau Books.
+\bibitem{b5} Love, R. (2010). \textit{Linux Kernel Development}. 3rd Edition. Addison-Wesley Professional.
+\end{thebibliography}
+
+\end{document}

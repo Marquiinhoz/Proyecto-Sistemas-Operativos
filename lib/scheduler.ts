@@ -1,10 +1,15 @@
 import { Process } from "./types";
 
 export class Scheduler {
-  private colaReady: Process[];
+  private colaReady: Process[] = [];
+  // Rigorous Requirement: Claridad Apropiativo vs No Apropiativo
+  // (a) FCFS: No Apropiativo
+  // (e) Prioridades (No Apropiativo por defecto en esta impl, configurable)
+  // (b) Round Robin: Apropiativo (por Quantum)
+  // (c) SJF: Apropiativo (SRTF) o No Apropiativo
   private algorithm: "FCFS" | "SJF" | "RoundRobin" | "Prioridades" = "FCFS";
-  private apropiativo: boolean = false;
-  private quantum: number = 5;
+  private apropiativo: boolean = false; // Configurable
+  private quantum: number = 3;
 
   constructor() {
     this.colaReady = [];

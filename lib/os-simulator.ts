@@ -4,6 +4,7 @@ import { MemoryManager } from "./memory-manager";
 import { IOManager } from "./io-manager";
 import { Scheduler } from "./scheduler";
 import { Dispatcher } from "./dispatcher";
+import { ErrorManager, ErrorCode } from "./error-manager";
 
 export class OSSimulator {
   private processManager: ProcessManager;
@@ -11,6 +12,7 @@ export class OSSimulator {
   private ioManager: IOManager;
   private scheduler: Scheduler;
   private dispatcher: Dispatcher;
+  private errorManager: ErrorManager;
 
   private tiempoSimulacion: number = 0;
   private erroresTotal: number = 0;
@@ -38,12 +40,16 @@ export class OSSimulator {
     }
   }
 
-  constructor() {
+  constructor(initialQuantum: number = 3) {
     this.processManager = new ProcessManager();
     this.memoryManager = new MemoryManager();
     this.ioManager = new IOManager();
     this.scheduler = new Scheduler();
     this.dispatcher = new Dispatcher();
+    this.errorManager = new ErrorManager();
+
+    // Rigorous Requirement: Quantum configurable at start
+    this.scheduler.setQuantum(initialQuantum);
   }
 
   public getState(): OSState {
@@ -96,26 +102,53 @@ export class OSSimulator {
 
     // 3. Scheduler/Dispatcher
     if (!this.dispatcher.getRunning()) {
-      const next = this.scheduler.getNext();
-      if (next) {
+      let next = this.scheduler.getNext();
+
+      // Idle Process Logic
+      if (!next) {
+        // Check if we are already running idle? No, dispatcher is empty.
+        // Create a temporary idle process if none exists or reuse one?
+        // Ideally, we just say "CPU Idle" in logs, but requirements say "Process Idle PID 0"
+        // Let's create a transient one or just log it. 
+        // Better: The scheduler should return an Idle process if queue is empty?
+        // Or we handle it here.
+        // Let's instantiate one if needed.
+        const idle = this.processManager.createIdleProcess();
+        this.dispatcher.dispatch(idle, this.tiempoSimulacion);
+        this.agregarLog("cpu", "CPU Idle (PID 0)", 0);
+      } else {
         this.dispatcher.dispatch(next, this.tiempoSimulacion);
-        this.agregarLog("context_switch", `Cambio de contexto: PID ${next.pid} ahora en ejecución`, next.pid);
+        this.agregarLog("context_switch", `PID ${next.pid} despachado a CPU`, next.pid);
         this.agregarLog("scheduler", `Planificador seleccionó PID ${next.pid} (${this.scheduler.getAlgorithm()})`, next.pid);
       }
     } else {
       const running = this.dispatcher.getRunning()!;
-      
+
+      // Check for Timer Interrupt (Quantum)
+      if (this.scheduler.isApropiativo() && this.scheduler.checkQuantum(running)) {
+        this.agregarLog("interrupt", `Interrupción de Timer (Quantum expirado) para PID ${running.pid}`, running.pid);
+        this.dispatcher.preempt();
+        running.estado = "ready";
+        this.scheduler.add(running);
+
+        // Immediate switch if possible
+        const next = this.scheduler.getNext();
+        if (next) {
+          this.dispatcher.dispatch(next, this.tiempoSimulacion);
+          this.agregarLog("context_switch", `PID ${next.pid} despachado a CPU (Preemption)`, next.pid);
+        }
+      }
       // Random Error (0.5%)
-      if (Math.random() < 0.005) {
+      else if (Math.random() < 0.005) {
         running.errores++;
         this.erroresTotal++;
         this.agregarLog("error", `Error detectado en PID ${running.pid}. Proceso terminado.`, running.pid);
         // Requirement: Cancel process on error
         const p = this.dispatcher.preempt();
         if (p) {
-           // Log error or mark as error state? Terminated is fine.
-           this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
-           return; // End tick for this process
+          // Log error or mark as error state? Terminated is fine.
+          this.processManager.terminarProceso(p, this.tiempoSimulacion, this.memoryManager);
+          return; // End tick for this process
         }
       }
 
@@ -153,19 +186,19 @@ export class OSSimulator {
       // Probability = (Remaining Interrupts) / (Remaining Time) ?
       // Or just a fixed prob that is high enough.
       else if (running.interrupciones < running.maxInterrupciones && Math.random() < 0.2) {
-         const devices: DeviceType[] = ["disk", "printer", "monitor", "network"];
-         const device = devices[Math.floor(Math.random() * devices.length)];
-         
-         const p = this.dispatcher.preempt();
-         if (p) {
-            p.estado = "blocked";
-            this.agregarLog("process_state", `PID ${p.pid} bloqueado por I/O (${device})`, p.pid);
-            this.agregarLog("io", `Solicitud de I/O: PID ${p.pid} → ${device}`, p.pid);
-            this.ioManager.solicitarIO(p, device);
-         }
+        const devices: DeviceType[] = ["disk", "printer", "monitor", "network"];
+        const device = devices[Math.floor(Math.random() * devices.length)];
+
+        const p = this.dispatcher.preempt();
+        if (p) {
+          p.estado = "blocked";
+          this.agregarLog("process_state", `PID ${p.pid} bloqueado por I/O (${device})`, p.pid);
+          this.agregarLog("io", `Solicitud de I/O: PID ${p.pid} → ${device}`, p.pid);
+          this.ioManager.solicitarIO(p, device);
+        }
       }
     }
-    
+
     // Update waiting time
     this.scheduler.getQueue().forEach(p => p.tiempoEspera++);
   }
@@ -177,21 +210,25 @@ export class OSSimulator {
     maxInterrupciones?: number,
     porcentajeDatos?: number,
     porcentajeVariable?: number
-  ) { 
+  ) {
     const proceso = this.processManager.crearProceso(
-      this.tiempoSimulacion, 
-      size, 
-      burstTime, 
-      prioridad, 
+      this.tiempoSimulacion,
+      size,
+      burstTime,
+      prioridad,
       maxInterrupciones,
       porcentajeDatos,
       porcentajeVariable
     );
     this.agregarLog("process_state", `Nuevo proceso creado: PID ${proceso.pid}`, proceso.pid);
+
+    // Rigorous Requirement: Invoke scheduler/admission immediately
+    this.processManager.admitirProcesos(this.memoryManager, this.scheduler);
+
     return proceso;
   }
-  public generarProcesosIniciales(n: number) { for(let i=0; i<n; i++) this.crearProceso(); }
-  public resolverInterrupcionManual(id: number, accion: "continuar" | "cancelar") { 
+  public generarProcesosIniciales(n: number) { for (let i = 0; i < n; i++) this.crearProceso(); }
+  public resolverInterrupcionManual(id: number, accion: "continuar" | "cancelar") {
     const p = this.ioManager.resolverInterrupcionManual(id, accion);
     if (p) {
       this.agregarLog("interrupt", `Interrupción de teclado resuelta: ${accion} para PID ${p.pid}`, p.pid);
@@ -199,20 +236,20 @@ export class OSSimulator {
       this.scheduler.add(p);
     }
   }
-  
-  public setScheduler(s: "FCFS" | "SJF" | "RoundRobin" | "Prioridades") { 
+
+  public setScheduler(s: "FCFS" | "SJF" | "RoundRobin" | "Prioridades") {
     this.scheduler.setAlgorithm(s);
     this.agregarLog("scheduler", `Política de planificación cambiada a: ${s}`);
   }
-  public setApropiativo(b: boolean) { 
+  public setApropiativo(b: boolean) {
     this.scheduler.setApropiativo(b);
     this.agregarLog("scheduler", `Modo apropiativo ${b ? "activado" : "desactivado"}`);
   }
-  public setQuantum(n: number) { 
+  public setQuantum(n: number) {
     this.scheduler.setQuantum(n);
     this.agregarLog("scheduler", `Quantum actualizado a: ${n}`);
   }
-  public setMemoryStrategy(s: "FirstFit" | "BestFit" | "WorstFit") { 
+  public setMemoryStrategy(s: "FirstFit" | "BestFit" | "WorstFit") {
     this.memoryManager.setStrategy(s);
     this.agregarLog("memory", `Estrategia de memoria cambiada a: ${s}`);
   }
