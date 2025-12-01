@@ -155,6 +155,7 @@ export class OSSimulator {
       // Tick
       running.programCounter++;
       running.tiempoRestante--;
+      running.quantumElapsed++; // Increment quantum usage
       running.porcentajeProcesado = ((running.burstTime - running.tiempoRestante) / running.burstTime) * 100;
 
       // Terminate

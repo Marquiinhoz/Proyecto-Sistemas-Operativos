@@ -72,6 +72,7 @@ export class ProcessManager {
       porcentajeProcesado: 0,
       ioType: null,
       ioTimeRemaining: 0,
+      quantumElapsed: 0,
       isIdle: false,
       memoryAddress: `0x${Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0')}`,
       pcbOffsets: {
@@ -152,6 +153,7 @@ export class ProcessManager {
       porcentajeProcesado: 0,
       ioType: null,
       ioTimeRemaining: 0,
+      quantumElapsed: 0,
       isIdle: true,
       esProceSO: true, // System Process
       memoryAddress: "0x0000",

@@ -58,6 +58,9 @@ export interface Process {
   ioType: DeviceType | null;
   ioTimeRemaining: number;
 
+  // Scheduler state
+  quantumElapsed: number;
+
   // Rigorous Requirements
   isIdle: boolean; // PID 0
   esProceSO: boolean; // Requisito 16: Campo explícito

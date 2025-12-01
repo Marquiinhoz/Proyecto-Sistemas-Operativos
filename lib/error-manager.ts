@@ -8,6 +8,21 @@ export interface SystemError {
 }
 
 export class ErrorManager {
+    private errors: SystemError[] = [];
+
+    public logError(code: ErrorCode, message: string, pid?: number) {
+        this.errors.push({
+            code,
+            message,
+            timestamp: Date.now(),
+            pid
+        });
+    }
+
+    public getErrors() {
+        return this.errors;
+    }
+
     public clearErrors() {
         this.errors = [];
     }

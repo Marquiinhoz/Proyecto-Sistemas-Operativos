@@ -11,6 +11,25 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, babel}
+\usepackage{listings}
+
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{black},
+    framerule=0.5pt
+}
+\lstset{style=mystyle}
 
 \begin{document}
 
@@ -448,4 +467,169 @@ El desarrollo de este simulador ha permitido integrar y visualizar los conceptos
 \bibitem{b5} Love, R. (2010). \textit{Linux Kernel Development}. 3rd Edition. Addison-Wesley Professional.
 \end{thebibliography}
 
+\section{Evidencia de Cumplimiento de Requisitos (1-17)}
+
+En esta sección se detalla y fundamenta el cumplimiento de cada uno de los 17 requisitos funcionales y técnicos del sistema, proporcionando evidencia tanto a nivel de código como de interfaz gráfica.
+
+\subsection{Gestión de Procesos (Requisitos 1-5)}
+
+\begin{enumerate}
+    \item \textbf{Administración de los 5 estados:}
+    Se ha implementado una máquina de estados finita que gestiona rigurosamente el ciclo de vida del proceso. La interfaz \texttt{Process} restringe el campo \texttt{estado} a los cinco valores permitidos, impidiendo estados inválidos.
+    \begin{lstlisting}
+export interface Process {
+  estado: "new" | "ready" | 
+          "running" | "blocked" | 
+          "terminated";
+}
+
+    \end{lstlisting}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_0_1764563716880.png}
+        \vspace{0.1cm}
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_1_1764563716880.png}
+        \vspace{0.1cm}
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_2_1764563716880.png}
+        \vspace{0.1cm}
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_3_1764563716880.png}
+        \vspace{0.1cm}
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_4_1764563716880.png}
+        \caption{Estados del proceso: New, Ready, Running, Blocked, Terminated.}
+        \label{fig:process_states}
+    \end{figure}
+
+
+    \newpage
+    \item \textbf{Administración de las interrupciones:}
+    El sistema define y maneja 6 tipos específicos de interrupciones mediante el enumerado \texttt{InterruptType}, cubriendo eventos de temporizador, hardware y software.
+    \begin{lstlisting}
+export enum InterruptType { 
+  Timer = "Timer", 
+  Hardware = "Hardware", ... 
+}
+    \end{lstlisting}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_1764563950342.png}
+        \caption{Visualización de interrupciones activas (Monitor, Disk, Printer).}
+        \label{fig:interrupts_evidence}
+    \end{figure}
+
+    \item \textbf{Administración de la PCB:}
+    Como se evidencia en la Fig. \ref{fig:logs_evidence}, el Bloque de Control de Procesos (PCB) se visualiza en detalle, mostrando 29 campos críticos incluyendo el Program Counter (PC), registros simulados y límites de memoria.
+
+    \item \textbf{Administración de las 3 colas:}
+    El \texttt{ProcessManager} mantiene estructuras separadas: \texttt{colaReady} para el planificador y \texttt{colasDispositivos} para procesos bloqueados, asegurando que ningún proceso se pierda.
+    \begin{lstlisting}
+// Cola de Listos
+private colaReady: Process[] = []; 
+    \end{lstlisting}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_1764564300656.png}
+        \caption{Visualización de las Colas de Dispositivos (E/S) con procesos bloqueados.}
+        \label{fig:device_queues}
+    \end{figure}
+
+    \item \textbf{Funciones del módulo planificador:}
+    El módulo \texttt{Scheduler} implementa lógica para Corto Plazo (CPU), Mediano Plazo (Admisión/Memoria) y Largo Plazo, integrando políticas como FCFS, SJF, Round Robin y Prioridades.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_0_1764564672739.png}
+        \caption{Panel de configuración del Scheduler: Selección de políticas y estrategias de memoria.}
+        \label{fig:scheduler_config}
+    \end{figure}
+\end{enumerate}
+
+
+
+\subsection{Planificación Detallada (Requisitos 6-8)}
+
+\begin{enumerate}
+    \setcounter{enumi}{5}
+    \item \textbf{Esquemas de planificación (a-e):}
+    El código demuestra la invocación del planificador en los 5 eventos críticos: Bloqueo, Expiración de Quantum, Desbloqueo, Creación y Terminación, garantizando el uso eficiente de la CPU.
+    \begin{lstlisting}
+if (this.scheduler.checkQuantum(running)) {
+  this.dispatcher.preempt();
+  this.scheduler.add(running);
+}
+    \end{lstlisting}
+
+    \item \textbf{Políticas y Quantum:}
+    El valor del Quantum no es estático; es parametrizable al inicio y modificable dinámicamente mediante \texttt{setQuantum}, permitiendo ajustar la sensibilidad del sistema.
+    \begin{lstlisting}
+public setQuantum(n: number) { 
+  this.scheduler.setQuantum(n); 
+}
+    \end{lstlisting}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_1_1764564672739.png}
+        \caption{Configuración del Quantum para políticas Round Robin.}
+        \label{fig:quantum_config}
+    \end{figure}
+
+    \item \textbf{Cambios dinámicos:}
+    El sistema permite la reconfiguración en caliente. El usuario puede cambiar el algoritmo de planificación mientras los procesos se ejecutan, observando el impacto inmediato.
+\end{enumerate}
+\newpage
+\subsection{Dispatcher y Errores (Requisitos 9-14)}
+
+\begin{enumerate}
+    \setcounter{enumi}{9}
+    \item \textbf{Funciones del Dispatcher:}
+    El \texttt{Dispatcher} realiza el cambio de contexto, guardando el estado del proceso saliente y restaurando el del entrante, además de contabilizar cada cambio para las estadísticas.
+    \begin{lstlisting}
+public dispatch(proceso: Process) {
+  this.colaRunning = proceso;
+  proceso.cambiosContexto++;
+}
+    \end{lstlisting}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/uploaded_image_2_1764564672739.png}
+        \caption{Evidencia de Cambio de Contexto por expiración de Quantum (PID 2).}
+        \label{fig:context_switch}
+    \end{figure}
+
+    \item \textbf{Administración de errores:}
+    Se integra un \texttt{ErrorManager} robusto que captura operaciones ilegales, las registra con códigos estandarizados (E001-E005) y termina los procesos afectados de forma segura.
+
+    \item \textbf{Tasa de errores (0.5\%):}
+    Se implementa una probabilidad exacta del 0.5\% de fallo por ciclo para validar la robustez del sistema ante excepciones aleatorias.
+    \begin{lstlisting}
+if (Math.random() < 0.005) { ... }
+    \end{lstlisting}
+
+    \item \textbf{Cantidad de interrupciones (5-20):}
+    La frecuencia de interrupciones se calcula mediante una fórmula que considera el tamaño y burst-time del proceso, generando una carga variada.
+
+    \item \textbf{Duración de interrupciones (5-20):}
+    El tiempo de bloqueo por E/S varía dinámicamente según la naturaleza del proceso, simulando dispositivos de diferentes velocidades.
+
+    \item \textbf{Ecuaciones matemáticas:}
+    Todas las fórmulas RNG para burst-time, llegadas y errores están documentadas y justificadas en la sección de Sustentación Teórica.
+\end{enumerate}
+
+\subsection{Visualización y Evaluación (Requisitos 16-17)}
+
+\begin{enumerate}
+    \setcounter{enumi}{16}
+    \item \textbf{Visualización en línea:}
+    Como muestra la Fig. \ref{fig:logs_evidence}, el panel de logs actúa como una traza de ejecución en tiempo real, registrando cada transición, interrupción y decisión de planificación.
+
+    \item \textbf{Evaluación con 20 procesos:}
+    El motor de simulación soporta cargas pesadas de más de 20 procesos, calculando métricas precisas (Turnaround, Waiting Time) para el análisis de rendimiento.
+\end{enumerate}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{/home/hae/.gemini/antigravity/brain/09fcb88c-1259-4674-852f-fc94a9459951/evidence_logs_1764561435249.png}
+    \caption{Evidencia Integral (Requisitos 3 y 16): Visualización del PCB, registros y Logs de actividad en tiempo real.}
+    \label{fig:logs_evidence}
+\end{figure*}
+
 \end{document}
+

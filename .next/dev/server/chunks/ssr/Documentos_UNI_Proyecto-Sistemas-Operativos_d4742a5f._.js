@@ -70,6 +70,7 @@ class ProcessManager {
             porcentajeProcesado: 0,
             ioType: null,
             ioTimeRemaining: 0,
+            quantumElapsed: 0,
             isIdle: false,
             memoryAddress: `0x${Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0')}`,
             pcbOffsets: {
@@ -140,6 +141,7 @@ class ProcessManager {
             porcentajeProcesado: 0,
             ioType: null,
             ioTimeRemaining: 0,
+            quantumElapsed: 0,
             isIdle: true,
             esProceSO: true,
             memoryAddress: "0x0000",
@@ -578,7 +580,7 @@ class Scheduler {
     }
     checkQuantum(running) {
         if (this.algorithm !== "RoundRobin") return false;
-        return (running.burstTime - running.tiempoRestante) % this.quantum === 0;
+        return running.quantumElapsed >= this.quantum;
     }
 }
 }),
@@ -604,6 +606,7 @@ class Dispatcher {
         if (proceso.tiempoRespuesta === -1) {
             proceso.tiempoRespuesta = tiempoSimulacion - proceso.tiempoLlegada;
         }
+        proceso.quantumElapsed = 0; // Reset quantum counter on dispatch
         proceso.cambiosContexto++;
         this.cambiosContextoTotal++;
     }
@@ -623,6 +626,18 @@ __turbopack_context__.s([
     ()=>ErrorManager
 ]);
 class ErrorManager {
+    errors = [];
+    logError(code, message, pid) {
+        this.errors.push({
+            code,
+            message,
+            timestamp: Date.now(),
+            pid
+        });
+    }
+    getErrors() {
+        return this.errors;
+    }
     clearErrors() {
         this.errors = [];
     }
@@ -783,6 +798,7 @@ class OSSimulator {
             // Tick
             running.programCounter++;
             running.tiempoRestante--;
+            running.quantumElapsed++; // Increment quantum usage
             running.porcentajeProcesado = (running.burstTime - running.tiempoRestante) / running.burstTime * 100;
             // Terminate
             if (running.tiempoRestante <= 0) {

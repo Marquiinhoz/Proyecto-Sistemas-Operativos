@@ -20,6 +20,7 @@ export class Dispatcher {
       proceso.tiempoRespuesta = tiempoSimulacion - proceso.tiempoLlegada;
     }
 
+    proceso.quantumElapsed = 0; // Reset quantum counter on dispatch
     proceso.cambiosContexto++;
     this.cambiosContextoTotal++;
   }

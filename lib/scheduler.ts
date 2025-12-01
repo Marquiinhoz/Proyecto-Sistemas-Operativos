@@ -92,6 +92,6 @@ export class Scheduler {
 
   public checkQuantum(running: Process): boolean {
     if (this.algorithm !== "RoundRobin") return false;
-    return (running.burstTime - running.tiempoRestante) % this.quantum === 0;
+    return running.quantumElapsed >= this.quantum;
   }
 }
